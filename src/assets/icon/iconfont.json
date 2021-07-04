@@ -1,0 +1,37 @@
+{
+  "id": "2393537",
+  "name": "iconDemo",
+  "font_family": "iconfont",
+  "css_prefix_text": "if-icon-",
+  "description": "项目的icon",
+  "glyphs": [
+    {
+      "icon_id": "9697369",
+      "name": "友情链接",
+      "font_class": "link",
+      "unicode": "e623",
+      "unicode_decimal": 58915
+    },
+    {
+      "icon_id": "12550406",
+      "name": "用户信息",
+      "font_class": "user-info",
+      "unicode": "e62c",
+      "unicode_decimal": 58924
+    },
+    {
+      "icon_id": "1026706",
+      "name": "email",
+      "font_class": "email",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    },
+    {
+      "icon_id": "7204923",
+      "name": "Web search",
+      "font_class": "web-search",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    }
+  ]
+}
