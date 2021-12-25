@@ -19,7 +19,7 @@
     float: right;
   }
   #app {
-    min-width: 1140px;
+    min-width: 1140px; 
   }
   a {
     text-decoration: none;
