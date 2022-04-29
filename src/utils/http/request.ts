@@ -15,7 +15,7 @@ const router = useRouter()
 
 const BASE_URL = import.meta.env.BASE_URL
 
-const instance = axios.create({
+const request = axios.create({
     withCredentials: true,
     baseURL: BASE_URL,
     timeout: 600000
@@ -27,7 +27,7 @@ const instance = axios.create({
  * @param {*}
  * @return {*}
  */
-instance.interceptors.request.use(
+request.interceptors.request.use(
     (config: AxiosRequestConfig) => {
         const controller = new AbortController()
         config.signal = controller.signal
@@ -45,7 +45,7 @@ instance.interceptors.request.use(
  * @param {*}
  * @return {*}
  */
-instance.interceptors.response.use(
+request.interceptors.response.use(
     (res: AxiosResponse) => {
         const { config } = res
         pendingPool.delete(config.url)
@@ -73,4 +73,4 @@ instance.interceptors.response.use(
         return Promise.reject(error)
     }
 )
-export { instance }
+export { request }

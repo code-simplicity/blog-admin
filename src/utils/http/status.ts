@@ -4,6 +4,8 @@
  * @param {*}
  * @return {*}
  */
+import { useRouter } from 'vue-router'
+const router = useRouter()
 export const showMessage = (status: number | string): string => {
     let message = ''
     switch (status) {
