@@ -5,7 +5,10 @@
  * @return {*}
  */
 export declare interface User {
-    username: string,
-    emial: string,
+    userName: string,
+    email: string,
+    roles: string,
+    avatar: string,
+    sign: string,
 
 }
