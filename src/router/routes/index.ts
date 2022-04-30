@@ -49,7 +49,6 @@ export const LoginRoute: AppRouteRecordRaw = {
 export const basicRoutes = [
     LoginRoute,
     RootRoute,
-    ...asyncRoutes,
     REDIRECT_ROUTE,
     PAGE_NOT_FOUND_ROUTE
 ]

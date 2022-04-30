@@ -9,11 +9,12 @@
 import { defineStore } from 'pinia'
 import { store } from '../index'
 import { login, checkTokenUserInfo } from '../../api/user/index'
-import router from '../../router/index'
+import { router } from '../../router/index'
 import type { UserInfo } from '../../types/store'
 import { RoleEnum } from '../../enums/roleEnum'
 import { UserLoginModel, GetUserInfoModel } from '../../api/user/type'
 import { ResultResponse } from '../../types/result'
+import { usePermissionStore } from './permission'
 import {
     getAutoCache,
     setAutoCache,
@@ -24,6 +25,9 @@ import {
     USER_INFO_KEY,
     ROLES_KEY
 } from '../../enums/cacheEnum'
+import { PAGE_NOT_FOUND_ROUTE } from '../../router/routes/basic'
+import { RouteRecordRaw } from 'vue-router'
+import { PageEnum } from '../../enums/pageEnum'
 
 interface UserState {
     userInfo: UserInfo | any,
@@ -97,8 +101,22 @@ export const useUserStore = defineStore({
          */
         async afterLoginAction(goHome?: boolean): Promise<GetUserInfoModel | null> {
             const userInfo = await this.getUserInfoAction()
+            const permissionStore = usePermissionStore();
+            // 判断是否添加异步路由
+            if (!permissionStore.isDynamicAddedRoute) {
+                const routes = await permissionStore.buildRoutesAction()
+                console.log('routes =>', routes)
+                routes.forEach((route) => {
+                    // 添加异步路由
+                    router.addRoute(route as unknown as RouteRecordRaw)
+                })
+                router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
+                // 设置动态路由为true
+                permissionStore.setDynamicAddedRoute(true);
+            }
+            // 跳转到首页
+            goHome && (await router.replace(userInfo?.homePath || PageEnum.BASE_HOME));
             return userInfo
-
         },
 
         async getUserInfoAction(): Promise<GetUserInfoModel | null | any> {

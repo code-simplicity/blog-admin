@@ -166,11 +166,12 @@ getCaptchaValue();
 // 登录提交
 const submit = async (): Promise<void> => {
     isLoading.value = false;
-    const result = await userStore.doLogin({
+    const result: any = await userStore.doLogin({
         userName: userModel.userName,
         password: userModel.password,
         captcha: userModel.captcha
     });
+    console.log('result :>> ', result);
     if (result.code === 20000) {
         notification.success({
             message: `欢迎您！系统管理员`,
