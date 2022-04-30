@@ -10,7 +10,7 @@
                 <a-form :model="userModel" autocomplete="off">
                     <div class="mt-6">
                         <a-form-item
-                            name="username"
+                            name="userName"
                             :rules="[
                                 {
                                     required: true,
@@ -19,7 +19,7 @@
                             ]"
                         >
                             <a-input
-                                v-model:value="userModel.username"
+                                v-model:value="userModel.userName"
                                 type="text"
                                 placeholder="Username/Email"
                                 size="large"
@@ -58,7 +58,7 @@
                             ]"
                         >
                             <div class="flex items-center text-gray-700">
-                                <div class="inline-flex items-center mr-auto">
+                                <div class="inline-flex items-center mr-2">
                                     <a-input
                                         v-model:value="userModel.captcha"
                                         type="text"
@@ -70,11 +70,13 @@
                                         </template>
                                     </a-input>
                                 </div>
-                                <!-- <div
-                                    class="text-center"
-                                    v-html="captchaValue"
-                                ></div> -->
-                                <a-image :src="captchaValue" />
+
+                                <a-image
+                                    class="cursor-pointer"
+                                    @click="changeVerifyCode"
+                                    :preview="false"
+                                    :src="captchaValue"
+                                />
                             </div>
                         </a-form-item>
                         <a-form-item name="remember">
@@ -123,12 +125,18 @@ import {
     KeyOutlined,
     LoadingOutlined
 } from '@ant-design/icons-vue';
+import { message, notification } from 'ant-design-vue';
 import Sign from '../../../layout/default/sign/Sign.vue';
 import UserModel from '../../../types/login';
+import { useUserStore } from '../../../store/modules/user';
+
+// 接口地址
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
+// 使用pinia
+const userStore = useUserStore();
 // 登录表单
 const userModel = reactive<UserModel>({
-    username: '',
+    userName: '',
     password: '',
     captcha: '',
     remember: false
@@ -138,22 +146,45 @@ let isLoading = ref(false);
 // 登录按钮禁用
 const disabled = computed(() => {
     return !(
-        userModel.username &&
+        userModel.userName &&
         userModel.password &&
         userModel.captcha &&
         userModel.remember
     );
 });
 // 获取图灵验证码
-let captchaValue = ref<Captcha | any>('/user/captcha');
+let captchaValue = ref<string>();
 const getCaptchaValue = async () => {
-    captchaValue.value = VITE_BASE_URL + captchaValue.value;
+    captchaValue.value = `${VITE_BASE_URL}/user/captcha`;
+};
+// 切换验证码
+const changeVerifyCode = () => {
+    const isDate: string = String(new Date()); // 时间类型格式化
+    captchaValue.value = `${captchaValue.value}?random=${Date.parse(isDate)}`;
 };
 getCaptchaValue();
-//  TODO：明天继续编写提交的逻辑，这里准备将值存入pinia中
-const submit = () => {
+// 登录提交
+const submit = async (): Promise<void> => {
     isLoading.value = false;
-    // 提交成功之后改为true
+    const result = await userStore.doLogin({
+        userName: userModel.userName,
+        password: userModel.password,
+        captcha: userModel.captcha
+    });
+    if (result.code === 20000) {
+        notification.success({
+            message: `欢迎您！系统管理员`,
+            description: `欢迎使用博客管理系统`
+        });
+        isLoading.value = true;
+    } else {
+        notification.error({
+            message: `登录失败！${result.message}`,
+            description: `您输入的信息有误哦！`
+        });
+        isLoading.value = false;
+    }
+    isLoading.value = false;
 };
 </script>
 <style lang="scss" scoped></style>

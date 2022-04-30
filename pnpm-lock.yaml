@@ -2,6 +2,8 @@ lockfileVersion: 5.3
 
 specifiers:
   '@ant-design/icons-vue': ^6.1.0
+  '@types/crypto-js': ^4.1.1
+  '@types/lodash-es': ^4.17.6
   '@typescript-eslint/eslint-plugin': ^5.21.0
   '@typescript-eslint/parser': ^5.21.0
   '@vitejs/plugin-vue': ^2.3.1
@@ -9,12 +11,14 @@ specifiers:
   ant-design-vue: ^3.2.2
   autoprefixer: ^10.4.5
   axios: ^0.27.2
+  crypto-js: ^4.1.1
   dayjs: ^1.11.1
   echarts: ^5.3.2
   eslint: ^8.14.0
   eslint-config-prettier: ^8.5.0
   eslint-plugin-prettier: ^4.0.0
   feather-icons: ^4.29.0
+  lodash-es: ^4.17.21
   pinia: ^2.0.13
   postcss: ^8.4.12
   prettier: ^2.6.2
@@ -34,6 +38,8 @@ dependencies:
 
 devDependencies:
   '@ant-design/icons-vue': registry.npmmirror.com/@ant-design/icons-vue/6.1.0_vue@3.2.33
+  '@types/crypto-js': registry.npmmirror.com/@types/crypto-js/4.1.1
+  '@types/lodash-es': registry.npmmirror.com/@types/lodash-es/4.17.6
   '@typescript-eslint/eslint-plugin': registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.21.0_829e74f28e9c9eb05edda582d47d45b8
   '@typescript-eslint/parser': registry.npmmirror.com/@typescript-eslint/parser/5.21.0_eslint@8.14.0+typescript@4.6.3
   '@vitejs/plugin-vue': registry.npmmirror.com/@vitejs/plugin-vue/2.3.1_vite@2.9.6+vue@3.2.33
@@ -41,12 +47,14 @@ devDependencies:
   ant-design-vue: registry.npmmirror.com/ant-design-vue/3.2.2_vue@3.2.33
   autoprefixer: registry.npmmirror.com/autoprefixer/10.4.5_postcss@8.4.12
   axios: registry.npmmirror.com/axios/0.27.2
+  crypto-js: registry.npmmirror.com/crypto-js/4.1.1
   dayjs: registry.npmmirror.com/dayjs/1.11.1
   echarts: registry.npmmirror.com/echarts/5.3.2
   eslint: registry.npmmirror.com/eslint/8.14.0
   eslint-config-prettier: registry.npmmirror.com/eslint-config-prettier/8.5.0_eslint@8.14.0
   eslint-plugin-prettier: registry.npmmirror.com/eslint-plugin-prettier/4.0.0_665eb419c9d7860ca0c224f7f6dcdace
   feather-icons: registry.npmmirror.com/feather-icons/4.29.0
+  lodash-es: registry.npmmirror.com/lodash-es/4.17.21
   pinia: registry.npmmirror.com/pinia/2.0.13_typescript@4.6.3+vue@3.2.33
   postcss: registry.npmmirror.com/postcss/8.4.12
   prettier: registry.npmmirror.com/prettier/2.6.2
@@ -272,10 +280,30 @@ packages:
       nanopop: registry.npmmirror.com/nanopop/2.1.0
     dev: true
 
+  registry.npmmirror.com/@types/crypto-js/4.1.1:
+    resolution: {integrity: sha512-BG7fQKZ689HIoc5h+6D2Dgq1fABRa0RbBWKBd9SP/MVRVXROflpm5fhwyATX5duFmbStzyzyycPB8qUYKDH3NA==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/crypto-js/-/crypto-js-4.1.1.tgz}
+    name: '@types/crypto-js'
+    version: 4.1.1
+    dev: true
+
   registry.npmmirror.com/@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/json-schema/-/json-schema-7.0.11.tgz}
     name: '@types/json-schema'
     version: 7.0.11
+    dev: true
+
+  registry.npmmirror.com/@types/lodash-es/4.17.6:
+    resolution: {integrity: sha512-R+zTeVUKDdfoRxpAryaQNRKk3105Rrgx2CFRClIgRGaqDTdjsm8h6IYA8ir584W3ePzkZfst5xIgDwYrlh9HLg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/lodash-es/-/lodash-es-4.17.6.tgz}
+    name: '@types/lodash-es'
+    version: 4.17.6
+    dependencies:
+      '@types/lodash': registry.npmmirror.com/@types/lodash/4.14.182
+    dev: true
+
+  registry.npmmirror.com/@types/lodash/4.14.182:
+    resolution: {integrity: sha512-/THyiqyQAP9AfARo4pF+aCGcyiQ94tX/Is2I7HofNRqoYLgN1PBoOWu2/zTA5zMxzP5EFutMtWtGAFRKUe961Q==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/lodash/-/lodash-4.14.182.tgz}
+    name: '@types/lodash'
+    version: 4.14.182
     dev: true
 
   registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.21.0_829e74f28e9c9eb05edda582d47d45b8:
@@ -920,6 +948,12 @@ packages:
       path-key: registry.npmmirror.com/path-key/3.1.1
       shebang-command: registry.npmmirror.com/shebang-command/2.0.0
       which: registry.npmmirror.com/which/2.0.2
+    dev: true
+
+  registry.npmmirror.com/crypto-js/4.1.1:
+    resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/crypto-js/-/crypto-js-4.1.1.tgz}
+    name: crypto-js
+    version: 4.1.1
     dev: true
 
   registry.npmmirror.com/cssesc/3.0.0:
