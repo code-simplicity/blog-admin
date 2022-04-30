@@ -1,3 +1,11 @@
+/*
+ * @Author: bugdr
+ * @Date: 2022-04-29 10:38:11
+ * @LastEditors: bugdr
+ * @LastEditTime: 2022-04-30 10:04:55
+ * @FilePath: \blog-admin\src\utils\http\request.ts
+ * @Description: axios接口请求封装
+ */
 /**
  * @Author: bugdr
  * @description: axios封装
@@ -13,7 +21,7 @@ const pendingPool = new Map()
 // 路由跳转
 const router = useRouter()
 
-const BASE_URL = import.meta.env.BASE_URL
+const BASE_URL = import.meta.env.VITE_BASE_URL
 
 const request = axios.create({
     withCredentials: true,
@@ -47,9 +55,9 @@ request.interceptors.request.use(
  */
 request.interceptors.response.use(
     (res: AxiosResponse) => {
-        const { config } = res
+        const { config, data } = res
         pendingPool.delete(config.url)
-        return res
+        return data
     },
     (error: AxiosError) => {
         const { config } = error

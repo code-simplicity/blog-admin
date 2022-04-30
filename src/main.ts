@@ -1,3 +1,11 @@
+/*
+ * @Author: bugdr
+ * @Date: 2022-04-28 17:45:07
+ * @LastEditors: bugdr
+ * @LastEditTime: 2022-04-30 08:56:02
+ * @FilePath: \blog-admin\src\main.ts
+ * @Description: 配置
+ */
 import { createApp } from 'vue'
 import Antd from "ant-design-vue"
 import App from './App.vue'
@@ -5,6 +13,8 @@ import router from "./router/index"
 // 引入tailwindcss样式
 import './assets/css/index.css'
 import 'ant-design-vue/dist/antd.css'
+// 引入animate.css动画
+import 'animate.css'
 
 
 const app = createApp(App)

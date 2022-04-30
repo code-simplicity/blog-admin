@@ -5,6 +5,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.21.0
   '@typescript-eslint/parser': ^5.21.0
   '@vitejs/plugin-vue': ^2.3.1
+  animate.css: ^4.1.1
   ant-design-vue: ^3.2.2
   autoprefixer: ^10.4.5
   axios: ^0.27.2
@@ -36,6 +37,7 @@ devDependencies:
   '@typescript-eslint/eslint-plugin': registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.21.0_829e74f28e9c9eb05edda582d47d45b8
   '@typescript-eslint/parser': registry.npmmirror.com/@typescript-eslint/parser/5.21.0_eslint@8.14.0+typescript@4.6.3
   '@vitejs/plugin-vue': registry.npmmirror.com/@vitejs/plugin-vue/2.3.1_vite@2.9.6+vue@3.2.33
+  animate.css: registry.npmmirror.com/animate.css/4.1.1
   ant-design-vue: registry.npmmirror.com/ant-design-vue/3.2.2_vue@3.2.33
   autoprefixer: registry.npmmirror.com/autoprefixer/10.4.5_postcss@8.4.12
   axios: registry.npmmirror.com/axios/0.27.2
@@ -631,6 +633,12 @@ packages:
       fast-json-stable-stringify: registry.npmmirror.com/fast-json-stable-stringify/2.1.0
       json-schema-traverse: registry.npmmirror.com/json-schema-traverse/0.4.1
       uri-js: registry.npmmirror.com/uri-js/4.4.1
+    dev: true
+
+  registry.npmmirror.com/animate.css/4.1.1:
+    resolution: {integrity: sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/animate.css/-/animate.css-4.1.1.tgz}
+    name: animate.css
+    version: 4.1.1
     dev: true
 
   registry.npmmirror.com/ansi-regex/5.0.1:
