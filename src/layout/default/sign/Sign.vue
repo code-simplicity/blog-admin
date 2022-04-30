@@ -46,9 +46,7 @@
         </div>
     </div>
 </template>
-<script setup lang="ts" name="Sign">
-import { ref } from 'vue';
-</script>
+<script setup lang="ts" name="Sign"></script>
 <style lang="scss" scoped>
 @media (min-width: 1280px) {
     .login:before {

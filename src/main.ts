@@ -8,16 +8,17 @@
  */
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from "./router/index"
 // 引入tailwindcss样式
 import './assets/css/index.css'
 import 'ant-design-vue/dist/antd.css'
 // 引入animate.css动画
 import 'animate.css'
 import { setupStore } from './store/index'
+import { router, setupRouter } from './router/index'
 
 
 const app = createApp(App)
 app.use(router)
 setupStore(app)
+setupRouter(app)
 app.mount("#app")

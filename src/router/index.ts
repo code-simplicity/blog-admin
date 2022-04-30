@@ -1,6 +1,8 @@
-import { createRouter, createWebHashHistory, RouteLocationNormalized } from "vue-router"
+import { createRouter, createWebHashHistory } from "vue-router"
 import type { RouteRecordRaw } from 'vue-router'
+import type { App } from 'vue';
 import { basicRoutes } from "./routes"
+console.log('basicRoutes', basicRoutes)
 
 // 获取白名单路由
 const WHITE_NAME_LIST: string[] = [];
@@ -13,7 +15,7 @@ const getRouteNames = (array: any[]) => {
 }
 // 调用函数
 getRouteNames(basicRoutes)
-const router = createRouter({
+export const router = createRouter({
     history: createWebHashHistory(),
     routes: basicRoutes as unknown as RouteRecordRaw[],
     scrollBehavior: () => ({ left: 0, top: 0 })
@@ -28,4 +30,6 @@ router.beforeEach(() => {
 router.afterEach(() => {
 
 })
-export default router
+export function setupRouter(app: App<Element>) {
+    app.use(router);
+}
