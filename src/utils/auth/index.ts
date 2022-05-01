@@ -6,18 +6,26 @@
  * @FilePath: \blog-admin\src\utils\auth\index.ts
  * @Description:用户封装的方法
  */
-import {
-    createLocalStorage,
-    getLocalStorage,
-    clearLocalStorage
-} from '../cache/index'
+
+import { CacheTypeEnum, TOKEN_KEY } from '../../enums/cacheEnum'
+import projectSetting from '../../settings/projectSetting'
+import { BasicKeys, Persistent } from '../cache/persistent'
+
+const { permissionCacheType } = projectSetting
+const isLocal = permissionCacheType === CacheTypeEnum.LOCAL
+
+export function getToken() {
+    return getAutoCache(TOKEN_KEY)
+}
+
 /**
  * 获取缓存
  * @param key 
  * @returns 
  */
-export function getAutoCache<T>(key: string) {
-    return getLocalStorage(key)
+export function getAutoCache<T>(key: BasicKeys) {
+    const fn = isLocal ? Persistent.getLocal : Persistent.getSession
+    return fn(key) as T
 }
 
 /**
@@ -26,8 +34,9 @@ export function getAutoCache<T>(key: string) {
  * @param value 
  * @returns 
  */
-export function setAutoCache(key: string, value: any) {
-    createLocalStorage(key, value)
+export function setAutoCache(key: BasicKeys, value: any) {
+    const fn = isLocal ? Persistent.setLocal : Persistent.setLocal
+    return fn(key, value, true)
 }
 
 /**
@@ -36,5 +45,6 @@ export function setAutoCache(key: string, value: any) {
  * @returns 
  */
 export function clearAuthCache(immediate = true) {
-    clearLocalStorage()
+    const fn = isLocal ? Persistent.clearLocal : Persistent.clearSession;
+    return fn(immediate)
 }

@@ -15,10 +15,14 @@ import 'ant-design-vue/dist/antd.css'
 import 'animate.css'
 import { setupStore } from './store/index'
 import { router, setupRouter } from './router/index'
+import { setupRouterGuard } from './router/guard';
 
 
 const app = createApp(App)
 app.use(router)
 setupStore(app)
 setupRouter(app)
+// 监管路由，刷新路由不丢失
+setupRouterGuard(router);
+
 app.mount("#app")

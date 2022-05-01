@@ -13,6 +13,9 @@ export const PARENT_LAYOUT_NAME = 'ParentLayout'
 // 重定向
 export const REDIRECT_NAME = 'Redirect'
 
+// 之外的路由
+// export const EXCEPTION_COMPONENT = () => import('/@/views/sys/exception/Exception.vue');
+
 // layout
 export const LAYOUT = () => import('../layout/default/index.vue')
 

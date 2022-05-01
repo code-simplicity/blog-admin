@@ -10,10 +10,10 @@ import { defineStore } from 'pinia'
 import { store } from '../index'
 import { login, checkTokenUserInfo } from '../../api/user/index'
 import { router } from '../../router/index'
-import type { UserInfo } from '../../types/store'
+import type { UserInfo } from '../../../types/store'
 import { RoleEnum } from '../../enums/roleEnum'
 import { UserLoginModel, GetUserInfoModel } from '../../api/user/type'
-import { ResultResponse } from '../../types/result'
+import { ResultResponse } from '../../../types/result'
 import { usePermissionStore } from './permission'
 import {
     getAutoCache,
@@ -60,7 +60,6 @@ export const useUserStore = defineStore({
         setToken(info: string | undefined) {
             this.token = info ? info : ''
             setAutoCache(TOKEN_KEY, info)
-
         },
         setRoleList(roleList: RoleEnum[]) {
             this.roleList = roleList
@@ -100,7 +99,10 @@ export const useUserStore = defineStore({
          * @returns 
          */
         async afterLoginAction(goHome?: boolean): Promise<GetUserInfoModel | null> {
+            if (!this.getToken) return null;
             const userInfo = await this.getUserInfoAction()
+            console.log('userInfo :>> ', userInfo);
+
             const permissionStore = usePermissionStore();
             // 判断是否添加异步路由
             if (!permissionStore.isDynamicAddedRoute) {

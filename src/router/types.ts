@@ -1,3 +1,11 @@
+/*
+ * @Author: bugdr
+ * @Date: 2022-04-29 17:40:19
+ * @LastEditors: bugdr
+ * @LastEditTime: 2022-05-01 08:12:02
+ * @FilePath: \blog-admin\src\router\types.ts
+ * @Description: 
+ */
 // 路由类型约束
 import type { RouteRecordRaw, RouteMeta } from 'vue-router';
 import { defineComponent } from 'vue';

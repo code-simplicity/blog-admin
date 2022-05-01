@@ -48,3 +48,27 @@ export const REDIRECT_ROUTE: AppRouteRecordRaw = {
     //     }
     // ]
 }
+
+export const ERROR_LOG_ROUTE: AppRouteRecordRaw = {
+    path: '/error-log',
+    name: 'ErrorLog',
+    component: LAYOUT,
+    redirect: '/error-log/list',
+    meta: {
+        title: 'ErrorLog',
+        hideBreadcrumb: true,
+        hideChildrenInMenu: true,
+    },
+    children: [
+        {
+            path: 'list',
+            name: 'ErrorLogList',
+            component: () => import('../../views/system/error-log/index.vue'),
+            meta: {
+                title: '错误',
+                hideBreadcrumb: true,
+                currentActiveMenu: '/error-log',
+            },
+        },
+    ],
+};

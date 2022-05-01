@@ -4,6 +4,7 @@ specifiers:
   '@ant-design/icons-vue': ^6.1.0
   '@types/crypto-js': ^4.1.1
   '@types/lodash-es': ^4.17.6
+  '@types/nprogress': ^0.2.0
   '@typescript-eslint/eslint-plugin': ^5.21.0
   '@typescript-eslint/parser': ^5.21.0
   '@vitejs/plugin-vue': ^2.3.1
@@ -19,6 +20,7 @@ specifiers:
   eslint-plugin-prettier: ^4.0.0
   feather-icons: ^4.29.0
   lodash-es: ^4.17.21
+  nprogress: ^0.2.0
   pinia: ^2.0.13
   postcss: ^8.4.12
   prettier: ^2.6.2
@@ -40,6 +42,7 @@ devDependencies:
   '@ant-design/icons-vue': registry.npmmirror.com/@ant-design/icons-vue/6.1.0_vue@3.2.33
   '@types/crypto-js': registry.npmmirror.com/@types/crypto-js/4.1.1
   '@types/lodash-es': registry.npmmirror.com/@types/lodash-es/4.17.6
+  '@types/nprogress': registry.npmmirror.com/@types/nprogress/0.2.0
   '@typescript-eslint/eslint-plugin': registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.21.0_829e74f28e9c9eb05edda582d47d45b8
   '@typescript-eslint/parser': registry.npmmirror.com/@typescript-eslint/parser/5.21.0_eslint@8.14.0+typescript@4.6.3
   '@vitejs/plugin-vue': registry.npmmirror.com/@vitejs/plugin-vue/2.3.1_vite@2.9.6+vue@3.2.33
@@ -55,6 +58,7 @@ devDependencies:
   eslint-plugin-prettier: registry.npmmirror.com/eslint-plugin-prettier/4.0.0_665eb419c9d7860ca0c224f7f6dcdace
   feather-icons: registry.npmmirror.com/feather-icons/4.29.0
   lodash-es: registry.npmmirror.com/lodash-es/4.17.21
+  nprogress: registry.npmmirror.com/nprogress/0.2.0
   pinia: registry.npmmirror.com/pinia/2.0.13_typescript@4.6.3+vue@3.2.33
   postcss: registry.npmmirror.com/postcss/8.4.12
   prettier: registry.npmmirror.com/prettier/2.6.2
@@ -304,6 +308,12 @@ packages:
     resolution: {integrity: sha512-/THyiqyQAP9AfARo4pF+aCGcyiQ94tX/Is2I7HofNRqoYLgN1PBoOWu2/zTA5zMxzP5EFutMtWtGAFRKUe961Q==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/lodash/-/lodash-4.14.182.tgz}
     name: '@types/lodash'
     version: 4.14.182
+    dev: true
+
+  registry.npmmirror.com/@types/nprogress/0.2.0:
+    resolution: {integrity: sha512-1cYJrqq9GezNFPsWTZpFut/d4CjpZqA0vhqDUPFWYKF1oIyBz5qnoYMzR+0C/T96t3ebLAC1SSnwrVOm5/j74A==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/nprogress/-/nprogress-0.2.0.tgz}
+    name: '@types/nprogress'
+    version: 0.2.0
     dev: true
 
   registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.21.0_829e74f28e9c9eb05edda582d47d45b8:
@@ -2037,6 +2047,12 @@ packages:
     name: normalize-range
     version: 0.1.2
     engines: {node: '>=0.10.0'}
+    dev: true
+
+  registry.npmmirror.com/nprogress/0.2.0:
+    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/nprogress/-/nprogress-0.2.0.tgz}
+    name: nprogress
+    version: 0.2.0
     dev: true
 
   registry.npmmirror.com/object-hash/3.0.0:

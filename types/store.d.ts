@@ -7,6 +7,7 @@
  * @Description: store状态类型
  */
 export interface UserInfo {
+    homePath?: string;
     id: string | number,
     userName: string,
     roles: string,

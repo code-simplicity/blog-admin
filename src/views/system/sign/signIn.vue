@@ -171,7 +171,6 @@ const submit = async (): Promise<void> => {
         password: userModel.password,
         captcha: userModel.captcha
     });
-    console.log('result :>> ', result);
     if (result.code === 20000) {
         notification.success({
             message: `欢迎您！系统管理员`,
