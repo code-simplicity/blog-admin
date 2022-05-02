@@ -14,7 +14,11 @@
         v-model:value="formData.account"
         :placeholder="t('sys.login.userName')"
         class="fix-auto-fill"
-      />
+      >
+        <template #prefix>
+          <UserOutlined />
+        </template>
+      </Input>
     </FormItem>
     <FormItem name="password" class="enter-x">
       <InputPassword
@@ -22,7 +26,37 @@
         visibilityToggle
         v-model:value="formData.password"
         :placeholder="t('sys.login.password')"
-      />
+      >
+        <template #prefix>
+          <LockOutlined />
+        </template>
+      </InputPassword>
+    </FormItem>
+
+    <FormItem name="captcha">
+      <ARow justify="center" :gutter="16">
+        <ACol :span="16">
+          <Input
+            size="large"
+            v-model:value="formData.captcha"
+            :placeholder="t('sys.login.captcha')"
+            class="fix-auto-fill"
+            width="40"
+          >
+            <template #prefix>
+              <KeyOutlined />
+            </template>
+          </Input>
+        </ACol>
+        <ACol :span="8" class="z-1000">
+          <img
+            @click="changeVerifyCode"
+            class="cursor-pointer"
+            :src="captchaImage"
+            :alt="t('sys.login.captcha')"
+          />
+        </ACol>
+      </ARow>
     </FormItem>
 
     <ARow class="enter-x">
@@ -48,9 +82,6 @@
       <Button type="primary" size="large" block @click="handleLogin" :loading="loading">
         {{ t('sys.login.loginButton') }}
       </Button>
-      <!-- <Button size="large" class="mt-4 enter-x" block @click="handleRegister">
-        {{ t('sys.login.registerButton') }}
-      </Button> -->
     </FormItem>
     <ARow class="enter-x">
       <ACol :md="8" :xs="24">
@@ -83,7 +114,7 @@
 </template>
 <script lang="ts" setup>
   import { reactive, ref, unref, computed } from 'vue';
-
+  import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
   import { Checkbox, Form, Input, Row, Col, Button, Divider } from 'ant-design-vue';
   import {
     GithubFilled,
@@ -91,6 +122,7 @@
     AlipayCircleFilled,
     GoogleCircleFilled,
     TwitterCircleFilled,
+    KeyOutlined,
   } from '@ant-design/icons-vue';
   import LoginFormTitle from './LoginFormTitle.vue';
 
@@ -100,7 +132,9 @@
   import { useUserStore } from '/@/store/modules/user';
   import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from './useLogin';
   import { useDesign } from '/@/hooks/web/useDesign';
-  //import { onKeyStroke } from '@vueuse/core';
+
+  // 接口地址
+  const VITE_BASE_URL = import.meta.env.VITE_GLOB_API_URL;
 
   const ACol = Col;
   const ARow = Row;
@@ -121,11 +155,23 @@
   const formData = reactive({
     account: 'vben',
     password: '123456',
+    captcha: '',
   });
 
   const { validForm } = useFormValid(formRef);
 
-  //onKeyStroke('Enter', handleLogin);
+  let captchaImage = ref<string>('');
+  //获取验证码
+  async function getCaptchaInfo() {
+    captchaImage.value = `${VITE_BASE_URL}/user/captcha`;
+  }
+  getCaptchaInfo();
+
+  // 切换验证码
+  const changeVerifyCode = () => {
+    const isDate = String(new Date()); // 时间类型格式化
+    captchaImage.value = `${captchaImage.value}?random=${Date.parse(isDate)}`;
+  };
 
   const getShow = computed(() => unref(getLoginState) === LoginStateEnum.LOGIN);
 
@@ -137,6 +183,7 @@
       const userInfo = await userStore.login({
         password: data.password,
         username: data.account,
+        captcha: data.captcha,
         mode: 'none', //不要默认的错误提示
       });
       if (userInfo) {

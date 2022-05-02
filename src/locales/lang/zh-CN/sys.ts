@@ -1,3 +1,11 @@
+/*
+ * @Author: bugdr
+ * @Date: 2022-05-02 14:03:13
+ * @LastEditors: bugdr
+ * @LastEditTime: 2022-05-02 19:39:10
+ * @FilePath: \blog-admin\src\locales\lang\zh-CN\sys.ts
+ * @Description:
+ */
 export default {
   api: {
     operationFailed: '操作失败',
@@ -87,9 +95,12 @@ export default {
     mobilePlaceholder: '请输入手机号码',
     policyPlaceholder: '勾选后才能注册',
     diffPwd: '两次输入密码不一致',
+    captchaPlaceholder: '请输入图灵验证码',
+    diffCaptcha: '两次输入验证码不一致',
 
-    userName: '账号',
+    userName: '用户名/邮箱',
     password: '密码',
+    captcha: '图灵验证码',
     confirmPassword: '确认密码',
     email: '邮箱',
     smsCode: '短信验证码',

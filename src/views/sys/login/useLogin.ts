@@ -38,6 +38,7 @@ export function useFormValid<T extends Object = any>(formRef: Ref<any>) {
   return { validForm };
 }
 
+// 验证规则
 export function useFormRules(formData?: Recordable) {
   const { t } = useI18n();
 
@@ -45,6 +46,7 @@ export function useFormRules(formData?: Recordable) {
   const getPasswordFormRule = computed(() => createRule(t('sys.login.passwordPlaceholder')));
   const getSmsFormRule = computed(() => createRule(t('sys.login.smsPlaceholder')));
   const getMobileFormRule = computed(() => createRule(t('sys.login.mobilePlaceholder')));
+  const getCaptchaFormRule = computed(() => createRule(t('sys.login.captchaPlaceholder')));
 
   const validatePolicy = async (_: RuleObject, value: boolean) => {
     return !value ? Promise.reject(t('sys.login.policyPlaceholder')) : Promise.resolve();
@@ -62,11 +64,25 @@ export function useFormRules(formData?: Recordable) {
     };
   };
 
+  // 验证验证码
+  const validateConfirmCaptcha = (captcha: string) => {
+    return async (_: RuleObject, value: string) => {
+      if (!value) {
+        return Promise.reject(t('sys.login.captchaPlaceholder'));
+      }
+      if (value !== captcha) {
+        return Promise.reject(t('sys.login.diffCaptcha'));
+      }
+      return Promise.resolve();
+    };
+  };
+
   const getFormRules = computed((): { [k: string]: ValidationRule | ValidationRule[] } => {
     const accountFormRule = unref(getAccountFormRule);
     const passwordFormRule = unref(getPasswordFormRule);
     const smsFormRule = unref(getSmsFormRule);
     const mobileFormRule = unref(getMobileFormRule);
+    const captchaFormRule = unref(getCaptchaFormRule);
 
     const mobileRule = {
       sms: smsFormRule,
@@ -78,8 +94,13 @@ export function useFormRules(formData?: Recordable) {
         return {
           account: accountFormRule,
           password: passwordFormRule,
+          captcha: captchaFormRule,
           confirmPassword: [
             { validator: validateConfirmPassword(formData?.password), trigger: 'change' },
+          ],
+          // 图灵验证码的验证
+          confirmCaptcha: [
+            { validator: validateConfirmCaptcha(formData?.captcha), trigger: 'change' },
           ],
           policy: [{ validator: validatePolicy, trigger: 'change' }],
           ...mobileRule,
@@ -101,6 +122,7 @@ export function useFormRules(formData?: Recordable) {
         return {
           account: accountFormRule,
           password: passwordFormRule,
+          captcha: captchaFormRule,
         };
     }
   });
