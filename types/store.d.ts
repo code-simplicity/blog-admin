@@ -1,3 +1,11 @@
+/*
+ * @Author: bugdr
+ * @Date: 2022-05-02 14:03:14
+ * @LastEditors: bugdr
+ * @LastEditTime: 2022-05-03 10:15:32
+ * @FilePath: \blog-admin\types\store.d.ts
+ * @Description:
+ */
 import { ErrorTypeEnum } from '/@/enums/exceptionEnum';
 import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
 import { RoleInfo } from '/@/api/sys/model/userModel';
@@ -31,13 +39,23 @@ export interface ErrorLogInfo {
 }
 
 export interface UserInfo {
-  userId: string | number;
-  username: string;
-  realName: string;
-  avatar: string;
-  desc?: string;
-  homePath?: string;
+  // 用户id
+  id: string | number;
+  // 用户角色
   roles: RoleInfo[];
+  // 用户名
+  userName: string;
+  // 邮箱
+  email: string;
+  // 头像
+  avatar: string;
+  // 注册ip
+  regIp?: string;
+  // 签名
+  sign?: string;
+  // 状态
+  state: string | number;
+  homePath?: string;
 }
 
 export interface BeforeMiniState {

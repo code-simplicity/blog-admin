@@ -92,7 +92,7 @@ export function useFormRules(formData?: Recordable) {
       // register form rules
       case LoginStateEnum.REGISTER:
         return {
-          account: accountFormRule,
+          userName: accountFormRule,
           password: passwordFormRule,
           captcha: captchaFormRule,
           confirmPassword: [
@@ -109,7 +109,7 @@ export function useFormRules(formData?: Recordable) {
       // reset password form rules
       case LoginStateEnum.RESET_PASSWORD:
         return {
-          account: accountFormRule,
+          userName: accountFormRule,
           ...mobileRule,
         };
 
@@ -120,7 +120,7 @@ export function useFormRules(formData?: Recordable) {
       // login form rules
       default:
         return {
-          account: accountFormRule,
+          userName: accountFormRule,
           password: passwordFormRule,
           captcha: captchaFormRule,
         };
