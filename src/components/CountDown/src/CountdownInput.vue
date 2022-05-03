@@ -1,3 +1,11 @@
+<!--
+ * @Author: bugdr
+ * @Date: 2022-05-02 14:03:10
+ * @LastEditors: bugdr
+ * @LastEditTime: 2022-05-03 13:30:38
+ * @FilePath: \blog-admin\src\components\CountDown\src\CountdownInput.vue
+ * @Description: 
+-->
 <template>
   <a-input v-bind="$attrs" :class="prefixCls" :size="size" :value="state">
     <template #addonAfter>

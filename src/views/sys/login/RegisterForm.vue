@@ -7,14 +7,14 @@
           class="fix-auto-fill"
           size="large"
           v-model:value="formData.account"
-          :placeholder="t('sys.login.userName')"
+          :placeholder="t('sys.login.registerUserName')"
         />
       </FormItem>
       <FormItem name="mobile" class="enter-x">
         <Input
           size="large"
           v-model:value="formData.mobile"
-          :placeholder="t('sys.login.mobile')"
+          :placeholder="t('sys.login.registerEmail')"
           class="fix-auto-fill"
         />
       </FormItem>
@@ -23,7 +23,7 @@
           size="large"
           class="fix-auto-fill"
           v-model:value="formData.sms"
-          :placeholder="t('sys.login.smsCode')"
+          :placeholder="t('sys.login.registerEmailCode')"
         />
       </FormItem>
       <FormItem name="password" class="enter-x">
@@ -34,11 +34,10 @@
         />
       </FormItem>
       <FormItem name="confirmPassword" class="enter-x">
-        <InputPassword
+        <CaptchaInput
           size="large"
-          visibilityToggle
           v-model:value="formData.confirmPassword"
-          :placeholder="t('sys.login.confirmPassword')"
+          :placeholder="t('sys.login.captchaPlaceholder')"
         />
       </FormItem>
 
@@ -73,7 +72,7 @@
   import { CountdownInput } from '/@/components/CountDown';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useLoginState, useFormRules, useFormValid, LoginStateEnum } from './useLogin';
-
+  import { CaptchaInput } from '/@/components/CaptchaInput';
   const FormItem = Form.Item;
   const InputPassword = Input.Password;
   const { t } = useI18n();

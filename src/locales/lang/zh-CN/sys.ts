@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-02 14:03:13
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-02 19:39:10
+ * @LastEditTime: 2022-05-03 11:00:53
  * @FilePath: \blog-admin\src\locales\lang\zh-CN\sys.ts
  * @Description:
  */
@@ -105,5 +105,11 @@ export default {
     email: '邮箱',
     smsCode: '短信验证码',
     mobile: '手机号码',
+
+    // register
+    registerUserName: '请输入用户名',
+    registerPassword: '请输入密码',
+    registerEmail: '请输入邮箱',
+    registerEmailCode: '请输入邮箱验证码',
   },
 };

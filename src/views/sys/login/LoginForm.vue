@@ -34,29 +34,12 @@
     </FormItem>
 
     <FormItem name="captcha">
-      <ARow justify="center" :gutter="16">
-        <ACol :span="16">
-          <Input
-            size="large"
-            v-model:value="formData.captcha"
-            :placeholder="t('sys.login.captcha')"
-            class="fix-auto-fill"
-            width="40"
-          >
-            <template #prefix>
-              <KeyOutlined />
-            </template>
-          </Input>
-        </ACol>
-        <ACol :span="8" class="z-1000">
-          <img
-            @click="changeVerifyCode"
-            class="cursor-pointer"
-            :src="captchaImage"
-            :alt="t('sys.login.captcha')"
-          />
-        </ACol>
-      </ARow>
+      <CaptchaInput
+        class="flex"
+        size="large"
+        v-model:value="formData.captcha"
+        :placeholder="t('sys.login.captcha')"
+      />
     </FormItem>
 
     <ARow class="enter-x">
@@ -132,9 +115,7 @@
   import { useUserStore } from '/@/store/modules/user';
   import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from './useLogin';
   import { useDesign } from '/@/hooks/web/useDesign';
-
-  // 接口地址
-  const VITE_BASE_URL = import.meta.env.VITE_GLOB_API_URL;
+  import { CaptchaInput } from '/@/components/CaptchaInput';
 
   const ACol = Col;
   const ARow = Row;
@@ -159,19 +140,6 @@
   });
 
   const { validForm } = useFormValid(formRef);
-
-  let captchaImage = ref<string>('');
-  //获取验证码
-  async function getCaptchaInfo() {
-    captchaImage.value = `${VITE_BASE_URL}/user/captcha`;
-  }
-  getCaptchaInfo();
-
-  // 切换验证码
-  const changeVerifyCode = () => {
-    const isDate = String(new Date()); // 时间类型格式化
-    captchaImage.value = `${captchaImage.value}?random=${Date.parse(isDate)}`;
-  };
 
   const getShow = computed(() => unref(getLoginState) === LoginStateEnum.LOGIN);
 
