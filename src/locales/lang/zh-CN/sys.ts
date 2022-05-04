@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-02 14:03:13
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-03 17:03:24
+ * @LastEditTime: 2022-05-04 17:04:51
  * @FilePath: \blog-admin\src\locales\lang\zh-CN\sys.ts
  * @Description:
  */
@@ -75,7 +75,7 @@ export default {
 
     signInTitle: '浪漫知识后台管理系统',
     signInDesc: '用你的知识丰富自己！',
-    policy: '我同意xxx隐私政策',
+    policy: '我同意Romantic knowledge隐私政策',
     scanSign: `扫码后点击"确认"，即可完成登录`,
 
     loginButton: '登录',

@@ -1,3 +1,11 @@
+<!--
+ * @Author: bugdr
+ * @Date: 2022-05-02 14:03:13
+ * @LastEditors: bugdr
+ * @LastEditTime: 2022-05-04 17:11:48
+ * @FilePath: \blog-admin\src\views\sys\login\LoginFormTitle.vue
+ * @Description: 登录，注册等表单头部的标题
+-->
 <template>
   <h2 class="mb-3 text-2xl font-bold text-center xl:text-3xl enter-x xl:text-left">
     {{ getFormTitle }}
