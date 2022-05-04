@@ -34,16 +34,14 @@
         </Row>
       </FormItem>
       <FormItem name="email_code" class="enter-x">
-        <Row justify="space-between" :gutter="6">
-          <Col :span="16">
-            <Input
-              size="large"
-              class="fix-auto-fill"
-              v-model:value="formData.email_code"
-              :placeholder="t('sys.login.registerEmailCode')"
-            />
-          </Col>
-          <Col :span="8">
+        <Input
+          :class="prefixCls"
+          size="large"
+          class="fix-auto-fill"
+          v-model:value="formData.email_code"
+          :placeholder="t('sys.login.registerEmailCode')"
+        >
+          <template #addonAfter>
             <Button
               size="large"
               :disabled="isStart"
@@ -51,8 +49,8 @@
               :loading="loadingSendEmail"
               >{{ getButtonText }}</Button
             >
-          </Col>
-        </Row>
+          </template>
+        </Input>
       </FormItem>
       <FormItem name="password" class="enter-x">
         <StrengthMeter
@@ -95,6 +93,9 @@
   import { doRegister, sendEmailCode } from '/@/api/sys/user';
   import { CaptchaApi } from '/@/api/sys/captcha';
   import { useCountDown } from './useCountdown';
+  import { ResponseCode } from '/@/utils';
+  import { useDesign } from '/@/hooks/web/useDesign';
+
   const FormItem = Form.Item;
   const { t } = useI18n();
   const { handleBackLogin, getLoginState } = useLoginState();
@@ -123,51 +124,86 @@
     captchaValue.value = `${CaptchaApi.GetCaptcha}?random=${Date.parse(isDate)}`;
   }
 
-  // TODO: 自定义获取邮箱验证码的按钮事件
+  // 自定义获取邮箱验证码的按钮事件
   let count = ref(60);
   // 发送验证码的加载状态
   let loadingSendEmail = ref(false);
   // 传递倒计时给倒计时处理函数
-  const { currentCount, isStart, start, reset } = useCountDown(count.value);
+  const { currentCount, isStart, start } = useCountDown(count.value);
+  // 计算button出现的文字
   const getButtonText = computed(() => {
     return !unref(isStart)
       ? t('component.countdown.normalText')
       : t('component.countdown.sendText', [unref(currentCount)]);
   });
+  // 按钮样式
+  const { prefixCls } = useDesign('countdown-input');
   // 控制发送按钮
   async function handleStart() {
-    if (formData.email === null && formData.email_code === null) {
-      return;
+    // 首先判断用邮箱和验证码不为空才可以发送邮箱验证
+    if (!formData.email || !formData.captcha_code) {
+      return message.warning('邮箱和图灵验证码不可以为空');
     }
-    loadingSendEmail.value = true;
+    // 验证邮箱格式
+    // 邮箱验证正则表达式
+    const reg = /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/;
+    if (!reg.test(formData.email)) {
+      return message.warning('邮箱格式不正确');
+    }
     // 填充参数
     const params = {
       email: formData.email,
       captcha_code: formData.captcha_code,
       type: 'register', // 类型，默认值为register
     };
-    const result = await sendEmailCode(params);
-    // 不管发送成功还是失败都是要等到60s以后再执行
-    start();
-    if (result.code === 20000) {
-      // 发送成功
-      loadingSendEmail.value = false;
-    } else {
-      // 发送失败
-      // 提示信息
-      message.error(result.message);
+    loadingSendEmail.value = true;
+    try {
+      const result = await sendEmailCode(params);
+      if (result.code === ResponseCode.SUCCESS) {
+        // 发送成功
+        message.success(result.message);
+        // 不管发送成功还是失败都是要等到60s以后再执行
+        start();
+      } else {
+        // 发送失败
+        message.error(result.message);
+      }
+    } finally {
       loadingSendEmail.value = false;
     }
   }
-
+  // 表单验证
   const { getFormRules } = useFormRules(formData);
   const { validForm } = useFormValid(formRef);
-  const getShow = computed(() => unref(getLoginState) === LoginStateEnum.REGISTER);
-
+  let getShow = computed(() => unref(getLoginState) === LoginStateEnum.REGISTER);
+  // 注册实现
   async function handleRegister() {
-    const data = await validForm();
+    // 验证表单返回值
+    const { policy, ...data } = await validForm();
     if (!data) return;
     const result = await doRegister(data);
-    console.log(data);
+    if (result.code === ResponseCode.JOIN_IN_SUCCESS) {
+      // 注册成功，提示是否需要跳转到登录界面
+      // 提示注册成功
+      message.success(result.message);
+    } else {
+      message.error(result.message);
+    }
   }
 </script>
+
+<style lang="less" scoped>
+  @prefix-cls: ~'@{namespace}-countdown-input';
+
+  .@{prefix-cls} {
+    .ant-input-group-addon {
+      padding-right: 0;
+      background-color: transparent;
+      border: none;
+
+      button {
+        font-size: 14px;
+      }
+    }
+  }
+</style>

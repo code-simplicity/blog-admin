@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-04 10:24:46
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-04 10:47:57
+ * @LastEditTime: 2022-05-04 16:02:17
  * @FilePath: \blog-admin\src\views\sys\login\useCountdown.ts
  * @Description:按钮封装的倒计时函数
  */
@@ -43,7 +43,7 @@ export function useCountDown(count: number) {
       } else {
         currentCount.value -= 1;
       }
-    });
+    }, 1000);
   }
   // 重置
   function reset() {

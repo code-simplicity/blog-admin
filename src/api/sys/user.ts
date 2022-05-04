@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-02 14:03:09
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-03 10:13:47
+ * @LastEditTime: 2022-05-04 16:23:36
  * @FilePath: \blog-admin\src\api\sys\user.ts
  * @Description:用户登录
  */
@@ -86,8 +86,9 @@ export function sendEmailCode(params: EmailCodeParams) {
  * @returns
  */
 export function doRegister(params: RegisterModel) {
+  const { email_code, captcha_code, ...data } = params;
   return defHttp.post({
-    url: Api.Register,
-    params,
+    url: `${Api.Register}?email_code=${email_code}&captcha_code=${captcha_code}`,
+    data,
   });
 }
