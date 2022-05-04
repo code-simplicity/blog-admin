@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-02 14:03:10
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-03 13:30:36
+ * @LastEditTime: 2022-05-04 10:56:11
  * @FilePath: \blog-admin\src\components\CountDown\src\CountButton.vue
  * @Description: 
 -->
@@ -17,6 +17,7 @@
   import { useCountdown } from './useCountdown';
   import { isFunction } from '/@/utils/is';
   import { useI18n } from '/@/hooks/web/useI18n';
+  import { sendEmailCode } from '/@/api/sys/user';
 
   const props = {
     value: { type: [Object, Number, String, Array] },
@@ -25,6 +26,8 @@
       type: Function as PropType<() => Promise<boolean>>,
       default: null,
     },
+    // 邮箱值
+    registerEmail: { type: Object },
   };
 
   export default defineComponent({
@@ -48,7 +51,7 @@
       });
 
       /**
-       * @description: Judge whether there is an external function before execution, and decide whether to start after execution
+       * @description: 控制发送按钮
        */
       async function handleStart() {
         const { beforeStartFunc } = props;

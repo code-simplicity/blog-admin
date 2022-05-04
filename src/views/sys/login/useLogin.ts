@@ -1,4 +1,4 @@
-import type { ValidationRule } from 'ant-design-vue/lib/form/Form';
+import type { ValidationRule } from 'ant-design-vue/es/form/Form';
 import type { RuleObject } from 'ant-design-vue/lib/form/interface';
 import { ref, computed, unref, Ref } from 'vue';
 import { useI18n } from '/@/hooks/web/useI18n';
@@ -42,9 +42,10 @@ export function useFormValid<T extends Object = any>(formRef: Ref<any>) {
 export function useFormRules(formData?: Recordable) {
   const { t } = useI18n();
 
-  const getAccountFormRule = computed(() => createRule(t('sys.login.accountPlaceholder')));
+  const getUserNameFormRule = computed(() => createRule(t('sys.login.accountPlaceholder')));
   const getPasswordFormRule = computed(() => createRule(t('sys.login.passwordPlaceholder')));
-  const getSmsFormRule = computed(() => createRule(t('sys.login.smsPlaceholder')));
+  const getEmailFormRule = computed(() => createRule(t('sys.login.emailPlaceholder')));
+  const getEmailCodeRule = computed(() => createRule(t('sys.login.emailCodePlaceholder')));
   const getMobileFormRule = computed(() => createRule(t('sys.login.mobilePlaceholder')));
   const getCaptchaFormRule = computed(() => createRule(t('sys.login.captchaPlaceholder')));
 
@@ -78,30 +79,26 @@ export function useFormRules(formData?: Recordable) {
   };
 
   const getFormRules = computed((): { [k: string]: ValidationRule | ValidationRule[] } => {
-    const accountFormRule = unref(getAccountFormRule);
+    const userNameFormRule = unref(getUserNameFormRule);
     const passwordFormRule = unref(getPasswordFormRule);
-    const smsFormRule = unref(getSmsFormRule);
     const mobileFormRule = unref(getMobileFormRule);
     const captchaFormRule = unref(getCaptchaFormRule);
+    const emailFormRule = unref(getEmailFormRule);
+    const emailCodeFormRule = unref(getEmailCodeRule);
 
     const mobileRule = {
-      sms: smsFormRule,
       mobile: mobileFormRule,
     };
     switch (unref(currentState)) {
       // register form rules
       case LoginStateEnum.REGISTER:
         return {
-          userName: accountFormRule,
+          userName: userNameFormRule,
           password: passwordFormRule,
           captcha: captchaFormRule,
-          confirmPassword: [
-            { validator: validateConfirmPassword(formData?.password), trigger: 'change' },
-          ],
-          // 图灵验证码的验证
-          confirmCaptcha: [
-            { validator: validateConfirmCaptcha(formData?.captcha), trigger: 'change' },
-          ],
+          email: emailFormRule,
+          email_code: emailCodeFormRule,
+          captcha_code: captchaFormRule,
           policy: [{ validator: validatePolicy, trigger: 'change' }],
           ...mobileRule,
         };
@@ -109,7 +106,7 @@ export function useFormRules(formData?: Recordable) {
       // reset password form rules
       case LoginStateEnum.RESET_PASSWORD:
         return {
-          userName: accountFormRule,
+          userName: userNameFormRule,
           ...mobileRule,
         };
 
@@ -120,7 +117,7 @@ export function useFormRules(formData?: Recordable) {
       // login form rules
       default:
         return {
-          userName: accountFormRule,
+          userName: userNameFormRule,
           password: passwordFormRule,
           captcha: captchaFormRule,
         };

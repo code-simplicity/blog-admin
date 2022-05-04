@@ -2,14 +2,14 @@
  * @Author: bugdr
  * @Date: 2022-05-02 14:03:10
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-03 13:30:38
+ * @LastEditTime: 2022-05-04 09:19:33
  * @FilePath: \blog-admin\src\components\CountDown\src\CountdownInput.vue
  * @Description: 
 -->
 <template>
   <a-input v-bind="$attrs" :class="prefixCls" :size="size" :value="state">
     <template #addonAfter>
-      <CountButton :size="size" :count="count" :value="state" :beforeStartFunc="sendCodeApi" />
+      <CountButton :size="size" :count="count" :value="state" :registerEmail="registerEmail" />
     </template>
     <template #[item]="data" v-for="item in Object.keys($slots).filter((k) => k !== 'addonAfter')">
       <slot :name="item" v-bind="data || {}"></slot>
@@ -17,7 +17,7 @@
   </a-input>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
+  import { defineComponent } from 'vue';
   import CountButton from './CountButton.vue';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useRuleFormItem } from '/@/hooks/component/useFormItem';
@@ -26,10 +26,7 @@
     value: { type: String },
     size: { type: String, validator: (v) => ['default', 'large', 'small'].includes(v) },
     count: { type: Number, default: 60 },
-    sendCodeApi: {
-      type: Function as PropType<() => Promise<boolean>>,
-      default: null,
-    },
+    registerEmail: { type: Object },
   };
 
   export default defineComponent({

@@ -52,20 +52,30 @@ export interface GetUserInfoModel {
 
 export interface CheckTokenModel {
   result: GetUserInfoModel | any;
-  // // 用户id
-  // id: string | number;
-  // // 用户角色
-  // roles: RoleInfo[];
-  // // 用户名
-  // userName: string;
-  // // 邮箱
-  // email: string;
-  // // 头像
-  // avatar: string;
-  // // 注册ip
-  // regIp?: string;
-  // // 签名
-  // sign?: string;
-  // // 状态
-  // state: string | number;
+}
+
+/**
+ * 注册的提交类型
+ */
+export interface RegisterModel {
+  captcha_code: string | number;
+  email_code: string | number;
+  email: string | number;
+  password: string | number;
+  userName: string | number;
+}
+
+// 统一返回结果
+export interface ResultResponse {
+  success?: boolean;
+  code: string | number;
+  message: string | number;
+  result: any | {} | null;
+}
+
+// 邮箱发送参数规范
+export interface EmailCodeParams {
+  email?: string;
+  captchaCode?: string;
+  type?: string;
 }

@@ -12,6 +12,9 @@ import {
   LoginResultModel,
   GetUserInfoModel,
   CheckTokenModel,
+  RegisterModel,
+  ResultResponse,
+  EmailCodeParams,
 } from './model/userModel';
 
 import { ErrorMessageMode } from '/#/axios';
@@ -22,6 +25,8 @@ enum Api {
   GetUserInfo = '/getUserInfo',
   checkTokenUsee = '/user/check-token',
   GetPermCode = '/getPermCode',
+  Register = '/user/join_in',
+  EmailCode = '/user/verify_code',
 }
 
 /**
@@ -62,4 +67,27 @@ export function getPermCode() {
 
 export function doLogout() {
   return defHttp.get({ url: Api.Logout });
+}
+
+/**
+ * 发送邮箱验证码
+ * @param params
+ * @returns
+ */
+export function sendEmailCode(params: EmailCodeParams) {
+  return defHttp.get<ResultResponse>({
+    url: Api.EmailCode,
+    params,
+  });
+}
+
+/**
+ * 用户注册
+ * @returns
+ */
+export function doRegister(params: RegisterModel) {
+  return defHttp.post({
+    url: Api.Register,
+    params,
+  });
 }

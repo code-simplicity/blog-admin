@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-02 14:03:13
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-03 11:00:53
+ * @LastEditTime: 2022-05-03 17:03:24
  * @FilePath: \blog-admin\src\locales\lang\zh-CN\sys.ts
  * @Description:
  */
@@ -92,6 +92,8 @@ export default {
     accountPlaceholder: '请输入账号',
     passwordPlaceholder: '请输入密码',
     smsPlaceholder: '请输入验证码',
+    emailCodePlaceholder: '请输入邮箱验证码',
+    emailPlaceholder: '请输入邮箱',
     mobilePlaceholder: '请输入手机号码',
     policyPlaceholder: '勾选后才能注册',
     diffPwd: '两次输入密码不一致',
@@ -103,6 +105,7 @@ export default {
     captcha: '图灵验证码',
     confirmPassword: '确认密码',
     email: '邮箱',
+    emailCode: '邮箱验证码',
     smsCode: '短信验证码',
     mobile: '手机号码',
 

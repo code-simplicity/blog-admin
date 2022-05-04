@@ -5,7 +5,7 @@ export default {
     toNavigate: '切换',
   },
   countdown: {
-    normalText: '获取验证码',
+    normalText: '获取邮箱验证码',
     sendText: '{0}秒后重新获取',
   },
   cropper: {

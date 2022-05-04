@@ -33,13 +33,24 @@
       </InputPassword>
     </FormItem>
 
-    <FormItem name="captcha">
-      <CaptchaInput
-        class="flex"
-        size="large"
-        v-model:value="formData.captcha"
-        :placeholder="t('sys.login.captcha')"
-      />
+    <FormItem name="captcha" class="enter-x">
+      <Row flex justify="space-between" :gutter="12">
+        <Col :span="16">
+          <Input
+            size="large"
+            v-model:value="formData.captcha"
+            :placeholder="t('sys.login.captcha')"
+            class="fix-auto-fill"
+          >
+            <template #prefix>
+              <KeyOutlined />
+            </template>
+          </Input>
+        </Col>
+        <Col :span="8">
+          <img :src="captchaValue" class="cursor-pointer" @click="changeVerifyCode"
+        /></Col>
+      </Row>
     </FormItem>
 
     <ARow class="enter-x">
@@ -115,7 +126,8 @@
   import { useUserStore } from '/@/store/modules/user';
   import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from './useLogin';
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { CaptchaInput } from '/@/components/CaptchaInput';
+
+  import { CaptchaApi } from '/@/api/sys/captcha';
 
   const ACol = Col;
   const ARow = Row;
@@ -138,6 +150,18 @@
     password: '123456',
     captcha: '',
   });
+
+  const captchaValue = ref('');
+  async function getCaptchaImage() {
+    captchaValue.value = `${CaptchaApi.GetCaptcha}`;
+  }
+  getCaptchaImage();
+
+  // 切换验证码
+  async function changeVerifyCode() {
+    const isDate = String(new Date()); // 时间类型格式化
+    captchaValue.value = `${CaptchaApi.GetCaptcha}?random=${Date.parse(isDate)}`;
+  }
 
   const { validForm } = useFormValid(formRef);
 
