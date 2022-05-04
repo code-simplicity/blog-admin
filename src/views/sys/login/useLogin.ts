@@ -103,10 +103,13 @@ export function useFormRules(formData?: Recordable) {
           ...mobileRule,
         };
 
-      // reset password form rules
+      // 重置密码的规则
       case LoginStateEnum.RESET_PASSWORD:
         return {
-          userName: userNameFormRule,
+          password: passwordFormRule,
+          email: emailFormRule,
+          email_code: emailCodeFormRule,
+          captcha_code: captchaFormRule,
           ...mobileRule,
         };
 

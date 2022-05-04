@@ -29,8 +29,8 @@
             />
           </Col>
           <Col :span="8">
-            <img :src="captchaValue" class="cursor-pointer" @click="changeVerifyCode"
-          /></Col>
+            <CaptchaImage />
+          </Col>
         </Row>
       </FormItem>
       <FormItem name="email_code" class="enter-x">
@@ -91,10 +91,10 @@
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useLoginState, useFormRules, useFormValid, LoginStateEnum } from './useLogin';
   import { doRegister, sendEmailCode } from '/@/api/sys/user';
-  import { CaptchaApi } from '/@/api/sys/captcha';
   import { useCountDown } from './useCountdown';
   import { ResponseCode } from '/@/utils';
   import { useDesign } from '/@/hooks/web/useDesign';
+  import CaptchaImage from '/@/components/CaptchaInput/src/CaptchaImage.vue';
 
   const FormItem = Form.Item;
   const { t } = useI18n();
@@ -111,18 +111,6 @@
     captcha_code: '',
     policy: false,
   });
-
-  // 获取验证码
-  const captchaValue = ref('');
-  async function getCaptchaImage() {
-    captchaValue.value = `${CaptchaApi.GetCaptcha}`;
-  }
-  getCaptchaImage();
-  // 切换验证码
-  async function changeVerifyCode() {
-    const isDate = String(new Date()); // 时间类型格式化
-    captchaValue.value = `${CaptchaApi.GetCaptcha}?random=${Date.parse(isDate)}`;
-  }
 
   // 自定义获取邮箱验证码的按钮事件
   let count = ref(60);
@@ -180,12 +168,15 @@
   async function handleRegister() {
     // 验证表单返回值
     const { policy, ...data } = await validForm();
+    const form = unref(formRef);
     if (!data) return;
     const result = await doRegister(data);
     if (result.code === ResponseCode.JOIN_IN_SUCCESS) {
       // 注册成功，提示是否需要跳转到登录界面
       // 提示注册成功
       message.success(result.message);
+      // 清除表单
+      await form.resetFields();
     } else {
       message.error(result.message);
     }

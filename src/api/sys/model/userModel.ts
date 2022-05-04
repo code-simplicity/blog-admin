@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-02 14:03:09
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-03 10:45:50
+ * @LastEditTime: 2022-05-04 20:42:03
  * @FilePath: \blog-admin\src\api\sys\model\userModel.ts
  * @Description:
  */
@@ -78,4 +78,11 @@ export interface EmailCodeParams {
   email?: string;
   captchaCode?: string;
   type?: string;
+}
+
+// 重置密码
+export interface ResetPasswordParams {
+  email_code?: string;
+  email?: string;
+  password?: string;
 }

@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-02 14:03:09
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-04 16:23:36
+ * @LastEditTime: 2022-05-04 20:42:42
  * @FilePath: \blog-admin\src\api\sys\user.ts
  * @Description:用户登录
  */
@@ -15,6 +15,7 @@ import {
   RegisterModel,
   ResultResponse,
   EmailCodeParams,
+  ResetPasswordParams,
 } from './model/userModel';
 
 import { ErrorMessageMode } from '/#/axios';
@@ -27,6 +28,7 @@ enum Api {
   GetPermCode = '/getPermCode',
   Register = '/user/join_in',
   EmailCode = '/user/verify_code',
+  ResetPassword = '/user/password/',
 }
 
 /**
@@ -87,8 +89,21 @@ export function sendEmailCode(params: EmailCodeParams) {
  */
 export function doRegister(params: RegisterModel) {
   const { email_code, captcha_code, ...data } = params;
-  return defHttp.post({
+  return defHttp.post<ResultResponse>({
     url: `${Api.Register}?email_code=${email_code}&captcha_code=${captcha_code}`,
+    data,
+  });
+}
+
+/**
+ * 重置密码
+ * @param params
+ * @returns
+ */
+export function resetPassword(params: ResetPasswordParams) {
+  const { email_code, ...data } = params;
+  return defHttp.put<ResultResponse>({
+    url: `${Api.ResetPassword}${email_code}/`,
     data,
   });
 }
