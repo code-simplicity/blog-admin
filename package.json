@@ -134,10 +134,6 @@
     "vue-eslint-parser": "^8.0.1",
     "vue-tsc": "^0.28.10"
   },
-  "resolutions": {
-    "bin-wrapper": "npm:bin-wrapper-china",
-    "rollup": "^2.56.3"
-  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/dpy0912/bloh-admin/issues"

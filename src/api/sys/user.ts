@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-02 14:03:09
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-04 20:42:42
+ * @LastEditTime: 2022-05-05 17:54:25
  * @FilePath: \blog-admin\src\api\sys\user.ts
  * @Description:用户登录
  */
@@ -11,7 +11,6 @@ import {
   LoginParams,
   LoginResultModel,
   GetUserInfoModel,
-  CheckTokenModel,
   RegisterModel,
   ResultResponse,
   EmailCodeParams,
@@ -19,6 +18,7 @@ import {
 } from './model/userModel';
 
 import { ErrorMessageMode } from '/#/axios';
+import { UserInfoResultResponse } from '/@/utils/resultResponse';
 
 enum Api {
   Login = '/user/login/',
@@ -36,7 +36,7 @@ enum Api {
  */
 export function loginApi(params: LoginParams, mode: ErrorMessageMode = 'modal') {
   const { captcha, ...data } = params;
-  return defHttp.post<LoginResultModel>(
+  return defHttp.post<ResultResponse>(
     {
       url: `${Api.Login}${captcha}/`,
       data,
@@ -52,7 +52,7 @@ export function loginApi(params: LoginParams, mode: ErrorMessageMode = 'modal') 
  * @returns
  */
 export function getCheckTokenUserInfo() {
-  return defHttp.get<CheckTokenModel>({ url: Api.checkTokenUsee });
+  return defHttp.get<UserInfoResultResponse>({ url: Api.checkTokenUsee });
 }
 
 /**

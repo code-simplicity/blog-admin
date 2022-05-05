@@ -125,11 +125,12 @@
   import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from './useLogin';
   import { useDesign } from '/@/hooks/web/useDesign';
   import CaptchaImage from '/@/components/CaptchaInput/src/CaptchaImage.vue';
+  import { ResponseCode } from '/@/utils';
 
   const FormItem = Form.Item;
   const InputPassword = Input.Password;
   const { t } = useI18n();
-  const { notification, createErrorModal } = useMessage();
+  const { notification } = useMessage();
   const { prefixCls } = useDesign('login');
   const userStore = useUserStore();
 
@@ -155,25 +156,26 @@
     if (!data) return;
     try {
       loading.value = true;
-      const userInfo = await userStore.login({
+      const result = await userStore.login({
         password: data.password,
         userName: data.userName,
         captcha: data.captcha,
         mode: 'none', //不要默认的错误提示
       });
-      if (userInfo) {
+      // 做一下判空
+      if (result === null) return;
+      if (result.code === ResponseCode.SUCCESS) {
         notification.success({
-          message: t('sys.login.loginSuccessTitle'),
-          description: `${t('sys.login.loginSuccessDesc')}: ${userInfo.userName}`,
+          message: result.message,
+          description: `${t('sys.login.loginSuccessDesc')}: ${result.result.userName}`,
+          duration: 3,
+        });
+      } else {
+        notification.error({
+          message: result.message,
           duration: 3,
         });
       }
-    } catch (error) {
-      createErrorModal({
-        title: t('sys.api.errorTip'),
-        content: (error as unknown as Error).message || t('sys.api.networkExceptionMsg'),
-        getContainer: () => document.body.querySelector(`.${prefixCls}`) || document.body,
-      });
     } finally {
       loading.value = false;
     }

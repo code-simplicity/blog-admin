@@ -6,7 +6,7 @@ import { RoleEnum } from '/@/enums/roleEnum';
 import { PageEnum } from '/@/enums/pageEnum';
 import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum';
 import { getAuthCache, setAuthCache } from '/@/utils/auth';
-import { GetUserInfoModel, LoginParams } from '/@/api/sys/model/userModel';
+import { LoginParams } from '/@/api/sys/model/userModel';
 import { doLogout, getCheckTokenUserInfo, loginApi } from '/@/api/sys/user';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { useMessage } from '/@/hooks/web/useMessage';
@@ -16,6 +16,8 @@ import { RouteRecordRaw } from 'vue-router';
 import { PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic';
 import { isArray } from '/@/utils/is';
 import { h } from 'vue';
+import { ResultResponse, UserInfoResultResponse } from '/@/utils/resultResponse';
+import { ResponseCode } from '/@/utils';
 
 interface UserState {
   userInfo: Nullable<UserInfo>;
@@ -87,23 +89,23 @@ export const useUserStore = defineStore({
         goHome?: boolean;
         mode?: ErrorMessageMode;
       },
-    ): Promise<GetUserInfoModel | null> {
-      try {
-        const { goHome = true, mode, ...loginParams } = params;
-        const data = await loginApi(loginParams, mode);
+    ): Promise<ResultResponse | null> {
+      const { goHome = true, mode, ...loginParams } = params;
+      const data = await loginApi(loginParams, mode);
+      if (data.code === ResponseCode.SUCCESS) {
         const { result } = data;
         // save token
         this.setToken(result);
         return this.afterLoginAction(goHome);
-      } catch (error) {
-        return Promise.reject(error);
+      } else {
+        // 登录失败
+        return data;
       }
     },
-    async afterLoginAction(goHome?: boolean): Promise<GetUserInfoModel | null> {
+    async afterLoginAction(goHome?: boolean): Promise<UserInfoResultResponse | null> {
       if (!this.getToken) return null;
       // get user info
       const userInfo = await this.getUserInfoAction();
-
       const sessionTimeout = this.sessionTimeout;
       if (sessionTimeout) {
         this.setSessionTimeout(false);
@@ -122,10 +124,10 @@ export const useUserStore = defineStore({
       }
       return userInfo;
     },
-    async getUserInfoAction(): Promise<UserInfo | null> {
+    async getUserInfoAction(): Promise<UserInfoResultResponse | null> {
       if (!this.getToken) return null;
-      const { result } = await getCheckTokenUserInfo();
-      const { roles } = result;
+      const data = await getCheckTokenUserInfo();
+      const { result } = data;
       // 添加值
       const roleListArray: any[] = [
         {
@@ -133,8 +135,8 @@ export const useUserStore = defineStore({
           value: '',
         },
       ];
-      roleListArray[0].roleName = roles;
-      roleListArray[0].value = roles;
+      roleListArray[0].roleName = result.roles;
+      roleListArray[0].value = result.roles;
       if (isArray(roleListArray)) {
         const roleList = roleListArray.map((item) => item.value) as RoleEnum[];
         this.setRoleList(roleList);
@@ -143,7 +145,7 @@ export const useUserStore = defineStore({
         this.setRoleList([]);
       }
       this.setUserInfo(result);
-      return result;
+      return data;
     },
     /**
      * @description: logout
