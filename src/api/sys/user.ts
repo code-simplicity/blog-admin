@@ -2,14 +2,13 @@
  * @Author: bugdr
  * @Date: 2022-05-02 14:03:09
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-05 17:54:25
+ * @LastEditTime: 2022-05-06 10:02:51
  * @FilePath: \blog-admin\src\api\sys\user.ts
  * @Description:用户登录
  */
 import { defHttp } from '/@/utils/http/axios';
 import {
   LoginParams,
-  LoginResultModel,
   GetUserInfoModel,
   RegisterModel,
   ResultResponse,
@@ -22,7 +21,7 @@ import { UserInfoResultResponse } from '/@/utils/resultResponse';
 
 enum Api {
   Login = '/user/login/',
-  Logout = '/logout',
+  Logout = '/user/logout',
   GetUserInfo = '/getUserInfo',
   checkTokenUsee = '/user/check-token',
   GetPermCode = '/getPermCode',
@@ -67,10 +66,6 @@ export function getPermCode() {
   return defHttp.get<string[]>({ url: Api.GetPermCode });
 }
 
-export function doLogout() {
-  return defHttp.get({ url: Api.Logout });
-}
-
 /**
  * 发送邮箱验证码
  * @param params
@@ -105,5 +100,15 @@ export function resetPassword(params: ResetPasswordParams) {
   return defHttp.put<ResultResponse>({
     url: `${Api.ResetPassword}${email_code}/`,
     data,
+  });
+}
+
+/**
+ * 退出登录
+ * @returns
+ */
+export function doLogout() {
+  return defHttp.get<ResultResponse>({
+    url: Api.Logout,
   });
 }
