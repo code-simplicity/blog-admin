@@ -1,18 +1,10 @@
-<!--
- * @Author: bugdr
- * @Date: 2022-05-02 14:03:11
- * @LastEditors: bugdr
- * @LastEditTime: 2022-05-02 20:41:00
- * @FilePath: \blog-admin\src\components\Table\src\components\settings\SizeSetting.vue
- * @Description: 
--->
 <template>
   <Tooltip placement="top">
     <template #title>
       <span>{{ t('component.table.settingDens') }}</span>
     </template>
 
-    <Dropdown placement="bottom" :trigger="['click']" :getPopupContainer="getPopupContainer">
+    <Dropdown placement="bottomCenter" :trigger="['click']" :getPopupContainer="getPopupContainer">
       <ColumnHeightOutlined />
       <template #overlay>
         <Menu @click="handleTitleClick" selectable v-model:selectedKeys="selectedKeysRef">
