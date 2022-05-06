@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-02 14:03:13
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-04 21:30:48
+ * @LastEditTime: 2022-05-06 09:46:47
  * @FilePath: \blog-admin\src\views\sys\login\ForgetPasswordForm.vue
  * @Description: 重置密码
 -->
@@ -23,7 +23,7 @@
             />
           </Col>
           <Col :span="8">
-            <CaptchaImage ref="CaptchaRef" />
+            <CaptchaImage ref="captchaRef" />
           </Col>
         </Row>
       </FormItem>
@@ -142,9 +142,7 @@
   }
 
   // 触发验证码更新
-  const CaptchaRef = ref(null);
-  // TODO:触发验证码更新
-  console.log('CaptchaRef :>> ', CaptchaRef);
+  const captchaRef = ref<any>(null);
 
   const getShow = computed(() => unref(getLoginState) === LoginStateEnum.RESET_PASSWORD);
   // 表单验证
@@ -163,7 +161,9 @@
       // 清除表单
       await form.resetFields();
     } else {
+      // 失败
       // 更新验证码
+      captchaRef.value.changeVerifyCode();
       Message.error(result.message);
     }
   }

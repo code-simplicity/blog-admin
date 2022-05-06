@@ -29,7 +29,7 @@
             />
           </Col>
           <Col :span="8">
-            <CaptchaImage />
+            <CaptchaImage ref="captchaRef" />
           </Col>
         </Row>
       </FormItem>
@@ -160,6 +160,9 @@
       loadingSendEmail.value = false;
     }
   }
+
+  // 图灵验证码的ref
+  const captchaRef = ref<any>(null);
   // 表单验证
   const { getFormRules } = useFormRules(formData);
   const { validForm } = useFormValid(formRef);
@@ -178,6 +181,8 @@
       // 清除表单
       await form.resetFields();
     } else {
+      // 失败，更新验证码
+      captchaRef.value.changeVerifyCode();
       message.error(result.message);
     }
   }

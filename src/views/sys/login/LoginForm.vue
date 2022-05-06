@@ -48,7 +48,7 @@
           </Input>
         </Col>
         <Col :span="8">
-          <CaptchaImage />
+          <CaptchaImage ref="captchaRef" />
         </Col>
       </Row>
     </FormItem>
@@ -150,7 +150,9 @@
   const { validForm } = useFormValid(formRef);
 
   const getShow = computed(() => unref(getLoginState) === LoginStateEnum.LOGIN);
-
+  // 验证码的ref
+  const captchaRef = ref<any>(null);
+  // 控制登录
   async function handleLogin() {
     const data = await validForm();
     if (!data) return;
@@ -171,6 +173,8 @@
           duration: 3,
         });
       } else {
+        // 失败,触发验证码更新
+        captchaRef.value.changeVerifyCode();
         notification.error({
           message: result.message,
           duration: 3,
