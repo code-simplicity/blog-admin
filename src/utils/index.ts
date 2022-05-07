@@ -119,3 +119,29 @@ export enum ResponseCode {
   QR_CODE_DEPRECATE = 40004, // 二维码已过期
   LOGIN_FAILED = 40004, // 登录失败
 }
+
+// 日期格式化
+export function formDate(str: string, type: string) {
+  const date = new Date(str);
+  const year = date.getFullYear();
+  const month = formatZero(date.getMonth() + 1, 2);
+  const day = formatZero(date.getDay(), 2);
+  const hour = formatZero(date.getHours(), 2);
+  const minute = formatZero(date.getMinutes(), 2);
+  const seconds = formatZero(date.getSeconds(), 2);
+  if (type === 'YYYY-MM-DD') {
+    return `${year}-${month}-${day}`;
+  }
+  if (type === 'YYYY-MM-DD HH:MM:SS') {
+    return `${year}-${month}-${day} ${hour}:${minute}:${seconds}`;
+  }
+  if (type === 'MM/DD HH:MM:SS') {
+    return `${month}/${day} ${hour}:${minute}:${seconds}`;
+  }
+}
+
+// 签名补充一位数的方法
+export function formatZero(num, len) {
+  if (String(num).length > len) return num;
+  return (Array(len).join('0') + num).slice(-len);
+}

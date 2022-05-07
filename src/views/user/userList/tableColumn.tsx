@@ -18,30 +18,35 @@ export function getUserColumns(): TableColumnType<DataType>[] {
       key: 'id',
       width: 200,
       ellipsis: true,
+      align: 'center',
     },
     {
       title: '用户名',
       dataIndex: 'userName',
       width: 140,
       key: 'userName',
+      align: 'center',
     },
     {
       title: '角色',
       dataIndex: 'roles',
       width: 140,
       key: 'roles',
+      align: 'center',
     },
     {
       title: '头像',
       dataIndex: 'avatar',
       width: 120,
       key: 'avatar',
+      align: 'center',
     },
     {
       title: '邮箱',
       dataIndex: 'email',
       width: 200,
       key: 'email',
+      align: 'center',
     },
     {
       title: '签名',
@@ -55,6 +60,7 @@ export function getUserColumns(): TableColumnType<DataType>[] {
       dataIndex: 'state',
       width: 100,
       key: 'state',
+      align: 'center',
     },
     {
       title: '注册IP',
