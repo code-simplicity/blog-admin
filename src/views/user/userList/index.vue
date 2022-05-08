@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-06 10:33:52
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-07 10:39:13
+ * @LastEditTime: 2022-05-08 10:34:58
  * @FilePath: \blog-admin\src\views\user\userlist\index.vue
  * @Description: 用户管理
 -->
@@ -38,7 +38,7 @@
           </template>
           <template v-if="column.key === 'state'">
             <Tag v-if="record.state === '1'" color="#108ee9">存在</Tag>
-            <Tag v-else color="#87d068">已删除</Tag>
+            <Tag v-else color="#F70000">已删除</Tag>
           </template>
           <template v-if="column.key === 'createTime'">
             <span>{{ tableFormDate(record.createTime) }}</span>
@@ -64,6 +64,20 @@
         </template>
       </Table>
     </div>
+    <UserListModal ref="resetPasswordRef" :userModal="userModal" @handleConfirm="handleConfirm">
+      <Form :label-col="{ span: 2 }" :model="resetPasswordForm">
+        <FormItem name="userId" class="enter-x" label="ID">
+          <Input size="large" v-model:value="resetPasswordForm.userId" disabled />
+        </FormItem>
+        <FormItem name="password" class="enter-x" label="密码">
+          <InputPassword
+            size="large"
+            v-model:value="resetPasswordForm.password"
+            :placeholder="t('sys.login.passwordPlaceholder')"
+          />
+        </FormItem>
+      </Form>
+    </UserListModal>
   </PageWrapper>
 </template>
 <script lang="ts" setup>
@@ -80,13 +94,20 @@
     Tag,
     Button,
     Popconfirm,
+    Form,
+    FormItem,
+    Input,
+    InputPassword,
   } from 'ant-design-vue';
   // 日期格式化
   import { formatToDateTime } from '/@/utils/dateUtil';
   // 获取用户列表
-  import { getUserList } from '../../../api/user/user';
-  import { getUserColumns } from './tableColumn';
+  import { deleteUser, getUserList, resetPassword } from '../../../api/user/user';
+  import { getUserColumns, resetPasswordModal } from './tableColumn';
   import { ResponseCode } from '../../../utils';
+  import UserListModal from './components/UserListModal.vue';
+  import { useI18n } from '/@/hooks/web/useI18n';
+  const { t } = useI18n();
   // 获取表头
   const userColumns = getUserColumns();
   // 表格加载状态
@@ -164,15 +185,49 @@
     }
   };
 
-  // 打开气泡弹窗 删除
+  // 打开气泡弹窗 删除,这是逻辑删除，改变状态而已
   const onDeleteUser = async (value) => {
-    console.log('value :>> ', value);
+    const result = await deleteUser(value.id);
+    if (result.code === ResponseCode.SUCCESS) {
+      Message.success(result.message);
+    } else {
+      Message.error(result.message);
+    }
   };
   // 取消
   const cancel = () => {};
 
-  // 重置密码 TODO:
-  async function onResetPassword(value) {}
+  // 弹窗
+  const userModal = reactive({
+    title: '重置密码',
+    isShowModal: false,
+    cancelText: '取消',
+    okText: '重置',
+  });
+  const resetPasswordRef = ref(null);
+  const resetPasswordForm = reactive<resetPasswordModal>({
+    userId: '',
+    password: '',
+  });
+  // 重置密码
+  async function onResetPassword(value) {
+    userModal.isShowModal = true;
+    resetPasswordForm.userId = value.id;
+  }
+  // 提交重置密码
+  async function handleConfirm() {
+    if (!resetPasswordForm.password) {
+      return Message.warning('密码不可以为空');
+    }
+    const result = await resetPassword(resetPasswordForm);
+    if (result.code === ResponseCode.SUCCESS) {
+      Message.success(result.message);
+      // 关闭弹窗
+      resetPasswordRef.value.handleCancel();
+    } else {
+      Message.error(result.message);
+    }
+  }
 </script>
 <style lang="less" scoped>
   .ant-table-striped :deep(.table-striped) td {

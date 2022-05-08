@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-06 18:09:36
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-06 20:57:52
+ * @LastEditTime: 2022-05-08 09:04:19
  * @FilePath: \blog-admin\src\views\user\userList\tableColumn.tsx
  * @Description:表格的列
  */
@@ -116,4 +116,10 @@ export interface DataType {
   loginIp: string | number;
   createTime: string | number;
   updateTime: string | number;
+}
+
+// 重置密码弹窗的表单接口类型
+export interface resetPasswordModal {
+  userId: string | number;
+  password: string | number;
 }
