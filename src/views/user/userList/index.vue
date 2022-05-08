@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-06 10:33:52
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-08 10:34:58
+ * @LastEditTime: 2022-05-08 15:01:28
  * @FilePath: \blog-admin\src\views\user\userlist\index.vue
  * @Description: 用户管理
 -->
@@ -11,8 +11,10 @@
     <template #headerContent>
       <UserListHeader />
     </template>
-    <div class="md:flex bg-white mb-4 p-5">
-      <div class="md:w-7/10 w-full enter-y"> <UserListHeaderForm /></div>
+    <div class="md:flex bg-white mb-4 p-2 items-center">
+      <div class="md:w-7/10 w-full enter-y">
+        <UserListHeaderForm @handleSearchUser="handleSearchUser" @handleResetUser="handleResetUser"
+      /></div>
       <div class="md:w-3/10 w-full enter-y">
         <UserListHeaderSetting />
       </div>
@@ -48,11 +50,10 @@
           </template>
           <template v-if="column.key === 'action'">
             <Popconfirm
-              title="确定删除"
+              :title="popConfirmTitle"
               ok-text="删除"
               cancel-text="取消"
               @confirm="handleAction('delete', record)"
-              @cancel="cancel"
             >
               <Button danger class="mx-2.5" size="small">删除</Button>
             </Popconfirm>
@@ -134,9 +135,9 @@
   // 表格数据
   const userDataSource = ref();
   // 获取表格数据
-  async function findGetUserInfo() {
+  async function findGetUserInfo(userParams) {
     loading.value = true;
-    const result = await getUserList({ ...userTableParams });
+    const result = await getUserList({ ...userParams });
     if (result.code === ResponseCode.SUCCESS) {
       loading.value = false;
       userDataSource.value = result.result.content;
@@ -149,7 +150,7 @@
       Message.error(result.message);
     }
   }
-  findGetUserInfo();
+  findGetUserInfo(userTableParams);
 
   // 改变表格change的回调
   async function handleTableChange(pagination) {
@@ -157,8 +158,12 @@
     pagination.pageSize = pagination.pageSize;
     userTableParams.page = pagination.current;
     userTableParams.size = pagination.pageSize;
+    const params = {
+      page: pagination.current,
+      size: pagination.pageSize,
+    };
     // 调用获取表格数据
-    findGetUserInfo();
+    findGetUserInfo(params);
   }
 
   // 时间格式化
@@ -167,11 +172,7 @@
   }
 
   // 选择数据
-  const userRowSelection: TableProps['rowSelection'] = {
-    // onChange: (selectedRowKeys: string[], selectedRows: DataType[]) => {
-    //   console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-    // },
-  };
+  const userRowSelection: TableProps['rowSelection'] = {};
 
   // 控制按钮
   const handleAction = (key, value) => {
@@ -185,6 +186,8 @@
     }
   };
 
+  let popConfirmTitle = ref<string>('确认删除');
+
   // 打开气泡弹窗 删除,这是逻辑删除，改变状态而已
   const onDeleteUser = async (value) => {
     const result = await deleteUser(value.id);
@@ -194,8 +197,6 @@
       Message.error(result.message);
     }
   };
-  // 取消
-  const cancel = () => {};
 
   // 弹窗
   const userModal = reactive({
@@ -228,6 +229,26 @@
       Message.error(result.message);
     }
   }
+
+  // 搜索
+  const handleSearchUser = async (form) => {
+    // 拼接数据
+    const params = {
+      page: pagination.current,
+      size: pagination.pageSize,
+      ...form,
+    };
+    await findGetUserInfo(params);
+  };
+  // 重置
+  const handleResetUser = async () => {
+    // 传递页码
+    const params = {
+      page: pagination.current,
+      size: pagination.pageSize,
+    };
+    await findGetUserInfo(params);
+  };
 </script>
 <style lang="less" scoped>
   .ant-table-striped :deep(.table-striped) td {
