@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-06 10:33:52
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-08 15:01:28
+ * @LastEditTime: 2022-05-08 17:52:41
  * @FilePath: \blog-admin\src\views\user\userlist\index.vue
  * @Description: 用户管理
 -->
@@ -55,7 +55,7 @@
               cancel-text="取消"
               @confirm="handleAction('delete', record)"
             >
-              <Button danger class="mx-2.5" size="small">删除</Button>
+              <Button type="primary" danger class="mx-2.5" size="small">删除</Button>
             </Popconfirm>
 
             <Button type="primary" size="small" @click="handleAction('resetPassword', record)"
@@ -139,12 +139,14 @@
     loading.value = true;
     const result = await getUserList({ ...userParams });
     if (result.code === ResponseCode.SUCCESS) {
+      const { content, size, totalElements, number } = result.result;
       loading.value = false;
-      userDataSource.value = result.result.content;
+      userDataSource.value = content;
       // 后端分页参数
-      pagination.current = result.result.number + 1;
-      pagination.pageSize = result.result.size;
-      pagination.total = result.result.totalElements;
+      pagination.current = number + 1;
+      pagination.pageSize = size;
+      pagination.total = totalElements;
+      Message.success(result.message);
     } else {
       loading.value = false;
       Message.error(result.message);
@@ -154,8 +156,6 @@
 
   // 改变表格change的回调
   async function handleTableChange(pagination) {
-    pagination.current = pagination.current;
-    pagination.pageSize = pagination.pageSize;
     userTableParams.page = pagination.current;
     userTableParams.size = pagination.pageSize;
     const params = {

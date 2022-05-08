@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-06 11:53:31
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-06 12:43:12
+ * @LastEditTime: 2022-05-08 15:38:42
  * @FilePath: \blog-admin\src\router\routes\modules\user.ts
  * @Description:用户管理路由
  */
@@ -12,14 +12,13 @@ import { t } from '/@/hooks/web/useI18n';
 
 const user: AppRouteModule = {
   path: '/user',
-  name: 'userManagement',
+  name: 'UserManagement',
   component: LAYOUT,
   redirect: '/user/list',
   meta: {
-    hideChildrenInMenu: true,
     icon: 'ion:people-outline',
     title: t('routes.dashboard.userManagement'),
-    orderNo: 100000,
+    orderNo: 11,
   },
   children: [
     {
@@ -29,7 +28,6 @@ const user: AppRouteModule = {
       meta: {
         title: t('routes.dashboard.userList'),
         icon: 'ion:list-circle-outline',
-        hideMenu: true,
       },
     },
   ],

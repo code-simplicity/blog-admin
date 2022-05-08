@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-06 18:09:36
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-08 09:04:19
+ * @LastEditTime: 2022-05-08 16:28:49
  * @FilePath: \blog-admin\src\views\user\userList\tableColumn.tsx
  * @Description:表格的列
  */

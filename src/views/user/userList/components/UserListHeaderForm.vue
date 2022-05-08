@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-06 15:07:44
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-08 14:57:46
+ * @LastEditTime: 2022-05-08 15:05:37
  * @FilePath: \blog-admin\src\views\user\userList\components\UserListHeaderForm.vue
  * @Description: 头部表单
 -->
@@ -14,10 +14,18 @@
     class="grid grid-cols-1 md:grid-cols-3 items-center"
   >
     <FormItem label="用户名" name="userName">
-      <Input v-model:value="userModel.userName" placeholder="请输入用户名" allowClear />
+      <Input
+        v-model:value="userModel.userName"
+        :placeholder="t('sys.login.registerUserName')"
+        allowClear
+      />
     </FormItem>
     <FormItem label="邮箱" name="email">
-      <Input v-model:value="userModel.email" placeholder="请输入密码" allowClear />
+      <Input
+        v-model:value="userModel.email"
+        :placeholder="t('sys.login.emailPlaceholder')"
+        allowClear
+      />
     </FormItem>
     <div class="mt-3 md:my-2">
       <Button class="mr-4" type="primary" :loading="loadingBtn" @click="handleSearchUser">
@@ -36,6 +44,8 @@
   import { Input, Button, Form, FormItem } from 'ant-design-vue';
   import { SearchOutlined, SyncOutlined } from '@ant-design/icons-vue';
   import type { FormInstance } from 'ant-design-vue/es/form/Form';
+  import { useI18n } from '/@/hooks/web/useI18n';
+  const { t } = useI18n();
   const userModel = reactive({
     userName: '',
     email: '',

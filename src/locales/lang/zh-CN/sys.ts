@@ -115,4 +115,9 @@ export default {
     registerEmail: '请输入邮箱',
     registerEmailCode: '请输入邮箱验证码',
   },
+  article: {
+    keyword: '请输入关键字',
+    state: '请选择文章的状态',
+    categoryId: '请选择文章分类',
+  },
 };
