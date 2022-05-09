@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-08 20:52:19
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-09 10:35:06
+ * @LastEditTime: 2022-05-09 10:43:38
  * @FilePath: \blog-admin\src\views\content\articleManage\components\ArticleHeaderForm.vue
  * @Description: 文章列表头部组件
 -->
@@ -43,9 +43,13 @@
         <template #icon><SearchOutlined /></template>
         搜索</Button
       >
-      <Button type="primary" danger @click="handleReset">
+      <Button type="primary" class="mr-4" danger @click="handleReset">
         <template #icon><SyncOutlined /></template>
         重置</Button
+      >
+      <Button @click="postArticle">
+        <template #icon><SendOutlined /></template>
+        发布</Button
       >
     </div>
   </Form>
@@ -55,7 +59,7 @@
   import { Form, FormItem, Input, Select, message as Message, Button } from 'ant-design-vue';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { ArticleSelectState } from './model/articleForm';
-  import { SearchOutlined, SyncOutlined } from '@ant-design/icons-vue';
+  import { SearchOutlined, SyncOutlined, SendOutlined } from '@ant-design/icons-vue';
   import type { FormInstance } from 'ant-design-vue/es/form/Form';
   import { getCategoryList } from '/@/api/operation/category';
   import { ResponseCode } from '/@/utils';
@@ -106,6 +110,8 @@
   const handleChange = (value, option) => {
     articleCategoryId.value = option.key;
   };
+  // 发表文章
+  const postArticle = () => {};
 </script>
 <style lang="less" scoped>
   .ant-form-item {
