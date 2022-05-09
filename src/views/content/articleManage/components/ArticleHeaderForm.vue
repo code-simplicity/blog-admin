@@ -2,8 +2,8 @@
  * @Author: bugdr
  * @Date: 2022-05-08 20:52:19
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-08 21:25:55
- * @FilePath: \blog-admin\src\views\content\articleManage\components\ArticleHedaerForm.vue
+ * @LastEditTime: 2022-05-09 10:35:06
+ * @FilePath: \blog-admin\src\views\content\articleManage\components\ArticleHeaderForm.vue
  * @Description: 文章列表头部组件
 -->
 <template>
@@ -33,6 +33,7 @@
         v-model:value="articleModel.categoryId"
         :placeholder="t('sys.article.categoryId')"
         allowClear
+        @select="handleChange"
       >
         <a-select-option v-for="item in categoryListOption" :value="item.name" :key="item.id" />
       </Select>
@@ -62,8 +63,8 @@
   const { t } = useI18n();
   const articleModel = reactive({
     keyword: '', // 关键字
-    state: '', // 状态
-    categoryId: '',
+    state: undefined, // 状态
+    categoryId: undefined,
   });
   const articleSelectState = ref(ArticleSelectState());
   // 文章分类
@@ -78,6 +79,8 @@
     }
   };
   categoryList();
+  // 传递分类参数给搜索
+  const articleCategoryId = ref<string>('');
   // 搜索加载
   const loadingBtn = ref<boolean>(false);
   // emit
@@ -86,13 +89,22 @@
   const articleRef = ref<FormInstance>();
   // 搜索
   const handleSearch = () => {
-    emit('handleSearch', articleModel);
+    const params = {
+      keyword: articleModel.keyword,
+      state: articleModel.state,
+      categoryId: articleCategoryId.value,
+    };
+    emit('handleSearch', params);
   };
   // 重置
   const handleReset = () => {
     // 重置表单值
     if (articleRef.value) articleRef.value.resetFields();
     emit('handleReset');
+  };
+  // 选中select时候的option值
+  const handleChange = (value, option) => {
+    articleCategoryId.value = option.key;
   };
 </script>
 <style lang="less" scoped>
