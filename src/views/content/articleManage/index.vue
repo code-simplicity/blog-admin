@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-08 15:28:25
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-09 13:04:51
+ * @LastEditTime: 2022-05-17 09:43:23
  * @FilePath: \blog-admin\src\views\content\articleManage\index.vue
  * @Description: 文章管理
 -->
@@ -150,6 +150,8 @@
         await onEdit(value);
       case 'top':
         await onTop(value);
+      default:
+        await onEdit(value);
     }
   };
   // 删除文章,逻辑删除

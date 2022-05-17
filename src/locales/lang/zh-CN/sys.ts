@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-02 14:03:13
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-04 17:04:51
+ * @LastEditTime: 2022-05-17 13:02:37
  * @FilePath: \blog-admin\src\locales\lang\zh-CN\sys.ts
  * @Description:
  */
@@ -119,5 +119,12 @@ export default {
     keyword: '请输入关键字',
     state: '请选择文章的状态',
     categoryId: '请选择文章分类',
+  },
+  category: {
+    namePlaceholder: '请输入分类名称',
+    pinyinPlaceholder: '请输入分类名称拼音',
+    orderPlaceholder: '请选择排序',
+    statusPlaceholder: '请选择状态',
+    descriptionPlaceholder: '请输入描述信息',
   },
 };

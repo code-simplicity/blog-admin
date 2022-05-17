@@ -53,7 +53,6 @@
   import { basicProps } from './props';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useAttrs } from '/@/hooks/core/useAttrs';
-
   export default defineComponent({
     components: { Drawer, ScrollContainer, DrawerFooter, DrawerHeader },
     inheritAttrs: false,
@@ -63,23 +62,17 @@
       const visibleRef = ref(false);
       const attrs = useAttrs();
       const propsRef = ref<Partial<Nullable<DrawerProps>>>(null);
-
       const { t } = useI18n();
       const { prefixVar, prefixCls } = useDesign('basic-drawer');
-
       const drawerInstance: DrawerInstance = {
         setDrawerProps: setDrawerProps,
         emitVisible: undefined,
       };
-
       const instance = getCurrentInstance();
-
       instance && emit('register', drawerInstance, instance.uid);
-
       const getMergeProps = computed((): DrawerProps => {
         return deepMerge(toRaw(props), unref(propsRef));
       });
-
       const getProps = computed((): DrawerProps => {
         const opt = {
           placement: 'right',
@@ -94,8 +87,7 @@
             opt.width = '100%';
           }
           const detailCls = `${prefixCls}__detail`;
-          opt.wrapClassName = wrapClassName ? `${wrapClassName} ${detailCls}` : detailCls;
-
+          opt.class = wrapClassName ? `${wrapClassName} ${detailCls}` : detailCls;
           if (!getContainer) {
             // TODO type error?
             opt.getContainer = `.${prefixVar}-layout-content` as any;
@@ -103,14 +95,12 @@
         }
         return opt as DrawerProps;
       });
-
       const getBindValues = computed((): DrawerProps => {
         return {
           ...attrs,
           ...unref(getProps),
         };
       });
-
       // Custom implementation of the bottom button,
       const getFooterHeight = computed(() => {
         const { footerHeight, showFooter } = unref(getProps);
@@ -121,7 +111,6 @@
         }
         return `0px`;
       });
-
       const getScrollContentStyle = computed((): CSSProperties => {
         const footerHeight = unref(getFooterHeight);
         return {
@@ -129,11 +118,9 @@
           height: `calc(100% - ${footerHeight})`,
         };
       });
-
       const getLoading = computed(() => {
         return !!unref(getProps)?.loading;
       });
-
       watch(
         () => props.visible,
         (newVal, oldVal) => {
@@ -141,7 +128,6 @@
         },
         { deep: true },
       );
-
       watch(
         () => visibleRef.value,
         (visible) => {
@@ -151,7 +137,6 @@
           });
         },
       );
-
       // Cancel event
       async function onClose(e: Recordable) {
         const { closeFunc } = unref(getProps);
@@ -163,20 +148,16 @@
         }
         visibleRef.value = false;
       }
-
       function setDrawerProps(props: Partial<DrawerProps>): void {
         // Keep the last setDrawerProps
         propsRef.value = deepMerge(unref(propsRef) || ({} as any), props);
-
         if (Reflect.has(props, 'visible')) {
           visibleRef.value = !!props.visible;
         }
       }
-
       function handleOk() {
         emit('ok');
       }
-
       return {
         onClose,
         t,
@@ -197,37 +178,30 @@
   @detail-header-height: 40px;
   @prefix-cls: ~'@{namespace}-basic-drawer';
   @prefix-cls-detail: ~'@{namespace}-basic-drawer__detail';
-
   .@{prefix-cls} {
     .ant-drawer-wrapper-body {
       overflow: hidden;
     }
-
     .ant-drawer-close {
       &:hover {
         color: @error-color;
       }
     }
-
     .ant-drawer-body {
       height: calc(100% - @header-height);
       padding: 0;
       background-color: @component-background;
-
       .scrollbar__wrap {
         padding: 16px !important;
         margin-bottom: 0 !important;
       }
-
       > .scrollbar > .scrollbar__bar.is-horizontal {
         display: none;
       }
     }
   }
-
   .@{prefix-cls-detail} {
     position: absolute;
-
     .ant-drawer-header {
       width: 100%;
       height: @detail-header-height;
@@ -235,20 +209,16 @@
       border-top: 1px solid @border-color-base;
       box-sizing: border-box;
     }
-
     .ant-drawer-title {
       height: 100%;
     }
-
     .ant-drawer-close {
       height: @detail-header-height;
       line-height: @detail-header-height;
     }
-
     .scrollbar__wrap {
       padding: 0 !important;
     }
-
     .ant-drawer-body {
       height: calc(100% - @detail-header-height);
     }
