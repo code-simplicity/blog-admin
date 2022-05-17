@@ -113,7 +113,6 @@ export const useUserStore = defineStore({
         const permissionStore = usePermissionStore();
         if (!permissionStore.isDynamicAddedRoute) {
           const routes = await permissionStore.buildRoutesAction();
-          console.log('routes3 =>', routes);
           routes.forEach((route) => {
             router.addRoute(route as unknown as RouteRecordRaw);
           });

@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-09 13:08:04
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-17 17:28:53
+ * @LastEditTime: 2022-05-17 18:18:02
  * @FilePath: \blog-admin\src\views\operation\categoryManage\components\CategoryModalForm.vue
  * @Description: 头部表单
 -->
@@ -23,25 +23,31 @@
         @resetFields="handleCancel"
       >
         <FormItem label="分类名称" name="name">
-          <Input v-model:value="categoryModel.name" placeholder="请输入分类名称" />
+          <Input
+            v-model:value="categoryModel.name"
+            :placeholder="t('sys.category.namePlaceholder')"
+          />
         </FormItem>
         <FormItem label="分类拼音" name="pinyin">
-          <Input v-model:value="categoryModel.pinyin" placeholder="请输入拼音" />
+          <Input
+            v-model:value="categoryModel.pinyin"
+            :placeholder="t('sys.category.pinyinPlaceholder')"
+          />
         </FormItem>
         <FormItem label="状态" name="status">
           <Select
             v-model:value="categoryModel.status"
             :options="selectOption"
-            placeholder="请选择状态"
+            :placeholder="t('sys.category.statusPlaceholder')"
           />
         </FormItem>
         <FormItem label="顺序" name="order">
           <InputNumber
             v-model:value="categoryModel.order"
-            :min="1"
+            :min="0"
             :max="100"
             style="width: 100%"
-            placeholder="请选择排序顺序"
+            :placeholder="t('sys.category.orderPlaceholder')"
           />
         </FormItem>
         <FormItem label="描述" name="description">
@@ -49,7 +55,7 @@
             v-model:value="categoryModel.description"
             show-count
             :maxlength="200"
-            placeholder="请输入分类描述"
+            :placeholder="t('sys.category.descriptionPlaceholder')"
           />
         </FormItem>
       </Form>
@@ -63,7 +69,7 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { ref, defineProps, reactive, UnwrapRef, unref } from 'vue';
+  import { ref, defineProps, unref } from 'vue';
   import {
     Modal,
     Form,
@@ -79,7 +85,8 @@
   import { categoryFormRules, categoryFormValid } from '../categoryManage';
   import { addCategory } from '/@/api/operation/category';
   import { ResponseCode } from '/@/utils';
-
+  import { useI18n } from '/@/hooks/web/useI18n';
+  const { t } = useI18n();
   const props = defineProps({
     categoryModal: {
       type: Object,
@@ -102,7 +109,7 @@
   let categoryModel = ref<FormState>({
     name: '',
     pinyin: '',
-    status: '',
+    status: undefined,
     order: '',
     description: '',
   });

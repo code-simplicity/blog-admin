@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-17 09:20:52
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-17 09:30:17
+ * @LastEditTime: 2022-05-17 18:25:26
  * @FilePath: \blog-admin\src\views\operation\categoryManage\components\model\categoryForm.ts
  * @Description:表单的form的select选择配置
  */
@@ -16,7 +16,7 @@ export function CategorySelectOption() {
 export interface FormState {
   name: string;
   pinyin: string;
-  status: string;
+  status?: string;
   order: string;
   description: string;
 }

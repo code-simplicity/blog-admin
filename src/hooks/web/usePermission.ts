@@ -46,7 +46,6 @@ export function usePermission() {
     tabStore.clearCacheTabs();
     resetRouter();
     const routes = await permissionStore.buildRoutesAction();
-    console.log('routes1 =>', routes);
 
     routes.forEach((route) => {
       router.addRoute(route as unknown as RouteRecordRaw);
