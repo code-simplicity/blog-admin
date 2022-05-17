@@ -2,8 +2,8 @@
  * @Author: bugdr
  * @Date: 2022-05-06 10:33:52
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-08 17:52:41
- * @FilePath: \blog-admin\src\views\user\userlist\index.vue
+ * @LastEditTime: 2022-05-17 08:00:39
+ * @FilePath: \blog-admin\src\views\user\userList\index.vue
  * @Description: 用户管理
 -->
 <template>
@@ -19,7 +19,7 @@
         <UserListHeaderSetting />
       </div>
     </div>
-    <div class="lg:flex bg-white">
+    <div class="lg:flex bg-white p-2">
       <Table
         :row-selection="userRowSelection"
         :data-source="userDataSource"

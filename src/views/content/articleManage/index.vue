@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-08 15:28:25
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-08 20:45:31
+ * @LastEditTime: 2022-05-09 13:04:51
  * @FilePath: \blog-admin\src\views\content\articleManage\index.vue
  * @Description: 文章管理
 -->
@@ -12,7 +12,7 @@
     <div class="md:flex bg-white mb-4 p-2 items-center">
       <ArticleHeaderForm @handleSearch="handleTableSearch" @handleReset="handleFormReset" />
     </div>
-    <div class="md:flex bg-white">
+    <div class="md:flex bg-white p-2">
       <Table
         :data-source="articleDataSource"
         :columns="articleColumns"
