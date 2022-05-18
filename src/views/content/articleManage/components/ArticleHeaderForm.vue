@@ -75,9 +75,14 @@
   const categoryListOption = ref();
   // 获取文章分类
   const categoryList = async () => {
-    const result = await getCategoryList();
+    const params = {
+      page: 1,
+      size: 50,
+    };
+    const result = await getCategoryList(params);
     if (result.code === ResponseCode.SUCCESS) {
-      categoryListOption.value = result.result;
+      const { contents } = result.result;
+      categoryListOption.value = contents;
     } else {
       Message.error(result.message);
     }

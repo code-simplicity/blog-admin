@@ -7,7 +7,7 @@
 
 ## 简介
 
-blog-admin管理系统后台
+blog-admin 管理系统后台
 
 ## 特性
 
@@ -24,12 +24,6 @@ blog-admin管理系统后台
 ### 使用 Gitpod
 
 在 Gitpod（适用于 GitHub 的免费在线开发环境）中打开项目，并立即开始编码.
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/anncwb/vue-vben-admin)
-
-## 文档
-
-[文档地址](https://vvbin.cn/doc-next/)
 
 ## 准备
 

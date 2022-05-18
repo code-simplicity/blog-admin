@@ -8,7 +8,7 @@
  */
 import type { RouteLocationNormalized, RouteRecordNormalized } from 'vue-router';
 import type { App, Plugin } from 'vue';
-
+import { message as Message } from 'ant-design-vue';
 import { unref } from 'vue';
 import { isObject } from '/@/utils/is';
 
@@ -144,4 +144,18 @@ export function formDate(str: string, type: string) {
 export function formatZero(num, len) {
   if (String(num).length > len) return num;
   return (Array(len).join('0') + num).slice(-len);
+}
+
+// 图片最大的支持
+export const imageSize = 4 * 1024 * 1024;
+// 上传图片的验证规则
+export function uploadBeforeImageValid(file) {
+  const isJapOrPngOrGif =
+    file.type === 'image/png' || file.type === 'image/jpg' || file.type === 'image/gif';
+  if (!isJapOrPngOrGif) {
+    return Message.error('只能上传png/jpg/gif格式文件');
+  }
+  if (file.size > imageSize) {
+    return Message.error('图片过大，最多只能是4M，请压缩重新上传');
+  }
 }

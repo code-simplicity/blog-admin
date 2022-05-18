@@ -1,9 +1,9 @@
 /*
  * @Author: bugdr
- * @Date: 2022-05-09 13:08:53
+ * @Date: 2022-05-18 08:22:51
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-18 08:31:44
- * @FilePath: \blog-admin\src\views\operation\categoryManage\tableColumn.tsx
+ * @LastEditTime: 2022-05-18 08:46:29
+ * @FilePath: \blog-admin\src\views\operation\looperManage\tableColumn.tsx
  * @Description:表格的column
  */
 import { TableColumnType } from 'ant-design-vue';
@@ -19,25 +19,31 @@ export function getTableColumn(): TableColumnType<DateType>[] {
       align: 'center',
     },
     {
-      title: '分类名称',
-      dataIndex: 'name',
-      key: 'name',
+      title: '图片标题',
+      dataIndex: 'title',
+      key: 'title',
       width: 200,
       ellipsis: true,
       align: 'center',
     },
     {
-      title: '拼音',
-      dataIndex: 'pinyin',
-      key: 'pinyin',
+      title: '图片地址',
+      dataIndex: 'imageUrl',
+      key: 'imageUrl',
+      width: 140,
+      align: 'center',
+    },
+    {
+      title: '跳转链接',
+      dataIndex: 'targetUrl',
+      key: 'targetUrl',
       width: 120,
-      ellipsis: true,
       align: 'center',
     },
     {
       title: '状态',
-      dataIndex: 'status',
-      key: 'status',
+      dataIndex: 'state',
+      key: 'state',
       width: 100,
       ellipsis: true,
       align: 'center',
@@ -47,15 +53,6 @@ export function getTableColumn(): TableColumnType<DateType>[] {
       dataIndex: 'order',
       key: 'order',
       width: 100,
-      ellipsis: true,
-      align: 'center',
-      sorter: true,
-    },
-    {
-      title: '描述',
-      dataIndex: 'description',
-      key: 'description',
-      width: 250,
       ellipsis: true,
       align: 'center',
     },
@@ -86,11 +83,11 @@ export function getTableColumn(): TableColumnType<DateType>[] {
 
 export interface DateType {
   id: string | number;
-  name: string | number;
-  pinyin: string | number;
-  description: string | number;
+  title?: string;
   order: string | number;
   state: string | number;
+  targetUrl?: string;
+  imageUrl?: string;
   createTime: string | number;
   updateTime: string | number;
 }

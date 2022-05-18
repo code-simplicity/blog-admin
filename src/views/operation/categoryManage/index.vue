@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-09 12:22:10
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-17 22:48:38
+ * @LastEditTime: 2022-05-17 22:53:18
  * @FilePath: \blog-admin\src\views\operation\categoryManage\index.vue
  * @Description: 文章分类管理
 -->
@@ -28,7 +28,7 @@
             <Tag v-if="record.status === '1'" color="#108ee9">存在</Tag>
           </template>
           <template v-if="column.key === 'order'">
-            <Tag color="#436C6C">{{ record.order }}</Tag>
+            <Tag color="#166C6C">{{ record.order }}</Tag>
           </template>
           <template v-if="column.key === 'createTime'">
             <span>{{ tableFormDate(record.createTime) }}</span>

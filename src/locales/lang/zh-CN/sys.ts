@@ -127,4 +127,11 @@ export default {
     statusPlaceholder: '请选择状态',
     descriptionPlaceholder: '请输入描述信息',
   },
+  looper: {
+    titlePlaceholder: '请输入轮播图标题',
+    targetUrlPlaceholder: '请输入图片链接地址',
+    orderPlaceholder: '请输入排序',
+    statePlaceholder: '请选择轮播图状态',
+    imageCategoryIdPlaceholder: '请选择轮播图分类',
+  },
 };

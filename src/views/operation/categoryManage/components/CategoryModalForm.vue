@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-09 13:08:04
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-17 18:18:02
+ * @LastEditTime: 2022-05-18 10:19:58
  * @FilePath: \blog-admin\src\views\operation\categoryManage\components\CategoryModalForm.vue
  * @Description: 头部表单
 -->
@@ -117,7 +117,6 @@
   const initModalForm = () => {
     if (props.categoryModal.categoryModel) {
       categoryModel.value = props.categoryModal.categoryModel;
-      console.log('props.categoryModal.categoryModel', categoryModel);
     }
   };
   // 表单的ref
