@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-09 13:08:04
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-18 10:19:58
+ * @LastEditTime: 2022-05-19 15:36:44
  * @FilePath: \blog-admin\src\views\operation\categoryManage\components\CategoryModalForm.vue
  * @Description: 头部表单
 -->
@@ -82,7 +82,7 @@
     message as Message,
   } from 'ant-design-vue';
   import { CategorySelectOption, FormState } from './model/categoryForm';
-  import { categoryFormRules, categoryFormValid } from '../categoryManage';
+  import { categoryFormRules, categoryFormValid } from './categoryManage';
   import { addCategory } from '/@/api/operation/category';
   import { ResponseCode } from '/@/utils';
   import { useI18n } from '/@/hooks/web/useI18n';
@@ -136,7 +136,6 @@
     loading.value = true;
     // 验证规则
     const data = await validForm();
-    const form = unref(categoryFormRef);
     if (!data) return;
     // 添加
     const result = await addCategory(data);
@@ -144,26 +143,25 @@
       Message.success(result.message);
       loading.value = false;
       // 关闭弹窗
-      handleCancel();
+      await handleCancel();
       // 刷新表格,采用自定义事件告诉父组件
       emit('initCategoryTable');
-      // 清除表单数据
-      await form.resetFields();
     } else {
       Message.error(result.message);
       loading.value = false;
     }
   };
   // 取消弹窗
-  const handleCancel = () => {
+  const handleCancel = async () => {
     const form = unref(categoryFormRef);
     const { categoryModal } = props;
+    // 重置表单
+    categoryModel.value = {};
     categoryModal.isShowCategoryModal = false;
-    form.resetFields();
+    await form.resetFields();
   };
   // 导出export
   defineExpose({
-    categoryModel,
     initModalForm,
   });
 </script>

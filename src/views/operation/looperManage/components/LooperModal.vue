@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-18 09:56:15
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-18 10:37:05
+ * @LastEditTime: 2022-05-19 16:01:42
  * @FilePath: \blog-admin\src\views\operation\looperManage\components\LooperModal.vue
  * @Description:弹窗
 -->
@@ -15,7 +15,7 @@
   >
     <Form
       :model="looperModel"
-      :rules="looperRules"
+      :rules="getFormRules"
       :label-col="labelCol"
       :wrapper-col="wrapperCol"
       ref="looperFormRef"
@@ -83,7 +83,7 @@
   </Modal>
 </template>
 <script setup lang="ts">
-  import { ref, defineProps, unref } from 'vue';
+  import { ref, defineProps } from 'vue';
   import {
     Modal,
     Form,
@@ -103,6 +103,8 @@
   import { getImageCategoryList } from '/@/api/images/imageCategory';
   import { ResponseCode, uploadBeforeImageValid } from '/@/utils';
   import { uploadImage } from '/@/api/images/imageList';
+  import { addLooper, updateLooper } from '/@/api/operation/looper';
+  import { looperFormValid, looperFormRules } from './looperManage';
 
   const { t } = useI18n();
   const props = defineProps({
@@ -121,7 +123,8 @@
     },
   });
 
-  const looperModel = ref<FormState>({
+  const emit = defineEmits(['initLooperTable']);
+  let looperModel = ref<FormState>({
     title: '',
     order: '',
     state: undefined,
@@ -136,14 +139,17 @@
   const wrapperCol = { span: 18 };
   // 选择框的配置
   const selectOption = ref(LooperSelectOption());
-  // 验证规则
-  const looperRules = {};
+  // 表单验证规则
+  const { getFormRules } = looperFormRules();
+  // 表单验证
+  const { validForm } = looperFormValid(looperFormRef);
   // 弹窗取消
   const handleCancel = async () => {
-    const form = unref(looperFormRef);
     const { modalValue } = props;
     modalValue.visible = false;
-    form.resetFields();
+    // 重置表单
+    looperModel.value = {};
+    await looperFormRef.value.resetFields();
   };
   // 图片分类列表
   const imageCategoryList = ref();
@@ -160,38 +166,81 @@
     }
   };
   getImageCategory();
+  const imageCategoryIdValue = ref<string>();
   // 控制选择select
   const handleChangeSelect = (value, options) => {
-    looperModel.value.imageCategoryId = options.key;
+    imageCategoryIdValue.value = options.key;
   };
+  // 上传触发拦截
+  const beforeUploadIntercept = ref<boolean>(false);
   // 上传之前的回调,这里做校验，校验图片的大小和类型
-  const beforeUploadImage = (file) => {
-    uploadBeforeImageValid(file);
+  const beforeUploadImage = async (file) => {
+    const result = await uploadBeforeImageValid(file);
+    beforeUploadIntercept.value = result;
+    // 验证失败之后不会触发自定义上传
   };
-  // 自定义上传图片
-  const customRequestImage = async (value) => {
-    const { file } = value;
-    const formData = new FormData();
-    console.log('file :>> ', file);
-    formData.append('file', file);
-    console.log('formData :>> ', formData.get('file'));
+  // 自定义上传图片，采用axios封装的formdata
+  const customRequestImage = async (file) => {
     const params = {
       original: 'looper',
-      imageCategoryId: looperModel.value.imageCategoryId ? looperModel.value.imageCategoryId : '',
-      file: formData.get('file'),
+      imageCategoryId: imageCategoryIdValue.value ? imageCategoryIdValue.value : null,
+      file: file,
     };
-    const result = await uploadImage(params);
-    if (result.code === ResponseCode.SUCCESS) {
+    if (!beforeUploadIntercept.value) return;
+    const { data } = await uploadImage(params);
+    if (data.code === ResponseCode.SUCCESS) {
       // 图片上传成功，回显
-      looperModel.value.imageUrl = result.result.url;
+      looperModel.value.imageUrl = data.result.url;
     } else {
-      Message.error(result.message);
+      Message.error(data.message);
     }
   };
+
+  // 判断弹窗表单是添加还是修改
+  const initModalForm = async () => {
+    // 判断是否存在
+    if (props.modalValue.looperModel) {
+      looperModel.value = props.modalValue.looperModel;
+    }
+  };
+
   // 提交
-  const handleSubmit = async () => {};
+  const handleSubmit = async () => {
+    const data = await validForm();
+    if (!data) return;
+    // 通过判断是更新还是添加
+    if (props.modalValue.looperModel) {
+      // 走更新流程
+      const params = props.modalValue.looperModel;
+      const result = await updateLooper(params);
+      if (result.code === ResponseCode.SUCCESS) {
+        Message.success(result.message);
+        // 重置表单
+        await handleCancel();
+        // 刷新表格,采用自定义事件告诉父组件
+        emit('initLooperTable');
+      } else {
+        Message.error(result.message);
+      }
+    } else {
+      const params = looperModel.value;
+      const result = await addLooper(params);
+      if (result.code === ResponseCode.SUCCESS) {
+        Message.success(result.message);
+        // 重置表单
+        await handleCancel();
+        // 刷新表格,采用自定义事件告诉父组件
+        emit('initLooperTable');
+      } else {
+        Message.error(result.message);
+      }
+    }
+  };
   // 上传轮播图的加载
   const uploadLoading = ref<boolean>(false);
   const fileList = ref<UploadProps['fileList']>([]);
+  defineExpose({
+    initModalForm,
+  });
 </script>
 <style lang="less" scoped></style>

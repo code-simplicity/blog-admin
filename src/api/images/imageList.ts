@@ -1,10 +1,18 @@
+/*
+ * @Author: bugdr
+ * @Date: 2022-05-18 16:27:21
+ * @LastEditors: bugdr
+ * @LastEditTime: 2022-05-19 10:10:36
+ * @FilePath: \blog-admin\src\api\images\imageList.ts
+ * @Description:
+ */
 import { GetImageListParams, UploadImageParams } from './model/imageListModel';
 import { defHttp } from '/@/utils/http/axios';
 import { ResultResponse } from '/@/utils/resultResponse';
 
 enum Api {
   GetImageList = '/admin/image/list',
-  UploadImage = '/admin/image/',
+  UploadImage = '/api/admin/image/',
 }
 
 /**
@@ -24,11 +32,13 @@ export function getImageList(params: GetImageListParams) {
  * @param data
  * @returns
  */
-export function uploadImage(params: UploadImageParams) {
-  const { original, imageCategoryId, ...data } = params;
-  return defHttp.post<ResultResponse>({
-    url: `${Api.UploadImage}${original}?imageCategoryId=${imageCategoryId}`,
-    data,
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded;' },
-  });
+export function uploadImage(data: UploadImageParams) {
+  const { original, file, ...params } = data;
+  return defHttp.uploadFile<ResultResponse>(
+    {
+      url: `${Api.UploadImage}${original}`,
+      params,
+    },
+    file,
+  );
 }

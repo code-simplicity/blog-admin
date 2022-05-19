@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-09 12:21:07
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-18 09:55:16
+ * @LastEditTime: 2022-05-19 16:31:45
  * @FilePath: \blog-admin\src\views\operation\looperManage\index.vue
  * @Description: 轮播图管理
 -->
@@ -56,13 +56,14 @@
               danger
               class="ml-4"
               size="small"
+              :disabled="record.state === '0' ? true : false"
               @click="deleteLooperHandle(record)"
               >删除</Button
             >
           </template>
         </template>
       </Table>
-      <LooperModal :modalValue="modalValue" />
+      <LooperModal ref="looperModelRef" :modalValue="modalValue" @initLooperTable="initLooper" />
     </div>
   </div>
 </template>
@@ -72,7 +73,7 @@
   import { getTableColumn } from './tableColumn';
   import { formatToDateTime } from '/@/utils/dateUtil';
   import { ResponseCode } from '/@/utils';
-  import { getLooperList } from '/@/api/operation/looper';
+  import { deleteLooper, getLooperList } from '/@/api/operation/looper';
   import LooperModal from './components/LooperModal.vue';
   // 轮播图表格columns
   const looperColumns = ref(getTableColumn());
@@ -126,16 +127,44 @@
     }
   };
   initLooperTable(looperTableParams);
+  // 弹窗关闭之后初始化表格
+  const initLooper = async () => {
+    const params = {
+      page: pagination.current,
+      size: pagination.pageSize,
+    };
+    await initLooperTable(params);
+  };
+  const looperModelRef = ref();
   // 编辑
-  const editLooperHandle = async (value) => {};
+  const editLooperHandle = async (value) => {
+    // 编辑打开弹窗
+    if (!value) return;
+    modalValue.visible = true;
+    modalValue.title = '修改轮播图';
+    modalValue.cancelText = '取消';
+    modalValue.okText = '修改';
+    // // 传递值给表单,这里深拷贝一下，避免响应式值被替换
+    modalValue.looperModel = JSON.parse(JSON.stringify(value));
+    looperModelRef.value.initModalForm();
+  };
   // 删除
-  const deleteLooperHandle = async (value) => {};
-  // 铜川的value值
+  const deleteLooperHandle = async (value) => {
+    const result = await deleteLooper(value);
+    if (result.code === ResponseCode.SUCCESS) {
+      Message.success(result.message);
+      initLooper();
+    } else {
+      Message.error(result.message);
+    }
+  };
+  // 弹窗的value值
   const modalValue = reactive({
     visible: false,
     title: '添加轮播图',
     cancelText: '取消',
     okText: '添加',
+    looperModel: null,
   });
   // 添加轮播图
   const addLooper = () => {

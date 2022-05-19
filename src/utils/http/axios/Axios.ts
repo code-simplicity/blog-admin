@@ -118,18 +118,12 @@ export class VAxios {
   }
 
   /**
-   * @description:  File Upload
+   * @description:  文件上传
    */
-  uploadFile<T = any>(config: AxiosRequestConfig, params: UploadFileParams) {
+  uploadFile<T = any>(config: AxiosRequestConfig, params: UploadFileParams): any {
     const formData = new window.FormData();
     const customFilename = params.name || 'file';
-
-    if (params.filename) {
-      formData.append(customFilename, params.file, params.filename);
-    } else {
-      formData.append(customFilename, params.file);
-    }
-
+    formData.append(customFilename, params.file);
     if (params.data) {
       Object.keys(params.data).forEach((key) => {
         const value = params.data![key];

@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-02 14:03:13
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-17 13:02:37
+ * @LastEditTime: 2022-05-19 13:05:47
  * @FilePath: \blog-admin\src\locales\lang\zh-CN\sys.ts
  * @Description:
  */
@@ -133,5 +133,6 @@ export default {
     orderPlaceholder: '请输入排序',
     statePlaceholder: '请选择轮播图状态',
     imageCategoryIdPlaceholder: '请选择轮播图分类',
+    imageUrlPlaceholder: '请上传轮播图',
   },
 };

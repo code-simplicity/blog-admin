@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-02 14:03:13
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-04 13:22:06
+ * @LastEditTime: 2022-05-19 10:39:05
  * @FilePath: \blog-admin\src\utils\index.ts
  * @Description:
  */
@@ -149,13 +149,19 @@ export function formatZero(num, len) {
 // 图片最大的支持
 export const imageSize = 4 * 1024 * 1024;
 // 上传图片的验证规则
-export function uploadBeforeImageValid(file) {
-  const isJapOrPngOrGif =
-    file.type === 'image/png' || file.type === 'image/jpg' || file.type === 'image/gif';
-  if (!isJapOrPngOrGif) {
-    return Message.error('只能上传png/jpg/gif格式文件');
-  }
-  if (file.size > imageSize) {
-    return Message.error('图片过大，最多只能是4M，请压缩重新上传');
-  }
+export function uploadBeforeImageValid(file): Promise<boolean> {
+  return new Promise((resolve, reject) => {
+    const isJapOrPngOrGif =
+      file.type === 'image/png' || file.type === 'image/jpg' || file.type === 'image/gif';
+    const isImageSize = file.size > imageSize ? true : false;
+    if (!isJapOrPngOrGif) {
+      Message.error('只能上传png/jpg/gif格式文件');
+      return reject(false);
+    }
+    if (isImageSize) {
+      Message.error('图片过大，最多只能是4M，请压缩重新上传');
+      return reject(false);
+    }
+    return resolve(true);
+  });
 }

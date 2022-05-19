@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-18 08:22:51
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-18 08:46:29
+ * @LastEditTime: 2022-05-19 15:52:12
  * @FilePath: \blog-admin\src\views\operation\looperManage\tableColumn.tsx
  * @Description:表格的column
  */
@@ -31,6 +31,7 @@ export function getTableColumn(): TableColumnType<DateType>[] {
       dataIndex: 'imageUrl',
       key: 'imageUrl',
       width: 140,
+      ellipsis: true,
       align: 'center',
     },
     {
@@ -38,6 +39,7 @@ export function getTableColumn(): TableColumnType<DateType>[] {
       dataIndex: 'targetUrl',
       key: 'targetUrl',
       width: 120,
+      ellipsis: true,
       align: 'center',
     },
     {
