@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-08 22:42:57
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-17 22:26:55
+ * @LastEditTime: 2022-05-19 16:45:34
  * @FilePath: \blog-admin\src\api\operation\model\categoryModel.ts
  * @Description:
  */
@@ -25,4 +25,16 @@ export interface addCategoryParams {
  */
 export interface DeleteCategoryParams {
   id?: string;
+}
+
+/**
+ * 删除参数接口
+ */
+export interface UpdateCategoryParams {
+  id?: string;
+  name: string;
+  pinyin: string;
+  order: string | number;
+  state: string | number;
+  description: string;
 }

@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-09 12:22:10
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-19 14:18:07
+ * @LastEditTime: 2022-05-19 19:20:53
  * @FilePath: \blog-admin\src\views\operation\categoryManage\index.vue
  * @Description: 文章分类管理
 -->
@@ -49,7 +49,6 @@
               size="small"
               >删除</Button
             >
-
             <Button type="primary" danger v-if="record.status === '0'" size="small" disabled
               >已删除</Button
             >
@@ -124,8 +123,6 @@
 
   // 控制table分页切换
   const handleTableChange = (page) => {
-    categoryTableParams.page = page.current;
-    categoryTableParams.size = page.pageSize;
     // 调用表格
     const params = {
       page: page.current,

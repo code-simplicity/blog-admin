@@ -2,14 +2,14 @@
  * @Author: bugdr
  * @Date: 2022-05-08 15:28:25
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-17 22:36:58
+ * @LastEditTime: 2022-05-19 20:57:59
  * @FilePath: \blog-admin\src\views\content\articleManage\index.vue
  * @Description: 文章管理
 -->
 <template>
   <PageWrapper title="文章管理">
     <template #headerContent> 文章管理是对发表的文章进行管理 </template>
-    <div class="md:flex bg-white mb-4 p-2 items-center">
+    <div class="md:flex bg-white mb-4 p-1 items-center">
       <ArticleHeaderForm @handleSearch="handleTableSearch" @handleReset="handleFormReset" />
     </div>
     <div class="md:flex bg-white p-2">
