@@ -7,6 +7,7 @@ specifiers:
   '@commitlint/config-conventional': ^14.1.0
   '@iconify/iconify': ^2.0.4
   '@iconify/json': ^1.1.422
+  '@iconify/vue': ^3.2.1
   '@purge-icons/generated': ^0.7.0
   '@types/codemirror': ^5.60.5
   '@types/crypto-js': ^4.0.2
@@ -130,6 +131,7 @@ devDependencies:
   '@commitlint/cli': 14.1.0
   '@commitlint/config-conventional': 14.1.0
   '@iconify/json': 1.1.422
+  '@iconify/vue': registry.npmmirror.com/@iconify/vue/3.2.1_vue@3.2.21
   '@purge-icons/generated': 0.7.0
   '@types/codemirror': 5.60.5
   '@types/crypto-js': 4.0.2
@@ -10441,6 +10443,17 @@ packages:
     version: 3.4.1
     engines: {node: '>=10'}
     dev: false
+
+  registry.npmmirror.com/@iconify/vue/3.2.1_vue@3.2.21:
+    resolution: {integrity: sha512-c4R6ZgFo1JrJ8aPMMgOPgfU7lBswihMGR+yWe/P4ZukC3kTkeT4+lkt9Pc/itVFMkwva/S/7u9YofmYv57fnNQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@iconify/vue/-/vue-3.2.1.tgz}
+    id: registry.npmmirror.com/@iconify/vue/3.2.1
+    name: '@iconify/vue'
+    version: 3.2.1
+    peerDependencies:
+      vue: 3.x
+    dependencies:
+      vue: 3.2.21
+    dev: true
 
   registry.npmmirror.com/@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz}

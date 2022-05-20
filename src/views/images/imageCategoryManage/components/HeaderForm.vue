@@ -2,26 +2,35 @@
  * @Author: bugdr
  * @Date: 2022-05-08 20:52:19
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-19 22:24:28
+ * @LastEditTime: 2022-05-20 14:00:31
  * @FilePath: \blog-admin\src\views\images\imageCategoryManage\components\headerForm.vue
  * @Description: 文章列表头部组件
 -->
 <template>
   <Form
     ref="articleRef"
-    :model="articleModel"
+    :model="imageCategoryForm"
     :label-col="{ span: 5 }"
     class="grid grid-rows-1 md:grid-cols-2 items-center"
   >
     <FormItem label="分类名称">
-      <Input v-model:value="articleModel.categoryId" allowClear />
+      <Input
+        v-model:value="imageCategoryForm.categoryName"
+        allowClear
+        :placeholder="t('sys.imageCategory.categoryNamePlaceholder')"
+        @pressEnter="handleSearch"
+      />
     </FormItem>
     <div class="mr-10 mt-3 md:my-2">
-      <Button class="mr-4" type="primary" :loading="loadingBtn" @click="handleSearch">
+      <Button class="mr-4" type="primary" @click="handleSearch">
         <template #icon><SearchOutlined /></template>
         搜索</Button
       >
-      <Button type="primary" class="mr-4" danger @click="handleReset">
+      <Button class="mr-4" type="primary" danger @click="handleReset">
+        <template #icon><UndoOutlined /></template>
+        重置</Button
+      >
+      <Button type="primary" class="mr-4" ghost @click="handleSubmit">
         <template #icon><PlusOutlined /></template>
         添加</Button
       >
@@ -29,67 +38,76 @@
   </Form>
 </template>
 <script setup lang="ts">
-  import { reactive, ref, defineEmits } from 'vue';
+  import { reactive, ref, defineEmits, computed } from 'vue';
   import { Form, FormItem, Input, message as Message, Button } from 'ant-design-vue';
-  import { useI18n } from '/@/hooks/web/useI18n';
-  // import { ArticleSelectState } from './model/articleForm';
-  import { SearchOutlined, PlusOutlined } from '@ant-design/icons-vue';
+  import { SearchOutlined, PlusOutlined, UndoOutlined } from '@ant-design/icons-vue';
   import type { FormInstance } from 'ant-design-vue/es/form/Form';
-  import { getCategoryList } from '/@/api/operation/category';
-  import { ResponseCode } from '/@/utils';
+  import { useI18n } from '../../../../hooks/web/useI18n';
+  import { ResponseCode } from '../../../../utils';
+  import { addImageCategory } from '../../../../api/images/imageCategory';
+  import { useUserStore } from '../../../../store/modules/user';
 
+  const userStore = useUserStore();
   const { t } = useI18n();
-  const articleModel = reactive({
-    keyword: '', // 关键字
-    state: undefined, // 状态
-    categoryId: undefined,
+
+  // 获取用户信息
+  const getUserInfo = computed(() => {
+    const { id } = userStore.getUserInfo;
+    return { id };
   });
-  // 文章分类
-  const categoryListOption = ref();
-  // 获取文章分类
-  const categoryList = async () => {
-    const params = {
-      page: 1,
-      size: 50,
-    };
-    const result = await getCategoryList(params);
-    if (result.code === ResponseCode.SUCCESS) {
-      const { contents } = result.result;
-      categoryListOption.value = contents;
-    } else {
-      Message.error(result.message);
-    }
-  };
-  categoryList();
-  // 传递分类参数给搜索
-  const articleCategoryId = ref<string>('');
-  // 搜索加载
-  const loadingBtn = ref<boolean>(false);
+  const imageCategoryForm = reactive({
+    categoryName: undefined,
+  });
   // emit
-  const emit = defineEmits(['handleSearch', 'handleReset']);
+  const emit = defineEmits(['handleSearch']);
   // 表单的ref
   const articleRef = ref<FormInstance>();
   // 搜索
   const handleSearch = () => {
     const params = {
-      keyword: articleModel.keyword,
-      state: articleModel.state,
-      categoryId: articleCategoryId.value,
+      categoryName: imageCategoryForm.categoryName,
     };
+    // 事件分发
     emit('handleSearch', params);
   };
+  // 添加
+  const handleSubmit = async () => {
+    // 判断输入框
+    if (!imageCategoryForm.categoryName) {
+      Message.error('请输入图片分类名称');
+      return;
+    }
+    const params = {
+      userId: getUserInfo.value.id,
+      categoryName: imageCategoryForm.categoryName,
+    };
+    const result = await addImageCategory(params);
+    if (result.code === ResponseCode.SUCCESS) {
+      // 添加成功
+      Message.success(result.message);
+      // 刷新表格
+      emit('handleSearch', params);
+      // 表单重置
+      await resetForm();
+    } else {
+      Message.error(result.message);
+    }
+  };
   // 重置
-  const handleReset = () => {
-    // 重置表单值
-    if (articleRef.value) articleRef.value.resetFields();
-    emit('handleReset');
+  const handleReset = async () => {
+    // 重置表单
+    const params = {
+      page: 1,
+      size: 10,
+    };
+    // 刷新表格
+    emit('handleSearch', params);
+    await resetForm();
   };
-  // 选中select时候的option值
-  const handleChange = (value, option) => {
-    articleCategoryId.value = option.key;
+  // 重置表单
+  const resetForm = async () => {
+    imageCategoryForm.categoryName = null;
   };
-  // 发表文章
-  const postArticle = () => {};
 </script>
 <style lang="less" scoped>
   .ant-form-item {

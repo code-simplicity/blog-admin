@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-08 15:28:25
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-19 20:57:59
+ * @LastEditTime: 2022-05-20 20:12:06
  * @FilePath: \blog-admin\src\views\content\articleManage\index.vue
  * @Description: 文章管理
 -->
@@ -45,12 +45,12 @@
             <span>{{ tableFormDate(record.updateTime) }}</span>
           </template>
           <template v-if="column.key === 'action'">
-            <Button size="small" type="primary" @click="handleAction('edit', record)">编辑</Button>
+            <Button size="small" type="primary" @click="onEditHandle(record)">编辑</Button>
             <Popconfirm
               :title="`${popConfirmTitle}-${record.title}`"
               ok-text="删除"
               cancel-text="取消"
-              @confirm="handleAction('delete', record)"
+              @confirm="onDeleteHandle(record)"
             >
               <Button class="mx-2.5" size="small" type="primary" danger>删除</Button>
             </Popconfirm>
@@ -58,12 +58,10 @@
               type="primary"
               v-if="record.state === '3'"
               size="small"
-              @click="handleAction('top', record)"
+              @click="onTopHandle(record)"
               >取消置顶</Button
             >
-            <Button v-else size="small" type="ghost" @click="handleAction('top', record)"
-              >置顶</Button
-            >
+            <Button v-else size="small" type="ghost" @click="onTopHandle(record)">置顶</Button>
           </template>
         </template>
       </Table>
@@ -141,21 +139,8 @@
   }
   // 删除提示
   const popConfirmTitle = ref<string>('确定删除');
-  // 控制操作
-  const handleAction = async (key, value) => {
-    switch (key) {
-      case 'delete':
-        await onDelete(value);
-      case 'edit':
-        await onEdit(value);
-      case 'top':
-        await onTop(value);
-      default:
-        await onEdit(value);
-    }
-  };
   // 删除文章,逻辑删除
-  const onDelete = async (params) => {
+  const onDeleteHandle = async (params) => {
     const result = await changeArticleState(params.id);
     if (result.code === ResponseCode.SUCCESS) {
       Message.success(result.message);
@@ -166,9 +151,9 @@
     }
   };
   // 编辑文章
-  const onEdit = async (params) => {};
+  const onEditHandle = async (params) => {};
   // 置顶/取消置顶
-  const onTop = async (params) => {
+  const onTopHandle = async (params) => {
     const result = await topArticle(params.id);
     if (result.code === ResponseCode.SUCCESS) {
       Message.success(result.message);

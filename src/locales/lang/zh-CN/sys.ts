@@ -135,4 +135,7 @@ export default {
     imageCategoryIdPlaceholder: '请选择轮播图分类',
     imageUrlPlaceholder: '请上传轮播图',
   },
+  imageCategory: {
+    categoryNamePlaceholder: '请输入图片分类名称',
+  },
 };

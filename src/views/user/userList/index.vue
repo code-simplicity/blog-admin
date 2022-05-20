@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-06 10:33:52
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-17 08:00:39
+ * @LastEditTime: 2022-05-19 23:22:40
  * @FilePath: \blog-admin\src\views\user\userList\index.vue
  * @Description: 用户管理
 -->
@@ -135,41 +135,39 @@
   // 表格数据
   const userDataSource = ref();
   // 获取表格数据
-  async function findGetUserInfo(userParams) {
+  const findGetUserInfo = async (userParams) => {
     loading.value = true;
     const result = await getUserList({ ...userParams });
     if (result.code === ResponseCode.SUCCESS) {
-      const { content, size, totalElements, number } = result.result;
+      const { contents, pageSize, currentPage, totalCount } = result.result;
       loading.value = false;
-      userDataSource.value = content;
+      userDataSource.value = contents;
       // 后端分页参数
-      pagination.current = number + 1;
-      pagination.pageSize = size;
-      pagination.total = totalElements;
+      pagination.current = currentPage;
+      pagination.pageSize = pageSize;
+      pagination.total = totalCount;
       Message.success(result.message);
     } else {
       loading.value = false;
       Message.error(result.message);
     }
-  }
+  };
   findGetUserInfo(userTableParams);
 
   // 改变表格change的回调
-  async function handleTableChange(pagination) {
-    userTableParams.page = pagination.current;
-    userTableParams.size = pagination.pageSize;
+  const handleTableChange = async (page) => {
     const params = {
-      page: pagination.current,
-      size: pagination.pageSize,
+      page: page.current,
+      size: page.pageSize,
     };
     // 调用获取表格数据
-    findGetUserInfo(params);
-  }
+    await findGetUserInfo(params);
+  };
 
   // 时间格式化
-  function tableFormDate(value) {
+  const tableFormDate = (value) => {
     return formatToDateTime(value);
-  }
+  };
 
   // 选择数据
   const userRowSelection: TableProps['rowSelection'] = {};
@@ -211,12 +209,12 @@
     password: '',
   });
   // 重置密码
-  async function onResetPassword(value) {
+  const onResetPassword = async (value) => {
     userModal.isShowModal = true;
     resetPasswordForm.userId = value.id;
-  }
+  };
   // 提交重置密码
-  async function handleConfirm() {
+  const handleConfirm = async () => {
     if (!resetPasswordForm.password) {
       return Message.warning('密码不可以为空');
     }
@@ -228,7 +226,7 @@
     } else {
       Message.error(result.message);
     }
-  }
+  };
 
   // 搜索
   const handleSearchUser = async (form) => {
