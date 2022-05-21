@@ -8,9 +8,11 @@
  */
 // 获取用户列表的接口
 export interface GetImageListParams {
-  original?: string;
-  page: string | number;
-  size: string | number;
+  original: string;
+  page: number;
+  size: number;
+  categoryId: string | number;
+  userId: string | number;
 }
 
 // 上传图片的接口验证

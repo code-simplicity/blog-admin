@@ -24,3 +24,11 @@ export interface ResetPasswordParams {
 export interface DeleteUserParams {
   userId: string | number;
 }
+
+// 获取用户列表的分类参数接口
+export interface GetUserListImageCategoryParams {
+  page: number;
+  size: number;
+  email: string | number;
+  userName: string | number;
+}

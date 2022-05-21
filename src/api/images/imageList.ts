@@ -13,6 +13,7 @@ import { ResultResponse } from '/@/utils/resultResponse';
 enum Api {
   GetImageList = '/admin/image/list',
   UploadImage = '/api/admin/image/',
+  DeleteImage = '/admin/image/',
 }
 
 /**
@@ -41,4 +42,15 @@ export function uploadImage(data: UploadImageParams) {
     },
     file,
   );
+}
+
+/**
+ * 删除图片，逻辑删除
+ * @param imageId
+ * @returns
+ */
+export function deleteImage(imageId: string) {
+  return defHttp.delete<ResultResponse>({
+    url: `${Api.DeleteImage}${imageId}`,
+  });
 }

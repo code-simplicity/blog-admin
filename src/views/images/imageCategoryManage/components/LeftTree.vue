@@ -50,7 +50,6 @@
   import { UserOutlined } from '@ant-design/icons-vue';
   import { getUserList } from '../../../../api/user/user';
   import { ResponseCode } from '../../../../utils';
-  import type { TreeProps } from 'ant-design-vue';
   import { treeFirstNode } from './model/Tree';
 
   // 依赖收集
@@ -72,7 +71,7 @@
   // 树状的结构
   const userTreeData = ref([]);
   // 自定义树的字段
-  const fieldNames: TreeProps['fieldNames'] = {
+  const fieldNames = {
     title: 'userName',
     key: 'id',
     icon: 'avatar',

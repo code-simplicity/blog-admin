@@ -165,3 +165,36 @@ export function uploadBeforeImageValid(file): Promise<boolean> {
     return resolve(true);
   });
 }
+
+/**
+ * key值替换
+ * @param params
+ * @returns
+ */
+export const transferKeyTree = (params: transferKeyTreeParams) => {
+  const { node, newKey, oldKey, children } = params;
+  node.forEach((el) => {
+    if (el[oldKey]) {
+      el[newKey] = el[oldKey];
+      delete el[oldKey];
+    }
+    if (el[children] instanceof Array) {
+      const data = {
+        node: el[children],
+        newKey,
+        oldKey,
+        children,
+      };
+      transferKeyTree(data);
+    }
+  });
+  // 返回修改好的值
+  return node;
+};
+
+export interface transferKeyTreeParams {
+  node: Array<any>;
+  newKey: string;
+  oldKey: string;
+  children: string;
+}

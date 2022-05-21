@@ -7,7 +7,12 @@
  * @Description:用户管理
  */
 
-import { DeleteUserParams, ResetPasswordParams, UserListParams } from './model/userModel';
+import {
+  DeleteUserParams,
+  ResetPasswordParams,
+  UserListParams,
+  GetUserListImageCategoryParams,
+} from './model/userModel';
 import { defHttp } from '/@/utils/http/axios';
 import { ResultResponse } from '/@/utils/resultResponse';
 
@@ -15,6 +20,7 @@ enum Api {
   UserList = '/user/list',
   ResetPassword = '/user/reset-password/',
   DeleteUser = '/user/',
+  GetUserListImageCategory = '/user/list/image/category',
 }
 
 /**
@@ -49,5 +55,17 @@ export function resetPassword(params: ResetPasswordParams) {
 export function deleteUser(params: DeleteUserParams) {
   return defHttp.delete({
     url: `${Api.DeleteUser}${params}`,
+  });
+}
+
+/**
+ * 获取用户列表图片分类
+ * @param params
+ * @returns
+ */
+export function getUserListImageCategory(params: GetUserListImageCategoryParams) {
+  return defHttp.get<ResultResponse>({
+    url: Api.GetUserListImageCategory,
+    params,
   });
 }
