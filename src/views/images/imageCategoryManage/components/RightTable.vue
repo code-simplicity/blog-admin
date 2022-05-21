@@ -2,8 +2,8 @@
  * @Author: bugdr
  * @Date: 2022-05-19 21:25:33
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-20 20:38:01
- * @FilePath: \blog-admin\src\views\images\imageCategoryManage\components\rightTable.vue
+ * @LastEditTime: 2022-05-21 13:00:59
+ * @FilePath: \blog-admin\src\views\images\imageCategoryManage\components\RightTable.vue
  * @Description:右侧栏
 -->
 <template>
@@ -41,7 +41,7 @@
           </template>
           <template v-if="column.key === 'action'">
             <span v-if="editableData[record.id]">
-              <Button type="primary" class="mr-4" size="small" @click="saveHandle(record.id)"
+              <Button type="primary" class="mr-4" size="small" @click="saveHandle(record)"
                 >保存</Button
               >
               <Popconfirm title="确定取消修改?" @confirm="cancelHandle(record.id)">
@@ -166,14 +166,15 @@
     );
   };
   // 实现保存
-  const saveHandle = async (key: string) => {
+  const saveHandle = async (record: DateType) => {
     // 拷贝值
     const data = Object.assign(
-      imageCategoryDataSource.value.filter((item) => key === item.id)[0],
-      editableData[key],
+      imageCategoryDataSource.value.filter((item) => record.id === item.id)[0],
+      editableData[record.id],
     );
     const params = {
-      id: key,
+      id: record.id,
+      userId: record.userId,
       categoryName: data.categoryName,
     };
     // 触发接口更新
@@ -184,10 +185,11 @@
       const params = {
         page: pagination.current,
         size: pagination.pageSize,
+        userId: userIdActive.value,
       };
       await initImageCategoryTable(params);
       // 删除
-      delete editableData[key];
+      delete editableData[record.id];
     } else {
       Message.error(result.message);
     }

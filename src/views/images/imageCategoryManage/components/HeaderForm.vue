@@ -2,8 +2,8 @@
  * @Author: bugdr
  * @Date: 2022-05-08 20:52:19
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-20 14:00:31
- * @FilePath: \blog-admin\src\views\images\imageCategoryManage\components\headerForm.vue
+ * @LastEditTime: 2022-05-21 13:10:51
+ * @FilePath: \blog-admin\src\views\images\imageCategoryManage\components\HeaderForm.vue
  * @Description: 文章列表头部组件
 -->
 <template>
@@ -85,6 +85,9 @@
     if (result.code === ResponseCode.SUCCESS) {
       // 添加成功
       Message.success(result.message);
+      const params = {
+        userId: getUserInfo.value.id,
+      };
       // 刷新表格
       emit('handleSearch', params);
       // 表单重置

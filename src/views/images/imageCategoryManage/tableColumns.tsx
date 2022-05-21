@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-19 17:01:20
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-19 17:13:59
+ * @LastEditTime: 2022-05-21 12:54:36
  * @FilePath: \blog-admin\src\views\images\imageCategoryManage\tableColumns.tsx
  * @Description:表格的columns
  */
@@ -61,9 +61,9 @@ export function getTableColumn(): TableColumnType<DateType>[] {
 }
 
 export interface DateType {
-  id?: string;
-  userId?: string;
-  categoryName?: string;
+  id: string | number;
+  userId: string | number;
+  categoryName: string | number;
   createTime: string | number;
   updateTime: string | number;
 }
