@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-02 14:03:13
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-22 06:53:02
+ * @LastEditTime: 2022-05-22 17:08:15
  * @FilePath: \blog-admin\src\locales\lang\zh-CN\sys.ts
  * @Description:
  */
@@ -141,5 +141,6 @@ export default {
   image: {
     originalPlaceholder: '请输入图片来源',
     imageCategoryPlaceholder: '请选择图片分类',
+    userUserNamePlaceholder: '请输入用户名',
   },
 };

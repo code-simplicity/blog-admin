@@ -2,18 +2,25 @@
  * @Author: bugdr
  * @Date: 2022-05-21 13:59:12
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-22 13:35:48
+ * @LastEditTime: 2022-05-22 17:24:18
  * @FilePath: \blog-admin\src\views\images\imageListManage\components\leftCard.vue
  * @Description:左侧卡片
 -->
 <template>
   <div>
-    <Card title="用户列表" :loading="cardLoading" :bordered="false">
+    <Card :loading="cardLoading" :bordered="false">
       <template #title>
-        <span>用户列表</span>
-        <span>
-          <Input />
-        </span>
+        <!-- <span class="text-xs mr-2">用户列表</span> -->
+      </template>
+      <template #extra>
+        <InputSearch
+          v-model:value="searchUserName"
+          :placeholder="t('sys.image.userUserNamePlaceholder')"
+          enter-button
+          allowClear
+          style="w-24 min-w-full md:min-w-0"
+          @search="onSearchUserList"
+        />
       </template>
       <div class="overflow-auto h-96 max-h-full md:max-h-screen">
         <Tree
@@ -52,11 +59,13 @@
 </template>
 <script setup lang="ts">
   import { ref, reactive, inject } from 'vue';
-  import { Card, Tree, Input, message as Message, Pagination } from 'ant-design-vue';
+  import { Card, Tree, message as Message, Pagination, InputSearch } from 'ant-design-vue';
   import { ResponseCode, transferKeyTree } from '../../../../utils';
   import { getUserListImageCategory } from '../../../../api/user/user';
   import { UserOutlined, ContactsOutlined } from '@ant-design/icons-vue';
+  import { useI18n } from '../../../../hooks/web/useI18n';
 
+  const { t } = useI18n();
   // 依赖收集用户id
   const activeValue = inject('activeValue');
   // 卡片加载
@@ -124,6 +133,16 @@
     } else {
       activeValue.categoryId = el.node.dataRef.id;
     }
+  };
+  // 搜索用户
+  const searchUserName = ref<string>();
+  const onSearchUserList = (value) => {
+    // 触发搜索
+    const params = {
+      ...pagination,
+      userName: value,
+    };
+    initUserListCategoryTree(params);
   };
 </script>
 <style lang="less" scoped></style>

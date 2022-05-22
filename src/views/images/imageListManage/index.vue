@@ -2,16 +2,16 @@
  * @Author: bugdr
  * @Date: 2022-05-09 11:05:20
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-22 08:12:59
+ * @LastEditTime: 2022-05-22 17:00:13
  * @FilePath: \blog-admin\src\views\images\imageListManage\index.vue
  * @Description: 图片管理
 -->
 <template>
   <div class="md:flex px-4 flex-1">
-    <div class="md:w-1/5 w-full mr-4 !my-4">
+    <div class="md:w-1/4 w-full mr-4 !my-4">
       <LeftCard />
     </div>
-    <div class="md:w-4/5 w-full my-4">
+    <div class="md:w-3/4 w-full my-4">
       <RightContent />
     </div>
   </div>
