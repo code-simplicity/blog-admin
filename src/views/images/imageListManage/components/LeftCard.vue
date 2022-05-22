@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-21 13:59:12
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-21 14:34:44
+ * @LastEditTime: 2022-05-22 13:35:48
  * @FilePath: \blog-admin\src\views\images\imageListManage\components\leftCard.vue
  * @Description:左侧卡片
 -->
@@ -16,7 +16,13 @@
         </span>
       </template>
       <div class="overflow-auto h-96 max-h-full md:max-h-screen">
-        <Tree :tree-data="userTreeData" :field-names="fieldNames" :showIcon="true">
+        <Tree
+          v-model:selectedKeys="selectedKeys"
+          :tree-data="userTreeData"
+          :field-names="fieldNames"
+          :showIcon="true"
+          @select="selectHandle"
+        >
           <template #title="{ userName }">
             <span>{{ userName }}</span>
           </template>
@@ -45,11 +51,14 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { ref, reactive } from 'vue';
-  import { Card, Tree, Input, message as Message, Image, Pagination } from 'ant-design-vue';
+  import { ref, reactive, inject } from 'vue';
+  import { Card, Tree, Input, message as Message, Pagination } from 'ant-design-vue';
   import { ResponseCode, transferKeyTree } from '../../../../utils';
   import { getUserListImageCategory } from '../../../../api/user/user';
   import { UserOutlined, ContactsOutlined } from '@ant-design/icons-vue';
+
+  // 依赖收集用户id
+  const activeValue = inject('activeValue');
   // 卡片加载
   const cardLoading = ref<boolean>(false);
   // 用户表的数据树状结构
@@ -101,6 +110,20 @@
       pageSize: pageSize,
     };
     initUserListCategoryTree(params);
+  };
+  // 树节点被选中
+  const selectedKeys = ref<string[]>([]);
+  // tree树节点触发
+  const selectHandle = (selectKey, el) => {
+    // 做判断看点击的是一级菜单还是二级菜单
+    console.log('el', el);
+    if (Array.isArray(el.node.imageCategories)) {
+      // 那就是选中的一级标题，传userId
+      activeValue.userId = el.node.dataRef.id;
+      activeValue.categoryId = null;
+    } else {
+      activeValue.categoryId = el.node.dataRef.id;
+    }
   };
 </script>
 <style lang="less" scoped></style>

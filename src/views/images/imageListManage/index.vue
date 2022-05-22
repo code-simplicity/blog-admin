@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-09 11:05:20
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-21 14:41:30
+ * @LastEditTime: 2022-05-22 08:12:59
  * @FilePath: \blog-admin\src\views\images\imageListManage\index.vue
  * @Description: 图片管理
 -->
@@ -17,8 +17,14 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { ref } from 'vue';
+  import { reactive, provide } from 'vue';
   import LeftCard from './components/LeftCard.vue';
   import RightContent from './components/RightContent.vue';
+  // 依赖注入通信
+  const activeValue = reactive({
+    userId: '', // 用户id
+    categoryId: '', // 图片分类id
+  });
+  provide('activeValue', activeValue);
 </script>
 <style lang="less" scoped></style>

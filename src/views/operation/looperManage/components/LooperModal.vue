@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-18 09:56:15
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-19 16:01:42
+ * @LastEditTime: 2022-05-22 16:45:33
  * @FilePath: \blog-admin\src\views\operation\looperManage\components\LooperModal.vue
  * @Description:弹窗
 -->
@@ -105,7 +105,9 @@
   import { uploadImage } from '/@/api/images/imageList';
   import { addLooper, updateLooper } from '/@/api/operation/looper';
   import { looperFormValid, looperFormRules } from './looperManage';
+  import { useUserStore } from '/@/store/modules/user';
 
+  const userStore = useUserStore();
   const { t } = useI18n();
   const props = defineProps({
     modalValue: {
@@ -155,9 +157,11 @@
   const imageCategoryList = ref();
   // 获取图片分类
   const getImageCategory = async () => {
+    // 通过管理员的Id获取到管理员对应的图片分类，然后选中
     const params = {
       page: 1,
       size: 100,
+      userId: userStore.getUserInfo.id,
     };
     const result = await getImageCategoryList(params);
     if (result.code === ResponseCode.SUCCESS) {

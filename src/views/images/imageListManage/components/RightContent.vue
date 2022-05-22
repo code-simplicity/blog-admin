@@ -2,18 +2,18 @@
  * @Author: bugdr
  * @Date: 2022-05-21 13:59:46
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-21 15:21:38
+ * @LastEditTime: 2022-05-22 10:32:16
  * @FilePath: \blog-admin\src\views\images\imageListManage\components\rightContent.vue
  * @Description:右边内容
 -->
 <template>
   <div class="">
-    <div> <HeaderForm /> </div>
+    <div> <HeaderForm @searchImageList="searchImageList" @resetImageForm="resetImageForm" /> </div>
     <div class="bg-white p-2">
       <Table
         :data-source="imageDataSource"
         :columns="imageTableColumns"
-        :scroll="{ x: 1400, y: 440 }"
+        :scroll="{ x: 1400, y: 426 }"
         :loading="tableLoading"
         :pagination="pagination"
         @change="handleTableChange"
@@ -34,8 +34,11 @@
             </Tag>
           </template>
           <template v-if="column.key === 'state'">
-            <Tag>
-              <span>{{ record.state }}</span>
+            <Tag v-if="record.state === '1'" color="blue">
+              <span>存在</span>
+            </Tag>
+            <Tag v-else color="#f50">
+              <span>已删除</span>
             </Tag>
           </template>
           <template v-if="column.key === 'createTime'">
@@ -60,14 +63,16 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { ref, reactive } from 'vue';
+  import { ref, reactive, inject, watch } from 'vue';
   import { Table, Image, Button, message as Message, Tag, Popconfirm } from 'ant-design-vue';
-  import { getTableColumn, imageContentType } from './tableColumns';
+  import { getTableColumn } from './tableColumns';
   import HeaderForm from './HeaderForm.vue';
   import { formatToDateTime } from '../../../../utils/dateUtil';
   import { ResponseCode } from '../../../../utils';
   import { getImageList, deleteImage } from '../../../../api/images/imageList';
 
+  // 收集依赖，userId和categoryId
+  const activeValue = inject('activeValue');
   // 时间格式化
   const tableFormDate = (value) => {
     return formatToDateTime(value);
@@ -85,6 +90,8 @@
     showSizeChanger: true,
     showQuickJumper: true,
     showTotal: (total) => `共有图片${total}张`,
+    original: undefined,
+    categoryId: undefined,
   });
   // 处理分页
   const handleTableChange = async (page) => {
@@ -127,5 +134,32 @@
       Message.error(result.message);
     }
   };
+  // 搜索
+  const searchImageList = (data) => {
+    pagination.original = data.original;
+    pagination.categoryId = data.categoryId;
+    const params = {
+      ...pagination,
+      original: data.original,
+      categoryId: data.categoryId,
+    };
+    initImageTable(params);
+  };
+  // 重置
+  const resetImageForm = () => {
+    pagination.original = undefined;
+    pagination.categoryId = undefined;
+    initImageTable(pagination);
+  };
+  // 观察侧边数据是否发生改变，如果改变那就触发图片表格刷新
+  watch(activeValue, (newVal) => {
+    const params = {
+      ...pagination,
+      userId: newVal.userId,
+      categoryId: newVal.categoryId,
+    };
+    initImageTable(params);
+    console.log('newVal', newVal);
+  });
 </script>
 <style lang="less" scoped></style>
