@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-06 10:33:52
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-19 23:22:40
+ * @LastEditTime: 2022-05-22 18:32:23
  * @FilePath: \blog-admin\src\views\user\userList\index.vue
  * @Description: 用户管理
 -->
@@ -12,12 +12,12 @@
       <UserListHeader />
     </template>
     <div class="md:flex bg-white mb-4 p-2 items-center">
-      <div class="md:w-7/10 w-full enter-y">
+      <div class="w-full enter-y">
         <UserListHeaderForm @handleSearchUser="handleSearchUser" @handleResetUser="handleResetUser"
       /></div>
-      <div class="md:w-3/10 w-full enter-y">
+      <!-- <div class="md:w-3/10 w-full enter-y">
         <UserListHeaderSetting />
-      </div>
+      </div> -->
     </div>
     <div class="lg:flex bg-white p-2">
       <Table
@@ -53,14 +53,12 @@
               :title="popConfirmTitle"
               ok-text="删除"
               cancel-text="取消"
-              @confirm="handleAction('delete', record)"
+              @confirm="onDeleteUser(record)"
             >
               <Button type="primary" danger class="mx-2.5" size="small">删除</Button>
             </Popconfirm>
 
-            <Button type="primary" size="small" @click="handleAction('resetPassword', record)"
-              >重置密码</Button
-            >
+            <Button type="primary" size="small" @click="onResetPassword(record)">重置密码</Button>
           </template>
         </template>
       </Table>
@@ -85,7 +83,7 @@
   import { reactive, ref } from 'vue';
   import { PageWrapper } from '../../../components/Page';
   import UserListHeader from './components/UserListHeader.vue';
-  import UserListHeaderSetting from './components/UserListHeaderSetting.vue';
+  // import UserListHeaderSetting from './components/UserListHeaderSetting.vue';
   import UserListHeaderForm from './components/UserListHeaderForm.vue';
   import {
     Table,
@@ -113,13 +111,6 @@
   const userColumns = getUserColumns();
   // 表格加载状态
   const loading = ref<boolean>(false);
-  // 查询参数
-  const userTableParams = reactive({
-    page: 1,
-    size: 10,
-    email: '',
-    userName: '',
-  });
 
   // 分页
   const pagination = reactive({
@@ -135,9 +126,15 @@
   // 表格数据
   const userDataSource = ref();
   // 获取表格数据
-  const findGetUserInfo = async (userParams) => {
+  const initUserInfoTable = async (userParams) => {
     loading.value = true;
-    const result = await getUserList({ ...userParams });
+    const params = {
+      page: userParams.current,
+      size: userParams.pageSize,
+      email: userParams.email ? userParams.email : null,
+      userName: userParams.userName ? userParams.userName : null,
+    };
+    const result = await getUserList(params);
     if (result.code === ResponseCode.SUCCESS) {
       const { contents, pageSize, currentPage, totalCount } = result.result;
       loading.value = false;
@@ -152,16 +149,12 @@
       Message.error(result.message);
     }
   };
-  findGetUserInfo(userTableParams);
+  initUserInfoTable(pagination);
 
   // 改变表格change的回调
   const handleTableChange = async (page) => {
-    const params = {
-      page: page.current,
-      size: page.pageSize,
-    };
     // 调用获取表格数据
-    await findGetUserInfo(params);
+    await initUserInfoTable(page);
   };
 
   // 时间格式化
@@ -171,18 +164,6 @@
 
   // 选择数据
   const userRowSelection: TableProps['rowSelection'] = {};
-
-  // 控制按钮
-  const handleAction = (key, value) => {
-    switch (key) {
-      case 'delete':
-        onDeleteUser(value);
-        break;
-      case 'resetPassword':
-        onResetPassword(value);
-        break;
-    }
-  };
 
   let popConfirmTitle = ref<string>('确认删除');
 
@@ -236,7 +217,7 @@
       size: pagination.pageSize,
       ...form,
     };
-    await findGetUserInfo(params);
+    await initUserInfoTable(params);
   };
   // 重置
   const handleResetUser = async () => {
@@ -245,7 +226,7 @@
       page: pagination.current,
       size: pagination.pageSize,
     };
-    await findGetUserInfo(params);
+    await initUserInfoTable(params);
   };
 </script>
 <style lang="less" scoped>

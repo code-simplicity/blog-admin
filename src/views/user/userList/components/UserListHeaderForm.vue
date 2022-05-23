@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-06 15:07:44
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-08 15:05:37
+ * @LastEditTime: 2022-05-22 18:21:47
  * @FilePath: \blog-admin\src\views\user\userList\components\UserListHeaderForm.vue
  * @Description: 头部表单
 -->
@@ -10,7 +10,7 @@
   <Form
     ref="formRef"
     :model="userModel"
-    :label-col="{ span: 5 }"
+    :label-col="{ span: 4 }"
     class="grid grid-cols-1 md:grid-cols-3 items-center"
   >
     <FormItem label="用户名" name="userName">
