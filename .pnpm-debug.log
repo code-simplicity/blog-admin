@@ -2,13 +2,1089 @@
   "0 debug pnpm:scope": {
     "selected": 1
   },
-  "1 error pnpm": {
-    "code": "ERR_PNPM_INVALID_OVERRIDE_SELECTOR",
+  "1 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "blog-admin",
+      "version": "1.0.0",
+      "author": {
+        "name": "dpy0912",
+        "email": "468264345@qq.com",
+        "url": "https://github.com/dpy0912"
+      },
+      "scripts": {
+        "bootstrap": "yarn install",
+        "serve": "npm run dev",
+        "dev": "vite",
+        "build": "cross-env NODE_ENV=production vite build && esno ./build/script/postBuild.ts",
+        "build:test": "cross-env vite build --mode test && esno ./build/script/postBuild.ts",
+        "build:no-cache": "yarn clean:cache && npm run build",
+        "report": "cross-env REPORT=true npm run build",
+        "type:check": "vue-tsc --noEmit --skipLibCheck",
+        "preview": "npm run build && vite preview",
+        "preview:dist": "vite preview",
+        "log": "conventional-changelog -p angular -i CHANGELOG.md -s",
+        "clean:cache": "rimraf node_modules/.cache/ && rimraf node_modules/.vite",
+        "clean:lib": "rimraf node_modules",
+        "lint:eslint": "eslint --cache --max-warnings 0  \"{src,mock}/**/*.{vue,ts,tsx}\" --fix",
+        "lint:prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
+        "lint:stylelint": "stylelint --cache --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
+        "lint:lint-staged": "lint-staged -c ./.husky/lintstagedrc.js",
+        "test:unit": "jest",
+        "test:unit-coverage": "jest --coverage",
+        "test:gzip": "npx http-server dist --cors --gzip -c-1",
+        "test:br": "npx http-server dist --cors --brotli -c-1",
+        "reinstall": "rimraf yarn.lock && rimraf package.lock.json && rimraf node_modules && npm run bootstrap",
+        "prepare": "husky install",
+        "gen:icon": "esno ./build/generate/icon/index.ts"
+      },
+      "dependencies": {
+        "@ant-design/colors": "^6.0.0",
+        "@ant-design/icons-vue": "^6.0.1",
+        "@iconify/iconify": "^2.0.4",
+        "@kangc/v-md-editor@next": "^2.3.15",
+        "@vueuse/core": "^6.7.4",
+        "@vueuse/shared": "^6.7.4",
+        "@zxcvbn-ts/core": "^1.0.0-beta.0",
+        "ant-design-vue": "3.2.2",
+        "axios": "^0.24.0",
+        "crypto-js": "^4.1.1",
+        "echarts": "^5.2.2",
+        "lodash-es": "^4.17.21",
+        "mockjs": "^1.1.0",
+        "moment": "^2.29.1",
+        "md-editor-v3": "^2.0.0",
+        "nprogress": "^0.2.0",
+        "path-to-regexp": "^6.2.0",
+        "prismjs": "^1.28.0",
+        "pinia": "2.0.0",
+        "qrcode": "^1.4.4",
+        "qs": "^6.10.1",
+        "resize-observer-polyfill": "^1.5.1",
+        "sortablejs": "^1.14.0",
+        "vue": "^3.2.21",
+        "vue-i18n": "^9.1.9",
+        "vue-router": "^4.0.12",
+        "vue-types": "^4.1.1"
+      },
+      "devDependencies": {
+        "@commitlint/cli": "^14.1.0",
+        "@commitlint/config-conventional": "^14.1.0",
+        "@iconify/json": "^1.1.422",
+        "@purge-icons/generated": "^0.7.0",
+        "@types/codemirror": "^5.60.5",
+        "@types/crypto-js": "^4.0.2",
+        "@types/fs-extra": "^9.0.13",
+        "@types/inquirer": "^8.1.3",
+        "@types/intro.js": "^3.0.2",
+        "@types/jest": "^27.0.2",
+        "@types/lodash-es": "^4.17.5",
+        "@types/mockjs": "^1.0.4",
+        "@types/node": "^16.11.6",
+        "@types/nprogress": "^0.2.0",
+        "@types/qrcode": "^1.4.1",
+        "@types/qs": "^6.9.7",
+        "@types/showdown": "^1.9.4",
+        "@types/sortablejs": "^1.10.7",
+        "@typescript-eslint/eslint-plugin": "^5.3.0",
+        "@typescript-eslint/parser": "^5.3.0",
+        "@vitejs/plugin-legacy": "^1.6.2",
+        "@vitejs/plugin-vue": "^1.9.4",
+        "@vitejs/plugin-vue-jsx": "^1.2.0",
+        "@vue/compiler-sfc": "3.2.21",
+        "@vue/test-utils": "^2.0.0-rc.16",
+        "autoprefixer": "^10.4.0",
+        "commitizen": "^4.2.4",
+        "conventional-changelog-cli": "^2.1.1",
+        "cross-env": "^7.0.3",
+        "dotenv": "^10.0.0",
+        "eslint": "^8.1.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-define-config": "^1.1.2",
+        "eslint-plugin-jest": "^25.2.2",
+        "eslint-plugin-prettier": "^4.0.0",
+        "eslint-plugin-vue": "^8.0.3",
+        "esno": "^0.10.1",
+        "fs-extra": "^10.0.0",
+        "husky": "^7.0.4",
+        "inquirer": "^8.2.0",
+        "jest": "^27.3.1",
+        "less": "^4.1.2",
+        "lint-staged": "11.2.6",
+        "npm-run-all": "^4.1.5",
+        "postcss": "^8.3.11",
+        "postcss-html": "^1.2.0",
+        "postcss-less": "^5.0.0",
+        "prettier": "^2.4.1",
+        "rimraf": "^3.0.2",
+        "rollup-plugin-visualizer": "^5.5.2",
+        "stylelint": "^14.0.1",
+        "stylelint-config-html": "^1.0.0",
+        "stylelint-config-prettier": "^9.0.3",
+        "stylelint-config-standard": "^23.0.0",
+        "stylelint-order": "^5.0.0",
+        "ts-jest": "^27.0.7",
+        "ts-node": "^10.4.0",
+        "typescript": "^4.4.4",
+        "unplugin-auto-import": "^0.7.1",
+        "unplugin-vue-components": "^0.19.3",
+        "vite": "^2.6.13",
+        "vite-plugin-compression": "^0.3.5",
+        "vite-plugin-html": "^2.1.1",
+        "vite-plugin-imagemin": "^0.4.6",
+        "vite-plugin-mock": "^2.9.6",
+        "vite-plugin-purge-icons": "^0.7.0",
+        "vite-plugin-pwa": "^0.11.3",
+        "vite-plugin-style-import": "^1.3.0",
+        "vite-plugin-svg-icons": "^1.0.5",
+        "vite-plugin-theme": "^0.8.1",
+        "vite-plugin-vue-setup-extend": "^0.1.0",
+        "vite-plugin-windicss": "^1.4.12",
+        "vue-eslint-parser": "^8.0.1",
+        "vue-tsc": "^0.28.10"
+      },
+      "license": "MIT",
+      "bugs": {
+        "url": "https://github.com/dpy0912/bloh-admin/issues"
+      },
+      "homepage": "https://github.com/dpy0912/blog-admin",
+      "engines": {
+        "node": "^12 || >=14"
+      }
+    },
+    "prefix": "H:\\AwebKF\\my-blog\\proiect\\blog-admin"
+  },
+  "2 debug pnpm:context": {
+    "currentLockfileExists": false,
+    "storeDir": "H:\\.pnpm-store\\v3",
+    "virtualStoreDir": "H:\\AwebKF\\my-blog\\proiect\\blog-admin\\node_modules\\.pnpm"
+  },
+  "3 debug pnpm:stage": {
+    "prefix": "H:\\AwebKF\\my-blog\\proiect\\blog-admin",
+    "stage": "resolution_started"
+  },
+  "4 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@commitlint/cli/14.1.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@commitlint/cli",
+      "rawSpec": "^14.1.0"
+    }
+  },
+  "5 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@commitlint/config-conventional/14.1.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@commitlint/config-conventional",
+      "rawSpec": "^14.1.0"
+    }
+  },
+  "6 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@iconify/json/1.1.422",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@iconify/json",
+      "rawSpec": "^1.1.422"
+    }
+  },
+  "7 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@purge-icons/generated/0.7.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@purge-icons/generated",
+      "rawSpec": "^0.7.0"
+    }
+  },
+  "8 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@types/codemirror/5.60.5",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@types/codemirror",
+      "rawSpec": "^5.60.5"
+    }
+  },
+  "9 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@types/crypto-js/4.0.2",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@types/crypto-js",
+      "rawSpec": "^4.0.2"
+    }
+  },
+  "10 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@types/fs-extra/9.0.13",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@types/fs-extra",
+      "rawSpec": "^9.0.13"
+    }
+  },
+  "11 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@types/inquirer/8.1.3",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@types/inquirer",
+      "rawSpec": "^8.1.3"
+    }
+  },
+  "12 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@types/intro.js/3.0.2",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@types/intro.js",
+      "rawSpec": "^3.0.2"
+    }
+  },
+  "13 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@types/jest/27.0.2",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@types/jest",
+      "rawSpec": "^27.0.2"
+    }
+  },
+  "14 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@types/lodash-es/4.17.5",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@types/lodash-es",
+      "rawSpec": "^4.17.5"
+    }
+  },
+  "15 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@types/mockjs/1.0.4",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@types/mockjs",
+      "rawSpec": "^1.0.4"
+    }
+  },
+  "16 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@types/node/16.11.6",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@types/node",
+      "rawSpec": "^16.11.6"
+    }
+  },
+  "17 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@types/nprogress/0.2.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@types/nprogress",
+      "rawSpec": "^0.2.0"
+    }
+  },
+  "18 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@types/qrcode/1.4.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@types/qrcode",
+      "rawSpec": "^1.4.1"
+    }
+  },
+  "19 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@types/qs/6.9.7",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@types/qs",
+      "rawSpec": "^6.9.7"
+    }
+  },
+  "20 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@types/showdown/1.9.4",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@types/showdown",
+      "rawSpec": "^1.9.4"
+    }
+  },
+  "21 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@types/sortablejs/1.10.7",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@types/sortablejs",
+      "rawSpec": "^1.10.7"
+    }
+  },
+  "22 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@typescript-eslint/eslint-plugin/5.3.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@typescript-eslint/eslint-plugin",
+      "rawSpec": "^5.3.0"
+    }
+  },
+  "23 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@typescript-eslint/parser/5.3.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@typescript-eslint/parser",
+      "rawSpec": "^5.3.0"
+    }
+  },
+  "24 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@vitejs/plugin-legacy/1.6.2",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@vitejs/plugin-legacy",
+      "rawSpec": "^1.6.2"
+    }
+  },
+  "25 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@vitejs/plugin-vue/1.9.4",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@vitejs/plugin-vue",
+      "rawSpec": "^1.9.4"
+    }
+  },
+  "26 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@vitejs/plugin-vue-jsx/1.2.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@vitejs/plugin-vue-jsx",
+      "rawSpec": "^1.2.0"
+    }
+  },
+  "27 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@vue/compiler-sfc/3.2.21",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@vue/compiler-sfc",
+      "rawSpec": "3.2.21"
+    }
+  },
+  "28 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@vue/test-utils/2.0.0-rc.16",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@vue/test-utils",
+      "rawSpec": "^2.0.0-rc.16"
+    }
+  },
+  "29 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/autoprefixer/10.4.7",
+    "wanted": {
+      "dependentId": ".",
+      "name": "autoprefixer",
+      "rawSpec": "^10.4.0"
+    }
+  },
+  "30 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/commitizen/4.2.4",
+    "wanted": {
+      "dependentId": ".",
+      "name": "commitizen",
+      "rawSpec": "^4.2.4"
+    }
+  },
+  "31 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/conventional-changelog-cli/2.1.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "conventional-changelog-cli",
+      "rawSpec": "^2.1.1"
+    }
+  },
+  "32 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/cross-env/7.0.3",
+    "wanted": {
+      "dependentId": ".",
+      "name": "cross-env",
+      "rawSpec": "^7.0.3"
+    }
+  },
+  "33 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/dotenv/10.0.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "dotenv",
+      "rawSpec": "^10.0.0"
+    }
+  },
+  "34 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/eslint/8.1.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "eslint",
+      "rawSpec": "^8.1.0"
+    }
+  },
+  "35 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/eslint-config-prettier/8.3.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "eslint-config-prettier",
+      "rawSpec": "^8.3.0"
+    }
+  },
+  "36 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/eslint-define-config/1.1.2",
+    "wanted": {
+      "dependentId": ".",
+      "name": "eslint-define-config",
+      "rawSpec": "^1.1.2"
+    }
+  },
+  "37 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/eslint-plugin-jest/25.2.2",
+    "wanted": {
+      "dependentId": ".",
+      "name": "eslint-plugin-jest",
+      "rawSpec": "^25.2.2"
+    }
+  },
+  "38 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/eslint-plugin-prettier/4.0.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "eslint-plugin-prettier",
+      "rawSpec": "^4.0.0"
+    }
+  },
+  "39 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/eslint-plugin-vue/8.0.3",
+    "wanted": {
+      "dependentId": ".",
+      "name": "eslint-plugin-vue",
+      "rawSpec": "^8.0.3"
+    }
+  },
+  "40 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/esno/0.10.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "esno",
+      "rawSpec": "^0.10.1"
+    }
+  },
+  "41 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/fs-extra/10.0.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "fs-extra",
+      "rawSpec": "^10.0.0"
+    }
+  },
+  "42 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/husky/7.0.4",
+    "wanted": {
+      "dependentId": ".",
+      "name": "husky",
+      "rawSpec": "^7.0.4"
+    }
+  },
+  "43 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/inquirer/8.2.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "inquirer",
+      "rawSpec": "^8.2.0"
+    }
+  },
+  "44 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/jest/27.3.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "jest",
+      "rawSpec": "^27.3.1"
+    }
+  },
+  "45 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/less/4.1.2",
+    "wanted": {
+      "dependentId": ".",
+      "name": "less",
+      "rawSpec": "^4.1.2"
+    }
+  },
+  "46 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/lint-staged/11.2.6",
+    "wanted": {
+      "dependentId": ".",
+      "name": "lint-staged",
+      "rawSpec": "11.2.6"
+    }
+  },
+  "47 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/npm-run-all/4.1.5",
+    "wanted": {
+      "dependentId": ".",
+      "name": "npm-run-all",
+      "rawSpec": "^4.1.5"
+    }
+  },
+  "48 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/postcss/8.3.11",
+    "wanted": {
+      "dependentId": ".",
+      "name": "postcss",
+      "rawSpec": "^8.3.11"
+    }
+  },
+  "49 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/postcss-html/1.2.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "postcss-html",
+      "rawSpec": "^1.2.0"
+    }
+  },
+  "50 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/postcss-less/5.0.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "postcss-less",
+      "rawSpec": "^5.0.0"
+    }
+  },
+  "51 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/prettier/2.4.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "prettier",
+      "rawSpec": "^2.4.1"
+    }
+  },
+  "52 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/rimraf/3.0.2",
+    "wanted": {
+      "dependentId": ".",
+      "name": "rimraf",
+      "rawSpec": "^3.0.2"
+    }
+  },
+  "53 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/rollup-plugin-visualizer/5.5.2",
+    "wanted": {
+      "dependentId": ".",
+      "name": "rollup-plugin-visualizer",
+      "rawSpec": "^5.5.2"
+    }
+  },
+  "54 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/stylelint/14.0.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "stylelint",
+      "rawSpec": "^14.0.1"
+    }
+  },
+  "55 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/stylelint-config-html/1.0.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "stylelint-config-html",
+      "rawSpec": "^1.0.0"
+    }
+  },
+  "56 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/stylelint-config-prettier/9.0.3",
+    "wanted": {
+      "dependentId": ".",
+      "name": "stylelint-config-prettier",
+      "rawSpec": "^9.0.3"
+    }
+  },
+  "57 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/stylelint-config-standard/23.0.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "stylelint-config-standard",
+      "rawSpec": "^23.0.0"
+    }
+  },
+  "58 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/stylelint-order/5.0.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "stylelint-order",
+      "rawSpec": "^5.0.0"
+    }
+  },
+  "59 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/ts-jest/27.0.7",
+    "wanted": {
+      "dependentId": ".",
+      "name": "ts-jest",
+      "rawSpec": "^27.0.7"
+    }
+  },
+  "60 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/ts-node/10.4.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "ts-node",
+      "rawSpec": "^10.4.0"
+    }
+  },
+  "61 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/typescript/4.4.4",
+    "wanted": {
+      "dependentId": ".",
+      "name": "typescript",
+      "rawSpec": "^4.4.4"
+    }
+  },
+  "62 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/unplugin-auto-import/0.7.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "unplugin-auto-import",
+      "rawSpec": "^0.7.1"
+    }
+  },
+  "63 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/unplugin-vue-components/0.19.3",
+    "wanted": {
+      "dependentId": ".",
+      "name": "unplugin-vue-components",
+      "rawSpec": "^0.19.3"
+    }
+  },
+  "64 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/vite/2.6.13",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vite",
+      "rawSpec": "^2.6.13"
+    }
+  },
+  "65 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/vite-plugin-compression/0.3.5",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vite-plugin-compression",
+      "rawSpec": "^0.3.5"
+    }
+  },
+  "66 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/vite-plugin-html/2.1.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vite-plugin-html",
+      "rawSpec": "^2.1.1"
+    }
+  },
+  "67 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/vite-plugin-imagemin/0.4.6",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vite-plugin-imagemin",
+      "rawSpec": "^0.4.6"
+    }
+  },
+  "68 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/vite-plugin-mock/2.9.6",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vite-plugin-mock",
+      "rawSpec": "^2.9.6"
+    }
+  },
+  "69 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/vite-plugin-purge-icons/0.7.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vite-plugin-purge-icons",
+      "rawSpec": "^0.7.0"
+    }
+  },
+  "70 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/vite-plugin-pwa/0.11.3",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vite-plugin-pwa",
+      "rawSpec": "^0.11.3"
+    }
+  },
+  "71 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/vite-plugin-style-import/1.3.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vite-plugin-style-import",
+      "rawSpec": "^1.3.0"
+    }
+  },
+  "72 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/vite-plugin-svg-icons/1.0.5",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vite-plugin-svg-icons",
+      "rawSpec": "^1.0.5"
+    }
+  },
+  "73 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/vite-plugin-theme/0.8.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vite-plugin-theme",
+      "rawSpec": "^0.8.1"
+    }
+  },
+  "74 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/vite-plugin-vue-setup-extend/0.1.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vite-plugin-vue-setup-extend",
+      "rawSpec": "^0.1.0"
+    }
+  },
+  "75 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/vite-plugin-windicss/1.4.12",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vite-plugin-windicss",
+      "rawSpec": "^1.4.12"
+    }
+  },
+  "76 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/vue-eslint-parser/8.0.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vue-eslint-parser",
+      "rawSpec": "^8.0.1"
+    }
+  },
+  "77 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/vue-tsc/0.28.10",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vue-tsc",
+      "rawSpec": "^0.28.10"
+    }
+  },
+  "78 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@ant-design/colors/6.0.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@ant-design/colors",
+      "rawSpec": "^6.0.0"
+    }
+  },
+  "79 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@ant-design/icons-vue/6.0.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@ant-design/icons-vue",
+      "rawSpec": "^6.0.1"
+    }
+  },
+  "80 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@iconify/iconify/2.0.4",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@iconify/iconify",
+      "rawSpec": "^2.0.4"
+    }
+  },
+  "81 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@vueuse/core/6.7.4",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@vueuse/core",
+      "rawSpec": "^6.7.4"
+    }
+  },
+  "82 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@vueuse/shared/6.7.4",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@vueuse/shared",
+      "rawSpec": "^6.7.4"
+    }
+  },
+  "83 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/@zxcvbn-ts/core/1.0.0-beta.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@zxcvbn-ts/core",
+      "rawSpec": "^1.0.0-beta.0"
+    }
+  },
+  "84 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/ant-design-vue/3.2.2",
+    "wanted": {
+      "dependentId": ".",
+      "name": "ant-design-vue",
+      "rawSpec": "3.2.2"
+    }
+  },
+  "85 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/axios/0.24.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "axios",
+      "rawSpec": "^0.24.0"
+    }
+  },
+  "86 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/crypto-js/4.1.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "crypto-js",
+      "rawSpec": "^4.1.1"
+    }
+  },
+  "87 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/echarts/5.2.2",
+    "wanted": {
+      "dependentId": ".",
+      "name": "echarts",
+      "rawSpec": "^5.2.2"
+    }
+  },
+  "88 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/lodash-es/4.17.21",
+    "wanted": {
+      "dependentId": ".",
+      "name": "lodash-es",
+      "rawSpec": "^4.17.21"
+    }
+  },
+  "89 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/mockjs/1.1.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "mockjs",
+      "rawSpec": "^1.1.0"
+    }
+  },
+  "90 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/moment/2.29.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "moment",
+      "rawSpec": "^2.29.1"
+    }
+  },
+  "91 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmmirror.com/md-editor-v3/2.0.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "md-editor-v3",
+      "rawSpec": "^2.0.0"
+    }
+  },
+  "92 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/nprogress/0.2.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "nprogress",
+      "rawSpec": "^0.2.0"
+    }
+  },
+  "93 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/path-to-regexp/6.2.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "path-to-regexp",
+      "rawSpec": "^6.2.0"
+    }
+  },
+  "94 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/pinia/2.0.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "pinia",
+      "rawSpec": "2.0.0"
+    }
+  },
+  "95 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/qrcode/1.4.4",
+    "wanted": {
+      "dependentId": ".",
+      "name": "qrcode",
+      "rawSpec": "^1.4.4"
+    }
+  },
+  "96 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/qs/6.10.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "qs",
+      "rawSpec": "^6.10.1"
+    }
+  },
+  "97 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/resize-observer-polyfill/1.5.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "resize-observer-polyfill",
+      "rawSpec": "^1.5.1"
+    }
+  },
+  "98 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/sortablejs/1.14.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "sortablejs",
+      "rawSpec": "^1.14.0"
+    }
+  },
+  "99 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/vue/3.2.21",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vue",
+      "rawSpec": "^3.2.21"
+    }
+  },
+  "100 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/vue-i18n/9.1.9",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vue-i18n",
+      "rawSpec": "^9.1.9"
+    }
+  },
+  "101 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/vue-router/4.0.12",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vue-router",
+      "rawSpec": "^4.0.12"
+    }
+  },
+  "102 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npm.taobao.org/vue-types/4.1.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "vue-types",
+      "rawSpec": "^4.1.1"
+    }
+  },
+  "103 debug pnpm:progress": {
+    "packageId": "registry.npm.taobao.org/@commitlint/cli/14.1.0",
+    "requester": "H:\\AwebKF\\my-blog\\proiect\\blog-admin",
+    "status": "found_in_store"
+  },
+  "104 debug pnpm:progress": {
+    "packageId": "registry.npm.taobao.org/@commitlint/cli/14.1.0",
+    "requester": "H:\\AwebKF\\my-blog\\proiect\\blog-admin",
+    "status": "resolved"
+  },
+  "105 debug pnpm:progress": {
+    "packageId": "registry.npm.taobao.org/@commitlint/config-conventional/14.1.0",
+    "requester": "H:\\AwebKF\\my-blog\\proiect\\blog-admin",
+    "status": "found_in_store"
+  },
+  "106 debug pnpm:progress": {
+    "packageId": "registry.npm.taobao.org/@commitlint/config-conventional/14.1.0",
+    "requester": "H:\\AwebKF\\my-blog\\proiect\\blog-admin",
+    "status": "resolved"
+  },
+  "107 debug pnpm:progress": {
+    "packageId": "registry.npm.taobao.org/@iconify/json/1.1.422",
+    "requester": "H:\\AwebKF\\my-blog\\proiect\\blog-admin",
+    "status": "found_in_store"
+  },
+  "108 debug pnpm:progress": {
+    "packageId": "registry.npm.taobao.org/@iconify/json/1.1.422",
+    "requester": "H:\\AwebKF\\my-blog\\proiect\\blog-admin",
+    "status": "resolved"
+  },
+  "109 debug pnpm:progress": {
+    "packageId": "registry.npm.taobao.org/@purge-icons/generated/0.7.0",
+    "requester": "H:\\AwebKF\\my-blog\\proiect\\blog-admin",
+    "status": "found_in_store"
+  },
+  "110 debug pnpm:progress": {
+    "packageId": "registry.npm.taobao.org/@purge-icons/generated/0.7.0",
+    "requester": "H:\\AwebKF\\my-blog\\proiect\\blog-admin",
+    "status": "resolved"
+  },
+  "111 debug pnpm:progress": {
+    "packageId": "registry.npm.taobao.org/@types/codemirror/5.60.5",
+    "requester": "H:\\AwebKF\\my-blog\\proiect\\blog-admin",
+    "status": "found_in_store"
+  },
+  "112 debug pnpm:progress": {
+    "packageId": "registry.npm.taobao.org/@types/codemirror/5.60.5",
+    "requester": "H:\\AwebKF\\my-blog\\proiect\\blog-admin",
+    "status": "resolved"
+  },
+  "113 debug pnpm:progress": {
+    "packageId": "registry.npm.taobao.org/@types/fs-extra/9.0.13",
+    "requester": "H:\\AwebKF\\my-blog\\proiect\\blog-admin",
+    "status": "found_in_store"
+  },
+  "114 debug pnpm:progress": {
+    "packageId": "registry.npm.taobao.org/@types/fs-extra/9.0.13",
+    "requester": "H:\\AwebKF\\my-blog\\proiect\\blog-admin",
+    "status": "resolved"
+  },
+  "115 debug pnpm:progress": {
+    "packageId": "registry.npm.taobao.org/@types/crypto-js/4.0.2",
+    "requester": "H:\\AwebKF\\my-blog\\proiect\\blog-admin",
+    "status": "found_in_store"
+  },
+  "116 debug pnpm:progress": {
+    "packageId": "registry.npm.taobao.org/@types/crypto-js/4.0.2",
+    "requester": "H:\\AwebKF\\my-blog\\proiect\\blog-admin",
+    "status": "resolved"
+  },
+  "117 debug pnpm:progress": {
+    "packageId": "registry.npm.taobao.org/@types/inquirer/8.1.3",
+    "requester": "H:\\AwebKF\\my-blog\\proiect\\blog-admin",
+    "status": "found_in_store"
+  },
+  "118 debug pnpm:progress": {
+    "packageId": "registry.npm.taobao.org/@types/inquirer/8.1.3",
+    "requester": "H:\\AwebKF\\my-blog\\proiect\\blog-admin",
+    "status": "resolved"
+  },
+  "119 debug pnpm:progress": {
+    "packageId": "registry.npm.taobao.org/@types/intro.js/3.0.2",
+    "requester": "H:\\AwebKF\\my-blog\\proiect\\blog-admin",
+    "status": "found_in_store"
+  },
+  "120 debug pnpm:progress": {
+    "packageId": "registry.npm.taobao.org/@types/intro.js/3.0.2",
+    "requester": "H:\\AwebKF\\my-blog\\proiect\\blog-admin",
+    "status": "resolved"
+  },
+  "121 debug pnpm:progress": {
+    "packageId": "registry.npm.taobao.org/@types/jest/27.0.2",
+    "requester": "H:\\AwebKF\\my-blog\\proiect\\blog-admin",
+    "status": "found_in_store"
+  },
+  "122 debug pnpm:progress": {
+    "packageId": "registry.npm.taobao.org/@types/jest/27.0.2",
+    "requester": "H:\\AwebKF\\my-blog\\proiect\\blog-admin",
+    "status": "resolved"
+  },
+  "123 debug pnpm:progress": {
+    "packageId": "registry.npm.taobao.org/@types/mockjs/1.0.4",
+    "requester": "H:\\AwebKF\\my-blog\\proiect\\blog-admin",
+    "status": "found_in_store"
+  },
+  "124 debug pnpm:progress": {
+    "packageId": "registry.npm.taobao.org/@types/mockjs/1.0.4",
+    "requester": "H:\\AwebKF\\my-blog\\proiect\\blog-admin",
+    "status": "resolved"
+  },
+  "125 error pnpm": {
+    "code": "ERR_PNPM_FETCH_404",
+    "hint": "@kangc/v-md-editor@next is not in the npm registry, or you have no permission to fetch it.\n\nNo authorization header was set for the request.",
+    "request": {
+      "url": "http://registry.npm.taobao.org/@kangc%2Fv-md-editor%40next"
+    },
+    "response": {
+      "size": 0
+    },
+    "pkgName": "@kangc/v-md-editor@next",
+    "spec": {
+      "fetchSpec": ">=2.3.15 <3.0.0-0",
+      "name": "@kangc/v-md-editor@next",
+      "type": "range"
+    },
+    "pkgsStack": [],
     "err": {
       "name": "pnpm",
-      "message": "Cannot parse the \"//\" selector in the overrides",
-      "code": "ERR_PNPM_INVALID_OVERRIDE_SELECTOR",
-      "stack": "pnpm: Cannot parse the \"//\" selector in the overrides\n    at parsePkgSelector (C:\\snapshot\\dist\\pnpm.cjs)\n    at C:\\snapshot\\dist\\pnpm.cjs\n    at Array.map (<anonymous>)\n    at parseOverrides (C:\\snapshot\\dist\\pnpm.cjs)\n    at default_1 (C:\\snapshot\\dist\\pnpm.cjs)\n    at createReadPackageHook (C:\\snapshot\\dist\\pnpm.cjs)\n    at mutateModules (C:\\snapshot\\dist\\pnpm.cjs)\n    at async install (C:\\snapshot\\dist\\pnpm.cjs)\n    at async handler (C:\\snapshot\\dist\\pnpm.cjs)\n    at async C:\\snapshot\\dist\\pnpm.cjs"
+      "message": "GET http://registry.npm.taobao.org/@kangc%2Fv-md-editor%40next: Not Found - 404",
+      "code": "ERR_PNPM_FETCH_404",
+      "stack": "pnpm: GET http://registry.npm.taobao.org/@kangc%2Fv-md-editor%40next: Not Found - 404\n    at RetryOperation._fn (C:\\snapshot\\dist\\pnpm.cjs)\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)"
     }
   }
 }
