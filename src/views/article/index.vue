@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-09 10:58:50
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-23 13:08:03
+ * @LastEditTime: 2022-05-24 16:57:46
  * @FilePath: \blog-admin\src\views\article\index.vue
  * @Description: 发布文章
 -->
@@ -12,7 +12,7 @@
       <div class="flex-1">
         <Input
           class="h-12"
-          v-model:value="articleModel.title"
+          v-model:value="articleModal.title"
           size="large"
           placeholder="请输入文章标题(8到64字符)"
           show-count
@@ -27,7 +27,7 @@
           <template #icon> <Icon icon="ri:draft-line" /> </template>
           <span>草稿箱</span></Button
         >
-        <Button type="primary">
+        <Button type="primary" @click="handleShowArticleModal">
           <template #icon>
             <Icon icon="fluent:save-20-regular" />
           </template>
@@ -36,6 +36,7 @@
       </div>
     </div>
     <ArticleMdEditor />
+    <ArticleModalForm :articleModal="articleModal" />
   </div>
 </template>
 <script setup lang="ts">
@@ -43,9 +44,17 @@
   import ArticleMdEditor from './components/ArticleMdEditor.vue';
   import { Input, Button } from 'ant-design-vue';
   import Icon from '/@/components/Icon';
-
-  const articleModel = reactive({
+  import ArticleModalForm from './components/ArticleModalForm.vue';
+  const articleModal = reactive({
     title: '', // 文章标题
+    modalVisible: false,
+    modalTitle: '发布文章',
+    okText: '发表',
   });
+  // 打开modal
+  const handleShowArticleModal = () => {
+    articleModal.modalVisible = true;
+    articleModal.modalTitle = '发布文章';
+  };
 </script>
 <style lang="less" scoped></style>

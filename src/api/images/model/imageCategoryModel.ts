@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-18 15:56:39
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-22 06:57:30
+ * @LastEditTime: 2022-05-24 22:37:02
  * @FilePath: \blog-admin\src\api\images\model\imageCategoryModel.ts
  * @Description:图片分类的接口参数约束
  */
@@ -10,7 +10,7 @@
 export interface GetImageCategoryListParams {
   page: string | number;
   size: string | number;
-  categoryName: string;
+  categoryName?: string;
   userId: string | number;
 }
 

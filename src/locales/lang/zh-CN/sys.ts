@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-02 14:03:13
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-22 17:08:15
+ * @LastEditTime: 2022-05-24 15:53:46
  * @FilePath: \blog-admin\src\locales\lang\zh-CN\sys.ts
  * @Description:
  */
@@ -119,6 +119,10 @@ export default {
     keyword: '请输入关键字',
     state: '请选择文章的状态',
     categoryId: '请选择文章分类',
+    summaryPlaceholder: '请输入文章摘要',
+    cover: '请上传文章封面',
+    summary: '请输入文章摘要',
+    label: '请给你的文字编写标签吧',
   },
   category: {
     namePlaceholder: '请输入分类名称',

@@ -7,36 +7,23 @@ const vditorInit = ref<Vditor | null>(null);
 
 // 获取浏览器的高度
 export function initHeight() {
-  let height = window.document.documentElement.clientHeight;
-  console.log('height', height);
-  if (height <= 780 && height >= 600) {
-    height = 550;
-  } else if (height > 780 && height <= 920) {
-    height = 710;
-  } else if (height > 920 && height <= 1080) {
-    height = 820;
-  } else if (height > 1080 && height <= 1200) {
-    height = 1000;
-  } else {
-    height = 550;
-  }
-  return height;
+  return window.document.documentElement.clientHeight - 170;
 }
-console.log('initHeight() :>> ', initHeight());
+
 /**
  * 渲染markdown函数
  * @param el id
  * @param language 语言
  * @returns
  */
-export function initVditor(el: string, language) {
+export function initVditor(el: string, language, height) {
   vditorInit.value = new Vditor(el, {
     // 编辑器异步渲染完成后的回调方法
     after: () => {
       vditorInit.value!.setValue('Vue Composition API + Vditor + TypeScript Minimal Example');
     },
     lang: language,
-    height: initHeight(),
+    height: height,
     placeholder: '请尽情书写你的才华吧！！！',
     // 文字选中触发
     select: () => {},
