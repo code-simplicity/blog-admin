@@ -45,7 +45,7 @@
             <span>{{ tableFormDate(record.updateTime) }}</span>
           </template>
           <template v-if="column.key === 'action'">
-            <Button size="small" type="primary" @click="onEditHandle(record)">编辑</Button>
+            <Button size="small" type="primary" @click="onEditHandle(record.id)">编辑</Button>
             <Popconfirm
               :title="`${popConfirmTitle}-${record.title}`"
               ok-text="删除"
@@ -77,6 +77,9 @@
   import { ResponseCode } from '/@/utils';
   import { formatToDateTime } from '/@/utils/dateUtil';
   import ArticleHeaderForm from './components/ArticleHeaderForm.vue';
+  import { useRouter, useRoute } from 'vue-router';
+
+  const router = useRouter();
   // 时间格式化
   const tableFormDate = (value) => {
     return formatToDateTime(value);
@@ -151,7 +154,12 @@
     }
   };
   // 编辑文章
-  const onEditHandle = async (params) => {};
+  const onEditHandle = async (articleId) => {
+    router.push({
+      name: 'Article',
+      params: { articleId },
+    });
+  };
   // 置顶/取消置顶
   const onTopHandle = async (params) => {
     const result = await topArticle(params.id);

@@ -20,6 +20,7 @@ enum Api {
   TopArticle = '/admin/article/top/',
   ChangeArticleState = '/admin/article/sate/',
   PostArticle = '/admin/article',
+  GetArticleByArticleId = '/admin/article/',
 }
 /**
  *获取文章列表
@@ -67,5 +68,16 @@ export function postArticle(data: PostArticleParams) {
   return defHttp.post<ResultResponse>({
     url: Api.PostArticle,
     data,
+  });
+}
+
+/**
+ * 获取文章，给编辑文章使用的
+ * @param articleId
+ * @returns
+ */
+export function getArticleByArticleId(articleId: string) {
+  return defHttp.get<ResultResponse>({
+    url: `${Api.GetArticleByArticleId}${articleId}`,
   });
 }

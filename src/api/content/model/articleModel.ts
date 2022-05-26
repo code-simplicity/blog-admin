@@ -28,13 +28,13 @@ export interface ChangeArticleStateParams {
 
 // 发表文章的接口参数类型
 export interface PostArticleParams {
+  id: string | number;
   title: string;
-  content: string;
+  content?: any;
   categoryId: string;
   summary: string;
   cover: string;
   label: string;
   state: string;
   type: string;
-  userId: string;
 }

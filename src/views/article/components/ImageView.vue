@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-24 16:43:42
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-25 00:02:54
+ * @LastEditTime: 2022-05-26 10:08:06
  * @FilePath: \blog-admin\src\views\article\components\ImageView.vue
  * @Description:图片的列表
 -->
@@ -14,39 +14,59 @@
     width="800px"
     @cancel="cancelHandleImageView"
     :okText="imageModal.okText"
-    @ok="submitBackImageUrl"
   >
     <div class="md: flex w-full p-4">
       <div class="md:w-1/5 md:flex flex-col items-center border-r-1 border-black md:mx-2">
         <Tabs
-          v-model:activeKey="activeKey"
+          v-model:activeKey="imageCategoryKey"
           :tab-position="tabPosition"
           :tabBarGutter="6"
           type="card"
           :style="{ height: '460px' }"
-          @tabClick="tabClickCategory"
+          @change="changeImageCategoryValue"
         >
           <TabPane v-for="item in imageCategoryItem" :key="item.id" :tab="item.categoryName" />
         </Tabs>
       </div>
       <div class="md:w-4/5 md:flex flex-col">
         <div class="md:flex items-center">
-          <Upload name="file" :customRequest="customRequestImage" :beforeUpload="beforeUploadImage">
+          <Upload
+            name="file"
+            :customRequest="customRequestImage"
+            :beforeUpload="beforeUploadImage"
+            :showUploadList="false"
+            accept="image/*"
+          >
             <Button>
               <UploadOutlined />
               上传图片</Button
             >
           </Upload>
-          <span class="ml-2 text-base text-gray-400">图片大小不能超过4M</span>
+          <span class="ml-2 text-base text-gray-400">
+            <SyncOutlined v-if="isUploading" spin />
+            {{ uploadText }}</span
+          >
         </div>
         <div class="mt-4 grid gap-1 md:gap-2 grid-cols-4">
           <RadioGroup
             v-model:value="selectIndexImage"
             v-for="(item, index) in ImageList"
             :key="index"
+            @change="checkImage(item)"
           >
-            <RadioButton :autofocus="true" :value="item" class="w-48 h-48">
-              <Image style="width: 100%" :preview="false" :src="item.url" :alt="item.name" />
+            <RadioButton
+              style="width: 140px; height: 130px; border-radius: 6px"
+              :autofocus="true"
+              :value="item"
+            >
+              <Image
+                class="rounded-lg"
+                width="100%"
+                height="100%"
+                :preview="false"
+                :src="item.url"
+                :alt="item.name"
+              />
             </RadioButton>
           </RadioGroup>
         </div>
@@ -65,9 +85,9 @@
             @change="pageChange"
           />
         </div>
-        <div class="justify-end">
+        <div class="justify-end ml-4">
           <Button key="back" @click="handleCancel">取消</Button>
-          <Button key="submit" type="primary" :loading="loading" @click="handleOk">确定</Button>
+          <Button key="submit" type="primary" @click="submitBackImageUrl">确定</Button>
         </div>
       </div>
     </template>
@@ -86,14 +106,14 @@
     TabsProps,
     RadioGroup,
     RadioButton,
+    message as Message,
   } from 'ant-design-vue';
-  import { UploadOutlined } from '@ant-design/icons-vue';
+  import { UploadOutlined, SyncOutlined } from '@ant-design/icons-vue';
   import { ResponseCode, uploadBeforeImageValid } from '/@/utils';
   import { useUserStore } from '/@/store/modules/user';
   import { getImageCategoryList } from '/@/api/images/imageCategory';
-  import { getImageList } from '/@/api/images/imageList';
+  import { getImageList, uploadImage } from '/@/api/images/imageList';
 
-  // TODO:图片列表的编写
   const props = defineProps({
     imageModal: {
       type: Object,
@@ -107,6 +127,8 @@
       },
     },
   });
+  const emit = defineEmits(['submitBackImageUrl']);
+  // 分页配置
   const pagination = reactive({
     current: 1,
     pageSize: 12,
@@ -116,14 +138,29 @@
     pageSizeOptions: ['10', '20', '50', '100'],
     showTotal: (total) => `共有图片${total}张`,
   });
-  const pageChange = (page, pageSize) => {};
+  const pageChange = async (page, pageSize) => {
+    const params = {
+      current: page,
+      pageSize: pageSize,
+    };
+    await initImageList(params);
+  };
   // 取消弹窗
   const cancelHandleImageView = () => {
     const { imageModal } = props;
     imageModal.imageVisible = false;
   };
   // 提交返回的图片路径
-  const submitBackImageUrl = () => {};
+  const submitBackImageUrl = () => {
+    emit('submitBackImageUrl', backImageUrl.value);
+    // 关闭弹窗
+    const { imageModal } = props;
+    imageModal.imageVisible = false;
+  };
+  // 提交上传自定义的显示文字
+  const uploadText = ref<string>('图片大小不能超过4M');
+  // 是否正在上传
+  const isUploading = ref<boolean>(false);
   // 上传触发拦截
   const beforeUploadIntercept = ref<boolean>(false);
   // 上传之前的回调,这里做校验，校验图片的大小和类型
@@ -134,16 +171,26 @@
   };
   // 自定义上传图片
   const customRequestImage = async (file) => {
+    isUploading.value = true;
+    uploadText.value = '图片正在上传中...';
     const params = {
-      original: 'looper',
-      imageCategoryId: imageCategoryIdValue.value ? imageCategoryIdValue.value : null,
+      original: 'article',
+      imageCategoryId: imageCategoryKey.value ? imageCategoryKey.value : null,
       file: file,
     };
     if (!beforeUploadIntercept.value) return;
     const { data } = await uploadImage(params);
     if (data.code === ResponseCode.SUCCESS) {
-      // 图片上传成功，回显
-      looperModel.value.imageUrl = data.result.url;
+      //上传成功
+      Message.success(data.message);
+      isUploading.value = false;
+      uploadText.value = '图片大小不能超过4M';
+      // 刷新图片列表
+      const params = {
+        ...pagination,
+        categoryId: imageCategoryKey.value,
+      };
+      await initImageList(params);
     } else {
       Message.error(data.message);
     }
@@ -152,7 +199,18 @@
   const userStore = useUserStore();
   // tabs
   const tabPosition = ref<TabsProps['tabPosition']>('left');
-  const activeKey = ref(undefined);
+  const imageCategoryKey = ref(undefined);
+  // tabs的value
+  const changeImageCategoryValue = async (activeKey) => {
+    // 将获取的用户图片分类列表给传递出去
+    imageCategoryKey.value = activeKey;
+    // 触发图片页面搜索
+    const params = {
+      ...pagination,
+      categoryId: activeKey,
+    };
+    await initImageList(params);
+  };
   const page = reactive({
     page: 1,
     size: 100,
@@ -182,10 +240,6 @@
     }
   };
   initImageCategoryTable(page);
-  // 选中标签页
-  const tabClickCategory = (e) => {
-    console.log('e :>> ', e);
-  };
   const selectIndexImage = ref('1');
   // 图片列表
   const ImageList = ref([
@@ -211,5 +265,20 @@
     }
   };
   initImageList(pagination);
+  // 取消弹窗
+  const handleCancel = () => {
+    const { imageModal } = props;
+    imageModal.imageVisible = false;
+  };
+  // 返回图片的url
+  const backImageUrl = ref<string>('');
+  // 选中imageUrl
+  const checkImage = (data) => {
+    backImageUrl.value = data.url;
+  };
 </script>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+  :deep(.ant-radio-button-wrapper) {
+    padding: 1px;
+  }
+</style>

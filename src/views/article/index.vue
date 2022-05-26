@@ -40,21 +40,50 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { reactive, ref } from 'vue';
+  import { onMounted, provide, reactive, ref } from 'vue';
   import ArticleMdEditor from './components/ArticleMdEditor.vue';
-  import { Input, Button } from 'ant-design-vue';
+  import { Input, Button, message as Message } from 'ant-design-vue';
   import Icon from '/@/components/Icon';
   import ArticleModalForm from './components/ArticleModalForm.vue';
+  import { useRoute } from 'vue-router';
+  import { getArticleByArticleId } from '/@/api/content/article';
+  import { ResponseCode } from '/@/utils';
+
+  const route = useRoute();
+  // 拿到表格中的文章内容
+  const article = reactive({
+    content: '',
+  });
+  // 注册事件，文章内容的分发
+  provide('articleContent', article);
   const articleModal = reactive({
     title: '', // 文章标题
     modalVisible: false,
     modalTitle: '发布文章',
     okText: '发表',
+    article: {},
   });
   // 打开modal
   const handleShowArticleModal = () => {
     articleModal.modalVisible = true;
     articleModal.modalTitle = '发布文章';
+  };
+  const articleId = ref();
+  onMounted(() => {
+    // 获取文章内容
+    getInitArticle();
+  });
+  const getInitArticle = async () => {
+    const { redirectedFrom } = route;
+    articleId.value = redirectedFrom?.params.articleId;
+    const { code, result, message } = await getArticleByArticleId(articleId.value);
+    if (code === ResponseCode.SUCCESS) {
+      articleModal.article = result;
+      article.content = result.content;
+      Message.success(message);
+    } else {
+      Message.error(message);
+    }
   };
 </script>
 <style lang="less" scoped></style>

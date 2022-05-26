@@ -63,7 +63,9 @@
   import type { FormInstance } from 'ant-design-vue/es/form/Form';
   import { getCategoryList } from '/@/api/operation/category';
   import { ResponseCode } from '/@/utils';
+  import { useRouter } from 'vue-router';
 
+  const router = useRouter();
   const { t } = useI18n();
   const articleModel = reactive({
     keyword: '', // 关键字
@@ -116,7 +118,12 @@
     articleCategoryId.value = option.key;
   };
   // 发表文章
-  const postArticle = () => {};
+  const postArticle = () => {
+    // 跳转到发布文章的页面
+    router.push({
+      name: 'Article',
+    });
+  };
 </script>
 <style lang="less" scoped>
   .ant-form-item {

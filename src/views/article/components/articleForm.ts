@@ -2,8 +2,8 @@
  * @Author: bugdr
  * @Date: 2022-05-24 15:45:45
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-24 15:51:55
- * @FilePath: \blog-admin\src\views\article\components\articleModelForm.ts
+ * @LastEditTime: 2022-05-26 10:33:08
+ * @FilePath: \blog-admin\src\views\article\components\articleForm.ts
  * @Description:文章表单的验证规则
  */
 
@@ -42,7 +42,7 @@ export function articleFormRules() {
       categoryId: ArticleCategoryIdFormRule,
       cover: ArticleCoverFormRule,
       summary: ArticleSummaryFormRule,
-      label: ArticleLabelFormRule,
+      labels: ArticleLabelFormRule,
     };
   });
   return { getFormRules };

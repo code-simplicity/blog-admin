@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-23 12:17:01
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-24 17:19:04
+ * @LastEditTime: 2022-05-26 11:02:49
  * @FilePath: \blog-admin\src\views\article\components\articleModalForm.vue
  * @Description:文章发布的弹窗表单
 -->
@@ -16,8 +16,6 @@
       :maskClosable="false"
       :confirmLoading="articleModal.confirmLoading"
       @cancel="cancelHandle"
-      :okText="articleModal.okText"
-      @ok="submitSaveArticle"
     >
       <Form
         :model="articleModel"
@@ -38,7 +36,8 @@
         <FormItem label="封面" name="cover">
           <div class="w-26 h-26 bg-gray-200 cursor-pointer" @click="showImageView">
             <Image
-              class="w-26 h-26"
+              width="100%"
+              height="100%"
               v-if="articleModel.cover"
               :src="articleModel.cover"
               alt="looper"
@@ -57,7 +56,7 @@
             :auto-size="{ minRows: 3, maxRows: 5 }"
           />
         </FormItem>
-        <FormItem label="标签" name="label">
+        <FormItem label="标签" name="labels">
           <Tag
             closable
             color="blue"
@@ -76,15 +75,23 @@
             ref="labelInputRef"
             @pressEnter="handleLabelInputConfirm"
           />
-          <Button size="small" @click="showLabelInput">添加标签</Button>
+          <Button v-if="!articleModel.labelInputVisible" size="small" @click="showLabelInput"
+            >添加标签</Button
+          >
         </FormItem>
       </Form>
+      <template #footer>
+        <Button key="back" @click="cancelHandle">取消</Button>
+        <Button key="submit" type="primary" @click="submitSaveArticle">{{
+          articleModal.okText
+        }}</Button>
+      </template>
     </Modal>
-    <ImageView :imageModal="imageModal" />
+    <ImageView :imageModal="imageModal" @submitBackImageUrl="submitBackImageUrl" />
   </div>
 </template>
 <script setup lang="ts">
-  import { ref, defineProps, reactive, nextTick } from 'vue';
+  import { ref, defineProps, reactive, nextTick, inject } from 'vue';
   import {
     Form,
     FormItem,
@@ -94,19 +101,22 @@
     Button,
     Input,
     Textarea,
-    Upload,
     Image,
     message as Message,
   } from 'ant-design-vue';
   import { LoadingOutlined, PlusOutlined } from '@ant-design/icons-vue';
-  import { useI18n } from '/@/hooks/web/useI18n';
   import { getCategoryList } from '../../../api/operation/category';
   import { ResponseCode } from '../../../utils';
   import { articleFormValid, articleFormRules } from './articleForm';
   import { postArticle } from '../../../api/content/article';
   import ImageView from './ImageView.vue';
+  import { useI18n } from '../../../hooks/web/useI18n';
 
   const { t } = useI18n();
+
+  const article = ref();
+  // 事件观察，文章内容
+  article.value = inject('articleContent');
 
   const props = defineProps({
     articleModal: {
@@ -115,7 +125,6 @@
         return {
           modalVisible: false,
           modalTitle: '发布文章',
-          article: {},
           okText: '确认',
           title: '', // 文章标题
         };
@@ -125,16 +134,25 @@
   const dialogStyle = ref({
     top: '10px',
   });
+
   const articleModel = reactive({
+    id: '', // 文章id
     categoryId: undefined, // 文章分类
     categorized: '', // 被选中的文章分类
     summary: '', // 摘要
     cover: '', // 轮播图背景
-    labels: [], // 文章标签
+    labels: [], // 文章标签数组
+    label: '', // 文章标签
     labelInputVisible: false, // 标签输入框是否显示
     inputLabel: '', // 输入框label
     categories: [], // 文章分类
     confirmLoading: false, // 确认按钮loading
+    state: '1', // 文章状态 0表示删除、1表示已经发布、2表示草稿、3、表示置顶
+    title: '', // 文章title
+    type: '1', // 文章类型0或者1
+    userId: '', // 用户id
+    viewCount: 0, // 浏览量
+    content: '', // 内容
   });
   // 表单的ref
   const articleModelRef = ref();
@@ -205,16 +223,16 @@
   initCategory(pagination);
   // 重置表单
   const resetForm = () => {
-    articleModel.categories = [];
-    articleModel.labels = [];
-    articleModel.cover = '';
-    articleModel.summary = '';
-    articleModel.categoryId = undefined;
+    // articleModel.categories = [];
+    // articleModel.labels = [];
+    // articleModel.cover = '';
+    // articleModel.summary = '';
+    // articleModel.categoryId = undefined;
     articleModelRef.value.resetFields();
   };
   // 控制选择select
-  const handleChangeSelect = (value, options) => {
-    articleModel.categorized = options.key;
+  const handleChangeSelect = (value) => {
+    articleModel.categoryId = value;
   };
   // 保存文章
   const submitSaveArticle = async () => {
@@ -227,10 +245,42 @@
     const form = await validForm();
     // 验证失败返回
     if (!form) return;
+    const { labels, cover, summary, categoryId, content, state, type } = articleModel;
+    // 处理标签
+    let tempLabels = '';
+    labels.forEach((item, index) => {
+      tempLabels += item;
+      if (index !== labels.length - 1) {
+        tempLabels += '-';
+      }
+    });
+    articleModel.label = tempLabels;
     const params = {
       title: articleModal.title,
+      content: content ? content : article.value.content,
+      categoryId: categoryId,
+      summary: summary,
+      cover: cover,
+      label: articleModel.label,
+      id: articleModel.id ? articleModel.id : null,
+      type: type,
     };
-    const result = await postArticle(params);
+    // 判断文章是更新还是添加
+    // 添加
+    if (articleModel.id === '') {
+      const data = {
+        ...params,
+        state: state,
+      };
+      const result = await postArticle(data);
+      if (result.code === ResponseCode.SUCCESS) {
+        Message.success(result.message);
+      } else {
+        Message.error(result.message);
+      }
+    } else {
+      // 更新
+    }
   };
   // 图片列表的选择
   const imageModal = reactive({
@@ -240,6 +290,10 @@
   // 展示图片选择弹窗
   const showImageView = () => {
     imageModal.imageVisible = true;
+  };
+  // 返回图片列表Url的自定义事件
+  const submitBackImageUrl = (url) => {
+    articleModel.cover = url;
   };
 </script>
 <style lang="less" scoped></style>
