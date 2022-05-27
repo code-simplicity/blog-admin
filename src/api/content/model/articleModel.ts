@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-08 16:10:21
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-24 16:29:18
+ * @LastEditTime: 2022-05-27 12:56:11
  * @FilePath: \blog-admin\src\api\content\model\articleModel.ts
  * @Description:文章接口的类型
  */
@@ -28,6 +28,19 @@ export interface ChangeArticleStateParams {
 
 // 发表文章的接口参数类型
 export interface PostArticleParams {
+  id: string | number;
+  title: string;
+  content?: any;
+  categoryId: string;
+  summary: string;
+  cover: string;
+  label: string;
+  state: string;
+  type: string;
+}
+
+// 更新文章的接口参数类型
+export interface UpdateArticleParams {
   id: string | number;
   title: string;
   content?: any;

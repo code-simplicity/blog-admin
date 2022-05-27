@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-09 10:58:50
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-27 11:06:18
+ * @LastEditTime: 2022-05-27 23:24:20
  * @FilePath: \blog-admin\src\views\article\index.vue
  * @Description: 发布文章
 -->
@@ -35,8 +35,8 @@
         </Button>
       </div>
     </div>
-    <ArticleMdEditor :mdArticleContent="mdArticleContent" />
-    <ArticleModalForm ref="articleModalRef" :articleModal="articleModal" />
+    <ArticleMdEditor ref="articleMdEditorRef" :md-article-content="mdArticleContent" />
+    <ArticleModalForm ref="articleModalRef" :article-modal="articleModal" />
   </div>
 </template>
 <script setup lang="ts">
@@ -51,10 +51,14 @@
 
   const route = useRoute();
   // 拿到表格中的文章内容
-  const articleContent = ref();
+  const articleContent = ref('');
   // 文章内容
   // 注册事件，文章内容的分发
-  provide('articleContent', articleContent.value);
+  provide('articleContent', articleContent);
+  provide('articleContentChange', (content) => {
+    console.log('content', content);
+    articleContent.value = content;
+  });
   const articleModal = reactive({
     title: '', // 文章标题
     modalVisible: false,
@@ -66,6 +70,8 @@
   const mdArticleContent = ref();
   // 弹窗表单的ref
   const articleModalRef = ref();
+  // 文章编辑器的ref
+  const articleMdEditorRef = ref();
   // 打开modal
   const handleShowArticleModal = () => {
     articleModal.modalVisible = true;
@@ -88,8 +94,11 @@
       articleModal.article = result;
       // 获取文章标题
       articleModal.title = result.title;
-      // 获取文章内容，传递给目的
+      // 获取文章内容，传递给md
       mdArticleContent.value = result.content;
+      // 触发获取文章详情
+      articleModalRef.value.initArticleDetail();
+      // articleMdEditorRef.value.initArticleContent();
       // 这里做一个判断，判断文章状态时什么，然后调整发布邮箱的按钮
       // 如果当前状态是草稿，按钮显示发表文章，2是草稿
       if (result.state === '2') {
@@ -104,15 +113,12 @@
         articleModal.modalTitle = '更新文章';
         //草稿这个按钮就不能用了
         disableDraftBtn.value = true;
-        // 触发获取文章详情
-        articleModalRef.value.initArticleDetail();
       }
       Message.success(message);
     } else {
       Message.error(message);
     }
   };
-
   // 获取文章内容
   getInitArticle();
 </script>

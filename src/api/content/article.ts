@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-08 16:09:43
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-24 16:30:13
+ * @LastEditTime: 2022-05-27 12:56:03
  * @FilePath: \blog-admin\src\api\content\article.ts
  * @Description:文章管理的接口
  */
@@ -11,6 +11,7 @@ import {
   GetArticleListParams,
   PostArticleParams,
   TopArticleParams,
+  UpdateArticleParams,
 } from './model/articleModel';
 import { defHttp } from '/@/utils/http/axios';
 import { ResultResponse } from '/@/utils/resultResponse';
@@ -21,6 +22,7 @@ enum Api {
   ChangeArticleState = '/admin/article/sate/',
   PostArticle = '/admin/article',
   GetArticleByArticleId = '/admin/article/',
+  UpdateArticle = '/admin/article/',
 }
 /**
  *获取文章列表
@@ -79,5 +81,18 @@ export function postArticle(data: PostArticleParams) {
 export function getArticleByArticleId(articleId: string) {
   return defHttp.get<ResultResponse>({
     url: `${Api.GetArticleByArticleId}${articleId}`,
+  });
+}
+
+/**
+ * 更新文章
+ * @param params
+ * @returns
+ */
+export function updateArticle(params: UpdateArticleParams) {
+  const { id, ...data } = params;
+  return defHttp.put<ResultResponse>({
+    url: `${Api.UpdateArticle}${id}`,
+    data,
   });
 }

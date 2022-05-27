@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-23 12:17:01
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-27 11:03:53
+ * @LastEditTime: 2022-05-27 23:27:41
  * @FilePath: \blog-admin\src\views\article\components\articleModalForm.vue
  * @Description:文章发布的弹窗表单
 -->
@@ -91,7 +91,7 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { ref, defineProps, reactive, nextTick, inject, onMounted } from 'vue';
+  import { ref, defineProps, reactive, nextTick, inject, watch } from 'vue';
   import {
     Form,
     FormItem,
@@ -108,15 +108,17 @@
   import { getCategoryList } from '../../../api/operation/category';
   import { ResponseCode } from '../../../utils';
   import { articleFormValid, articleFormRules } from './articleForm';
-  import { postArticle } from '../../../api/content/article';
+  import { postArticle, updateArticle } from '../../../api/content/article';
   import ImageView from './ImageView.vue';
   import { useI18n } from '../../../hooks/web/useI18n';
+  import { useRouter } from 'vue-router';
 
+  const router = useRouter();
   const { t } = useI18n();
 
-  const article = ref();
   // 事件观察，文章内容
-  article.value = inject('articleContent');
+  const articleContent = ref();
+  articleContent.value = inject('articleContent');
 
   const props = defineProps({
     articleModal: {
@@ -153,7 +155,7 @@
     type: '1', // 文章类型0或者1
     userId: '', // 用户id
     viewCount: 0, // 浏览量
-    content: '', // 内容
+    content: undefined, // 内容
   });
   // 表单的ref
   const articleModelRef = ref();
@@ -223,17 +225,18 @@
   initCategory(pagination);
   // 重置表单
   const resetForm = () => {
-    // articleModel.categories = [];
-    // articleModel.labels = [];
-    // articleModel.cover = '';
-    // articleModel.summary = '';
-    // articleModel.categoryId = undefined;
+    // 取消弹窗
     articleModelRef.value.resetFields();
   };
   // 控制选择select
   const handleChangeSelect = (value) => {
     articleModel.categoryId = value;
   };
+  // watch(articleContent, (newVal) => {
+  //   articleContent.value = newVal;
+  //   console.log('newVal :>> ', newVal);
+  // });
+
   // 保存文章
   const submitSaveArticle = async () => {
     // 首先判断文章标题、内容、分类、封面、摘要、标签是否为空
@@ -255,9 +258,10 @@
       }
     });
     articleModel.label = tempLabels;
+    console.log('articleContent.value :>> ', articleContent.value.value);
     const params = {
       title: articleModal.title,
-      content: content ? content : article.value,
+      content: content ? content : articleContent.value.value,
       categoryId: categoryId,
       summary: summary,
       cover: cover,
@@ -280,7 +284,28 @@
       }
     } else {
       // 更新
+      // 判断是草稿还是删除的，然后更新之后都改为发布
+      if (state === '2' || state === '0') {
+        articleModel.state = '1';
+      }
+      const data = {
+        ...params,
+        state: articleModel.state,
+      };
+      console.log('data :>> ', data);
+      const result = await updateArticle(data);
+      if (result.code === ResponseCode.SUCCESS) {
+        Message.success(result.message);
+        // 更新成功跳转到文章管理页面
+        router.push({
+          name: 'ArticleManage',
+        });
+      } else {
+        Message.error(result.message);
+      }
     }
+    // 取消弹窗
+    cancelHandle();
   };
   // 图片列表的选择
   const imageModal = reactive({
@@ -300,7 +325,6 @@
     const { articleModal } = props;
     if (!articleModal.article) return;
     // 存在值那么就是更新，替换表单的值
-    console.log('articleModal.article', articleModal.article);
     const { categoryId, summary, cover, labels, state, type, id } = JSON.parse(
       JSON.stringify(articleModal.article),
     );
@@ -312,12 +336,6 @@
     articleModel.type = type;
     articleModel.id = id;
   };
-  // initArticleDetail();
-  // onMounted(() => {
-  //   nextTick(() => {
-  //     initArticleDetail();
-  //   });
-  // });
   defineExpose({
     initArticleDetail,
   });

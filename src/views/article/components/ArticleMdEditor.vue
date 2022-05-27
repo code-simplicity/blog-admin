@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-23 10:49:31
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-27 09:17:09
+ * @LastEditTime: 2022-05-27 23:22:32
  * @FilePath: \blog-admin\src\views\article\components\ArticleMdEditor.vue
  * @Description:文章markdown编辑器
 -->
@@ -20,21 +20,24 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { reactive, ref, onMounted, inject, watch } from 'vue';
+  import { reactive, ref, onMounted, inject, watch, toRefs, nextTick } from 'vue';
   import MdEditor from 'md-editor-v3';
   import 'md-editor-v3/lib/style.css';
   import { initHeight } from './mditor';
 
   const props = defineProps({
-    mdArticleContent: String, //文章内容
+    mdArticleContent: {
+      type: String,
+    }, //文章内容
   });
-  // 事件观察
-  const article = ref();
-  article.value = inject('articleContent');
+  // 事件观察内容，兄弟组件共享一个数据
+  const mdEditorModel = ref<string>();
+  const articleContent = inject('articleContent');
+  const articleContentChange = inject('articleContentChange');
   // md高度
   const mdHeight = ref(initHeight());
-  // md配置项
-  const mdEditorModel = ref<string>();
+  // md的数据绑定
+  // 配置
   const mdEditor = reactive({
     theme: undefined, // 主题
     pageFullScreen: false, // 页面全屏
@@ -48,19 +51,25 @@
       mdEditorModel.value = newVal;
     },
   );
+  // 观察内容是否变化,做出响应式更新
+  watch(mdEditorModel, (newVal) => {
+    initArticleContent(newVal);
+  });
+
   // 获取内容
-  const initArticleContent = () => {
-    const { mdArticleContent } = props;
-    if (!mdArticleContent) return;
-    mdEditorModel.value = mdArticleContent;
-    console.log('mdArticleContent', mdArticleContent);
+  const initArticleContent = (data) => {
+    if (!data) return;
+    articleContentChange(data);
   };
-  initArticleContent();
+
   // markdown
   onMounted(() => {
     window.addEventListener('resize', () => {
       mdHeight.value = initHeight();
     });
+  });
+  defineExpose({
+    initArticleContent,
   });
 </script>
 <style lang="less" scoped></style>
