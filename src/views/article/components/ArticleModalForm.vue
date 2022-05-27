@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-23 12:17:01
  * @LastEditors: bugdr
- * @LastEditTime: 2022-05-26 11:02:49
+ * @LastEditTime: 2022-05-27 11:03:53
  * @FilePath: \blog-admin\src\views\article\components\articleModalForm.vue
  * @Description:文章发布的弹窗表单
 -->
@@ -91,7 +91,7 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { ref, defineProps, reactive, nextTick, inject } from 'vue';
+  import { ref, defineProps, reactive, nextTick, inject, onMounted } from 'vue';
   import {
     Form,
     FormItem,
@@ -127,6 +127,7 @@
           modalTitle: '发布文章',
           okText: '确认',
           title: '', // 文章标题
+          article: {}, // 文章内容
         };
       },
     },
@@ -176,7 +177,6 @@
     if (articleModel.labels.length < 5) {
       articleModel.labelInputVisible = true;
     }
-    console.log('articleModel.labels :>> ', articleModel.labels);
   };
   // label输入框获取焦点
   const labelInputRef = ref();
@@ -257,7 +257,7 @@
     articleModel.label = tempLabels;
     const params = {
       title: articleModal.title,
-      content: content ? content : article.value.content,
+      content: content ? content : article.value,
       categoryId: categoryId,
       summary: summary,
       cover: cover,
@@ -295,5 +295,31 @@
   const submitBackImageUrl = (url) => {
     articleModel.cover = url;
   };
+  // 初始化表单，判断是初始化还是获取更新文章
+  const initArticleDetail = () => {
+    const { articleModal } = props;
+    if (!articleModal.article) return;
+    // 存在值那么就是更新，替换表单的值
+    console.log('articleModal.article', articleModal.article);
+    const { categoryId, summary, cover, labels, state, type, id } = JSON.parse(
+      JSON.stringify(articleModal.article),
+    );
+    articleModel.categoryId = categoryId;
+    articleModel.summary = summary;
+    articleModel.cover = cover;
+    articleModel.labels = labels;
+    articleModel.state = state;
+    articleModel.type = type;
+    articleModel.id = id;
+  };
+  // initArticleDetail();
+  // onMounted(() => {
+  //   nextTick(() => {
+  //     initArticleDetail();
+  //   });
+  // });
+  defineExpose({
+    initArticleDetail,
+  });
 </script>
 <style lang="less" scoped></style>
