@@ -1,5 +1,13 @@
+/*
+ * @Author: bugdr
+ * @Date: 2022-05-29 11:04:33
+ * @LastEditors: bugdr
+ * @LastEditTime: 2022-05-29 11:19:12
+ * @FilePath: \react-blog-admin\src\App.tsx
+ * @Description: 
+ */
 import { useState } from 'react'
-import logo from './logo.svg'
+import logo from './assets/svg/logo.svg'
 import './App.css'
 
 function App() {
