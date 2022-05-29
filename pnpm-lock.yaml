@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@ant-design/icons': ^4.7.0
   '@types/react': ^18.0.0
   '@types/react-dom': ^18.0.0
   '@typescript-eslint/eslint-plugin': ^5.26.0
@@ -20,15 +21,18 @@ specifiers:
   prettier: ^2.6.2
   react: ^18.0.0
   react-dom: ^18.0.0
+  react-router-dom: ^6.3.0
   stylelint: ^14.8.5
   stylelint-config-standard: ^25.0.0
   typescript: ^4.6.3
   vite: ^2.9.9
+  vite-plugin-imp: ^2.1.8
   vite-plugin-windicss: ^1.8.4
   windicss: ^3.5.4
   yorkie: ^2.0.0
 
 dependencies:
+  '@ant-design/icons': registry.npmmirror.com/@ant-design/icons/4.7.0_react-dom@18.1.0+react@18.1.0
   antd: registry.npmmirror.com/antd/4.20.6_react-dom@18.1.0+react@18.1.0
   axios: registry.npmmirror.com/axios/0.27.2
   less: registry.npmmirror.com/less/4.1.2
@@ -36,6 +40,7 @@ dependencies:
   nprogress: registry.npmmirror.com/nprogress/0.2.0
   react: registry.npmmirror.com/react/18.1.0
   react-dom: registry.npmmirror.com/react-dom/18.1.0_react@18.1.0
+  react-router-dom: registry.npmmirror.com/react-router-dom/6.3.0_react-dom@18.1.0+react@18.1.0
 
 devDependencies:
   '@types/react': registry.npmmirror.com/@types/react/18.0.9
@@ -54,6 +59,7 @@ devDependencies:
   stylelint-config-standard: registry.npmmirror.com/stylelint-config-standard/25.0.0_stylelint@14.8.5
   typescript: registry.npmmirror.com/typescript/4.7.2
   vite: registry.npmmirror.com/vite/2.9.9_less@4.1.2
+  vite-plugin-imp: registry.npmmirror.com/vite-plugin-imp/2.1.8_vite@2.9.9
   vite-plugin-windicss: registry.npmmirror.com/vite-plugin-windicss/1.8.4_vite@2.9.9
   windicss: registry.npmmirror.com/windicss/3.5.4
   yorkie: registry.npmmirror.com/yorkie/2.0.0
@@ -1516,6 +1522,15 @@ packages:
     version: 1.12.3
     dev: false
 
+  registry.npmmirror.com/dot-case/3.0.4:
+    resolution: {integrity: sha512-Kv5nKlh6yRrdrGvxeJ2e5y2eRUpkUosIW4A2AS38zwSz27zu7ufDwQPi5Jhs3XAlGNetl3bmnGhQsMtkKJnj3w==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/dot-case/-/dot-case-3.0.4.tgz}
+    name: dot-case
+    version: 3.0.4
+    dependencies:
+      no-case: registry.npmmirror.com/no-case/3.0.4
+      tslib: registry.npmmirror.com/tslib/2.4.0
+    dev: true
+
   registry.npmmirror.com/eastasianwidth/0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/eastasianwidth/-/eastasianwidth-0.2.0.tgz}
     name: eastasianwidth
@@ -2495,6 +2510,14 @@ packages:
       function-bind: registry.npmmirror.com/function-bind/1.1.1
     dev: true
 
+  registry.npmmirror.com/history/5.3.0:
+    resolution: {integrity: sha512-ZqaKwjjrAYUYfLG+htGaIIZ4nioX2L70ZUMIFysS3xvBsSG4x/n1V6TXV3N8ZYNuFGlDirFg32T7B6WOUPDYcQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/history/-/history-5.3.0.tgz}
+    name: history
+    version: 5.3.0
+    dependencies:
+      '@babel/runtime': registry.npmmirror.com/@babel/runtime/7.18.3
+    dev: false
+
   registry.npmmirror.com/hosted-git-info/2.8.9:
     resolution: {integrity: sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/hosted-git-info/-/hosted-git-info-2.8.9.tgz}
     name: hosted-git-info
@@ -3049,6 +3072,14 @@ packages:
     dependencies:
       js-tokens: registry.npmmirror.com/js-tokens/4.0.0
 
+  registry.npmmirror.com/lower-case/2.0.2:
+    resolution: {integrity: sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/lower-case/-/lower-case-2.0.2.tgz}
+    name: lower-case
+    version: 2.0.2
+    dependencies:
+      tslib: registry.npmmirror.com/tslib/2.4.0
+    dev: true
+
   registry.npmmirror.com/lru-cache/4.1.5:
     resolution: {integrity: sha512-sWZlbEP2OsHNkXrMl5GYk/jKk70MBng6UU4YI/qGDYbgf6YbP4EvmqISbXCoJiRKs+1bSpFHVgQxvJ17F2li5g==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/lru-cache/-/lru-cache-4.1.5.tgz}
     name: lru-cache
@@ -3264,6 +3295,15 @@ packages:
     dev: false
     optional: true
 
+  registry.npmmirror.com/no-case/3.0.4:
+    resolution: {integrity: sha512-fgAN3jGAh+RoxUGZHTSOLJIqUc2wmoBwGR4tbpNAKmmovFoWq0OdRkb0VkldReO2a2iBT/OEulG9XSUc10r3zg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/no-case/-/no-case-3.0.4.tgz}
+    name: no-case
+    version: 3.0.4
+    dependencies:
+      lower-case: registry.npmmirror.com/lower-case/2.0.2
+      tslib: registry.npmmirror.com/tslib/2.4.0
+    dev: true
+
   registry.npmmirror.com/node-releases/2.0.5:
     resolution: {integrity: sha512-U9h1NLROZTq9uE1SNffn6WuPDg8icmi3ns4rEl/oTfIle4iLjTliCzgTsbaIFMq/Xn078/lfY/BL0GWZ+psK4Q==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/node-releases/-/node-releases-2.0.5.tgz}
     name: node-releases
@@ -3477,6 +3517,15 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
+  registry.npmmirror.com/param-case/3.0.4:
+    resolution: {integrity: sha512-RXlj7zCYokReqWpOPH9oYivUzLYZ5vAPIfEmCTNViosC78F8F0H9y7T7gG2M39ymgutxF5gcFEsyZQSph9Bp3A==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/param-case/-/param-case-3.0.4.tgz}
+    name: param-case
+    version: 3.0.4
+    dependencies:
+      dot-case: registry.npmmirror.com/dot-case/3.0.4
+      tslib: registry.npmmirror.com/tslib/2.4.0
+    dev: true
+
   registry.npmmirror.com/parent-module/1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/parent-module/-/parent-module-1.0.1.tgz}
     name: parent-module
@@ -3504,6 +3553,15 @@ packages:
     version: 1.0.1
     engines: {node: '>= 0.10'}
     dev: false
+
+  registry.npmmirror.com/pascal-case/3.1.2:
+    resolution: {integrity: sha512-uWlGT3YSnK9x3BQJaOdcZwrnV6hPpd8jFH1/ucpiLRPh/2zCVJKS19E4GvYHvaCcACn3foXZ0cLB9Wrx1KGe5g==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/pascal-case/-/pascal-case-3.1.2.tgz}
+    name: pascal-case
+    version: 3.1.2
+    dependencies:
+      no-case: registry.npmmirror.com/no-case/3.0.4
+      tslib: registry.npmmirror.com/tslib/2.4.0
+    dev: true
 
   registry.npmmirror.com/path-exists/4.0.0:
     resolution: {integrity: sha512-ak9Qy5Q7jYb2Wwcey5Fpvg2KoAc/ZIhLSLOSBmRmygPsGwkVVt0fZa0qrtMz+m6tJTAHfZQ8FnmB4MG4LWy7/w==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/path-exists/-/path-exists-4.0.0.tgz}
@@ -4349,6 +4407,33 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  registry.npmmirror.com/react-router-dom/6.3.0_react-dom@18.1.0+react@18.1.0:
+    resolution: {integrity: sha512-uaJj7LKytRxZNQV8+RbzJWnJ8K2nPsOOEuX7aQstlMZKQT0164C+X2w6bnkqU3sjtLvpd5ojrezAyfZ1+0sStw==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/react-router-dom/-/react-router-dom-6.3.0.tgz}
+    id: registry.npmmirror.com/react-router-dom/6.3.0
+    name: react-router-dom
+    version: 6.3.0
+    peerDependencies:
+      react: '>=16.8'
+      react-dom: '>=16.8'
+    dependencies:
+      history: registry.npmmirror.com/history/5.3.0
+      react: registry.npmmirror.com/react/18.1.0
+      react-dom: registry.npmmirror.com/react-dom/18.1.0_react@18.1.0
+      react-router: registry.npmmirror.com/react-router/6.3.0_react@18.1.0
+    dev: false
+
+  registry.npmmirror.com/react-router/6.3.0_react@18.1.0:
+    resolution: {integrity: sha512-7Wh1DzVQ+tlFjkeo+ujvjSqSJmkt1+8JO+T5xklPlgrh70y7ogx75ODRW0ThWhY7S+6yEDks8TYrtQe/aoboBQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/react-router/-/react-router-6.3.0.tgz}
+    id: registry.npmmirror.com/react-router/6.3.0
+    name: react-router
+    version: 6.3.0
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      history: registry.npmmirror.com/history/5.3.0
+      react: registry.npmmirror.com/react/18.1.0
+    dev: false
+
   registry.npmmirror.com/react/18.1.0:
     resolution: {integrity: sha512-4oL8ivCz5ZEPyclFQXaNksK3adutVS8l2xzZU0cqEFrE9Sb7fC0EFK5uEk74wIreL1DERyjvsU915j1pcT2uEQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/react/-/react-18.1.0.tgz}
     name: react
@@ -5152,6 +5237,26 @@ packages:
     dependencies:
       spdx-correct: registry.npmmirror.com/spdx-correct/3.1.1
       spdx-expression-parse: registry.npmmirror.com/spdx-expression-parse/3.0.1
+    dev: true
+
+  registry.npmmirror.com/vite-plugin-imp/2.1.8_vite@2.9.9:
+    resolution: {integrity: sha512-Q5ZNWyunW4CMf4ZBIZkuuTKxKW6geRgq3Me5hBzxEaK5xLizO4x66HWYp+D+JEC0ZdzfUdEyXE6HJ8JYSQUR2w==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vite-plugin-imp/-/vite-plugin-imp-2.1.8.tgz}
+    id: registry.npmmirror.com/vite-plugin-imp/2.1.8
+    name: vite-plugin-imp
+    version: 2.1.8
+    peerDependencies:
+      vite: '>= 2.0.0-beta.5'
+    dependencies:
+      '@babel/core': registry.npmmirror.com/@babel/core/7.18.2
+      '@babel/generator': registry.npmmirror.com/@babel/generator/7.18.2
+      '@babel/parser': registry.npmmirror.com/@babel/parser/7.18.3
+      '@babel/traverse': registry.npmmirror.com/@babel/traverse/7.18.2
+      chalk: registry.npmmirror.com/chalk/4.1.2
+      param-case: registry.npmmirror.com/param-case/3.0.4
+      pascal-case: registry.npmmirror.com/pascal-case/3.1.2
+      vite: registry.npmmirror.com/vite/2.9.9_less@4.1.2
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   registry.npmmirror.com/vite-plugin-windicss/1.8.4_vite@2.9.9:
