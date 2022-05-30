@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import vitePluginImp from 'vite-plugin-imp'
-
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import vitePluginImp from 'vite-plugin-imp';
+import reactRefresh from '@vitejs/plugin-react-refresh';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,13 +13,15 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:8080',
         changeOrigin: true,
-        cookieDomainRewrite: "",
+        cookieDomainRewrite: '',
         secure: false
       }
     }
   },
-  plugins: [react(), vitePluginImp(
-    {
+  plugins: [
+    react(),
+    reactRefresh(),
+    vitePluginImp({
       libList: [
         {
           libName: 'lodash',
@@ -30,18 +32,18 @@ export default defineConfig({
           libName: 'antd',
           style(name) {
             // use less
-            return `antd/es/${name}/style/index.js`
+            return `antd/es/${name}/style/index.js`;
           }
-        },
+        }
       ]
-    }
-  )],
+    })
+  ],
   css: {
     preprocessorOptions: {
       less: {
         // 支持内联 JavaScript
-        javascriptEnabled: true,
-      },
-    },
-  },
-})
+        javascriptEnabled: true
+      }
+    }
+  }
+});

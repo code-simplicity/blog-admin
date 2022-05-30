@@ -15,11 +15,11 @@ function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <div>
-      <Button>添加</Button>
+    <div className="p-4">
+      <Button className="m-4">添加</Button>
+      <div className="bg-dark-300">加油</div>
     </div>
   );
 }
 
 export default App;
-
