@@ -1,12 +1,32 @@
+/*
+ * @Author: bugdr
+ * @Date: 2022-05-30 22:13:52
+ * @LastEditors: bugdr
+ * @LastEditTime: 2022-06-13 23:03:48
+ * @FilePath: \react-blog-admin\vite.config.ts
+ * @Description:vite配置
+ */
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import legacy from '@vitejs/plugin-legacy';
 import vitePluginImp from 'vite-plugin-imp';
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import WindiCSS from 'vite-plugin-windicss';
+import { resolve } from 'path';
+function pathResolve(dir: string) {
+  return resolve(process.cwd(), '.', dir);
+}
 
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/',
+  resolve: {
+    // 别名
+    alias: [
+      { find: /\/@\//, replacement: pathResolve('src') + '/' },
+      { find: /\/#\//, replacement: pathResolve('types') + '/' },
+    ],
+  },
   server: {
     host: true,
     port: 3080,
@@ -38,6 +58,10 @@ export default defineConfig({
           },
         },
       ],
+    }),
+    // 配置插件不支持IE11
+    legacy({
+      targets: ['default', 'not IE 11'],
     }),
   ],
   css: {
