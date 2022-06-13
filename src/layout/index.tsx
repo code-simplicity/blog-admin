@@ -8,9 +8,11 @@ const LayoutApp: React.FC = () => {
   return (
     <Layout>
       <Sider />
-      <Layout className="bg-light-50">
+      <Layout className="bg-light-50" style={{ marginLeft: '200px' }}>
         <LayoutHeader />
-        <LayoutContent />
+        <Layout>
+          <LayoutContent />
+        </Layout>
       </Layout>
     </Layout>
   );
