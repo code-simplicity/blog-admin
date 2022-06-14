@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-06-13 16:31:12
  * @LastEditors: bugdr
- * @LastEditTime: 2022-06-13 22:20:09
+ * @LastEditTime: 2022-06-13 23:22:04
  * @FilePath: \react-blog-admin\src\router\types.ts
  * @Description:路由参数类型
  */
@@ -18,4 +18,6 @@ export interface AppRouterRecordRaw {
   icon?: string;
   key?: string;
   type?: MenuType;
+  component: any;
+  meta?: object;
 }

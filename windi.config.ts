@@ -1,3 +1,11 @@
+/*
+ * @Author: bugdr
+ * @Date: 2022-05-30 22:13:52
+ * @LastEditors: bugdr
+ * @LastEditTime: 2022-06-14 22:33:39
+ * @FilePath: \react-blog-admin\windi.config.ts
+ * @Description:配置
+ */
 import { defineConfig } from 'windicss/helpers';
 import formsPlugin from 'windicss/plugin/forms';
 import colors from 'windicss/colors';
@@ -11,7 +19,7 @@ export default defineConfig({
         sm: '640px',
         md: '768px',
         lg: '1024px',
-        xl: '1280px',
+        xl: '1200px',
         '2xl': '1536px',
       },
       colors: {

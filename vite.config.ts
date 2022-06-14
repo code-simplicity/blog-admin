@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-30 22:13:52
  * @LastEditors: bugdr
- * @LastEditTime: 2022-06-13 23:03:48
+ * @LastEditTime: 2022-06-14 22:45:24
  * @FilePath: \react-blog-admin\vite.config.ts
  * @Description:vite配置
  */
@@ -67,6 +67,9 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       less: {
+        modifyVars: {
+          hack: `true; @import (reference) "${resolve(__dirname, 'src/design/index.less')}"`,
+        },
         // 支持内联 JavaScript
         javascriptEnabled: true,
       },

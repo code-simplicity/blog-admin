@@ -2,30 +2,32 @@
  * @Author: bugdr
  * @Date: 2022-05-31 10:07:30
  * @LastEditors: bugdr
- * @LastEditTime: 2022-06-13 16:28:05
+ * @LastEditTime: 2022-06-14 09:23:53
  * @FilePath: \react-blog-admin\src\router\index.ts
  * @Description: 路由表
  */
+import { lazy } from 'react';
+import { AppRouterRecordRaw } from './types';
 // 异步路由
 
-// 根路由
-export const RootRoute = {
-  path: '/',
-  name: 'Root',
-  // 重定向
-  Navigate: '',
-  meta: {
-    title: 'Root',
+// 静态路由
+export const staticRoute: AppRouterRecordRaw[] = [
+  // {
+  //   path: '/',
+  //   name: 'Root',
+  //   // 重定向
+  //   Navigate: '',
+  //   meta: {
+  //     title: 'Root',
+  //   },
+  // },
+  {
+    path: '/login',
+    name: 'Login',
+    key: 'login',
+    component: lazy(() => import('../views/sys/login')),
+    meta: {
+      title: '登录',
+    },
   },
-};
-// 登录路由
-export const LoginRoute = {
-  path: '/login',
-  name: 'Login',
-  element: '',
-  meta: {
-    title: '登录',
-  },
-};
-// 同步路由
-export const basicRouter = [RootRoute, LoginRoute];
+];
