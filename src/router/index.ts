@@ -25,7 +25,7 @@ export const staticRoute: AppRouterRecordRaw[] = [
     path: '/login',
     name: 'Login',
     key: 'login',
-    component: lazy(() => import('../views/sys/login')),
+    component: lazy(() => import('../views/sys/login/Login')),
     meta: {
       title: '登录',
     },
