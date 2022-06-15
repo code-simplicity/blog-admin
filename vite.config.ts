@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-30 22:13:52
  * @LastEditors: bugdr
- * @LastEditTime: 2022-06-14 22:45:24
+ * @LastEditTime: 2022-06-15 14:43:51
  * @FilePath: \react-blog-admin\vite.config.ts
  * @Description:vite配置
  */
@@ -23,8 +23,16 @@ export default defineConfig({
   resolve: {
     // 别名
     alias: [
-      { find: /\/@\//, replacement: pathResolve('src') + '/' },
-      { find: /\/#\//, replacement: pathResolve('types') + '/' },
+      // /@/xxxx => src/xxxx
+      {
+        find: /\/@\//,
+        replacement: pathResolve('src') + '/',
+      },
+      // /#/xxxx => types/xxxx
+      {
+        find: /\/#\//,
+        replacement: pathResolve('types') + '/',
+      },
     ],
   },
   server: {

@@ -2,15 +2,25 @@
  * @Author: bugdr
  * @Date: 2022-06-14 23:37:24
  * @LastEditors: bugdr
- * @LastEditTime: 2022-06-15 11:11:13
+ * @LastEditTime: 2022-06-15 12:01:13
  * @FilePath: \react-blog-admin\src\views\sys\login\LoginForm.tsx
  * @Description:登录表单
  */
-import { Button, Col, Form, Input, Row } from 'antd';
+import { Button, Col, Divider, Form, Input, Row } from 'antd';
 import React, { FC } from 'react';
 import LoginFormTitle from './LoginFormTitle';
 import CaptchaImage from '../../../components/CaptchaImage/CaptchaImage';
-import { LockOutlined, UnlockOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  LockOutlined,
+  UnlockOutlined,
+  UserOutlined,
+  GithubFilled,
+  WechatFilled,
+  AlipayCircleFilled,
+  GoogleCircleFilled,
+  TwitterCircleFilled,
+  KeyOutlined,
+} from '@ant-design/icons';
 import Checkbox from 'antd/lib/checkbox/Checkbox';
 
 const { Item } = Form;
@@ -63,6 +73,14 @@ const LoginForm: FC = () => {
           </div>
         </Item>
         {/* 分割线 */}
+        <Divider>其他登录方式</Divider>
+        <div className="flex justify-between text-2xl">
+          <GithubFilled />
+          <WechatFilled />
+          <AlipayCircleFilled />
+          <GoogleCircleFilled />
+          <TwitterCircleFilled />
+        </div>
       </Form>
     </div>
   );
