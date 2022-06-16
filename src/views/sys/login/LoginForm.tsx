@@ -37,11 +37,11 @@ const LoginForm: FC = () => {
           <Input.Password prefix={<LockOutlined />} allowClear placeholder="请输入密码" />
         </Item>
         <Item name="captcha">
-          <Row gutter={24} align="middle" justify="space-between">
-            <Col span={16}>
+          <Row gutter={12} align="middle" justify="space-between">
+            <Col span={14}>
               <Input prefix={<UnlockOutlined />} allowClear placeholder="请输入图灵验证码" />
             </Col>
-            <Col span={8} className="text-right">
+            <Col span={10} className="text-right">
               <CaptchaImage />
             </Col>
           </Row>

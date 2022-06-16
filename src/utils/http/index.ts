@@ -17,6 +17,10 @@ import type { RequestOptions, Result } from '/#/axios';
 import { useMessage } from '../../hooks/web/useMessage';
 import { formatRequestDate, joinTimestamp } from './helper';
 import { checkStatus } from './CheckStatus';
+import { useGlobSetting } from '../../hooks/setting';
+
+const globSetting = useGlobSetting();
+const urlPrefix = globSetting.urlPrefix;
 
 const { createMessage, createErrorModal } = useMessage();
 

@@ -37,13 +37,16 @@ export default defineConfig({
   },
   server: {
     host: true,
-    port: 3080,
+    port: 3090,
+    cors: true,
     proxy: {
       '/api': {
         target: 'http://localhost:8080',
         changeOrigin: true,
         cookieDomainRewrite: '',
-        secure: false,
+        ws: true,
+        // 重写路径
+        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },

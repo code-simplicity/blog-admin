@@ -7,13 +7,32 @@
  * @Description:验证码图片
  */
 
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
+import { CaptchaApi } from '../../api/sys/captcha';
 
 const CaptchaImage: FC = () => {
   const [captchaValue, setCaptchaValue] = useState<string | undefined>();
-  const changeVerifyCode = async () => {
-    setCaptchaValue('1');
+  //  获取图片
+  const getCaptchaImage = async () => {
+    const result = `${CaptchaApi.GetCaptcha}`;
+    setCaptchaValue(result);
   };
+
+  // 改变验证码
+  const changeVerifyCode = async () => {
+    const isDate = String(new Date()); // 时间类型格式化
+    const result = `${CaptchaApi.GetCaptcha}?random=${Date.parse(isDate)}`;
+    setCaptchaValue(result);
+  };
+
+  useEffect(() => {
+    getCaptchaImage();
+  }, [getCaptchaImage]);
+
+  useEffect(() => {
+    changeVerifyCode();
+  }, [changeVerifyCode]);
+
   return (
     <img
       className="cursor-pointer"
