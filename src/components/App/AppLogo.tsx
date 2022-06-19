@@ -14,7 +14,7 @@ const AppLogo: FC = () => {
   return (
     <div className="flex items-center">
       <img className="mr-2 w-8 h-8" src={Logo} alt="" />
-      <span className="text-base">{Sys.app.appName}</span>
+      <span className="text-xl text-light-50">{Sys.app.appName}</span>
     </div>
   );
 };

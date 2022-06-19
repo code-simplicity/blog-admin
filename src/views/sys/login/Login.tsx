@@ -13,10 +13,9 @@ import './index-modules.less';
 import LoginForm from './LoginForm';
 
 const Login: React.FC = () => {
-  // TODO:登录界面的编写
   return (
     <div className="relative w-full h-full px-4 dpy-login">
-      <div className="absolute top-4 right-4">功能</div>
+      <div className="absolute top-4 right-4 text-white  xl:text-black">功能</div>
       {/* logo+名字 */}
       <span className="xl:hidden">
         <AppLogo />

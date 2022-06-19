@@ -27,11 +27,8 @@ const CaptchaImage: FC = () => {
 
   useEffect(() => {
     getCaptchaImage();
-  }, [getCaptchaImage]);
-
-  useEffect(() => {
     changeVerifyCode();
-  }, [changeVerifyCode]);
+  }, [getCaptchaImage, changeVerifyCode]);
 
   return (
     <img
