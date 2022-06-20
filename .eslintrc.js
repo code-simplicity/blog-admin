@@ -23,11 +23,28 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/jsx-uses-react': 'off',
     'jsx-a11y/label-has-for': 0,
-    'max-lines-per-function': [2, { max: 320, skipComments: true, skipBlankLines: true }],
+    'max-lines-per-function': [
+      2,
+      {
+        max: 320,
+        skipComments: true,
+        skipBlankLines: true,
+      },
+    ],
     'no-confusing-arrow': 0,
     'no-nested-ternary': 0,
     'no-console': 2,
-    'no-param-reassign': [2, { props: true, ignorePropertyModificationsFor: ['draft'] }],
+    'no-param-reassign': [
+      2,
+      {
+        props: true,
+        ignorePropertyModificationsFor: ['draft'],
+      },
+    ],
+    'no-param-reassign': [
+      2,
+      { props: true, ignorePropertyModificationsFor: ['res', 'item', 'state'] },
+    ],
     'react/no-this-in-sfc': 0,
     'prettier/prettier': [
       'error',

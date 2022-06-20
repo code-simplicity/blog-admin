@@ -20,4 +20,5 @@ export interface AppRouterRecordRaw {
   type?: MenuType;
   component: any;
   meta?: object;
+  navigate?: string;
 }

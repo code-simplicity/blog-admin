@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-06-14 23:37:24
  * @LastEditors: bugdr
- * @LastEditTime: 2022-06-19 12:45:22
+ * @LastEditTime: 2022-06-19 12:59:56
  * @FilePath: \react-blog-admin\src\views\sys\login\LoginForm.tsx
  * @Description:登录表单
  */
@@ -45,7 +45,6 @@ const LoginForm: FC = () => {
     userName: [{ required: true, message: '请输入独一无二的用户名' }],
     password: [{ required: true, message: '请输入密码' }],
     captcha: [{ required: true, message: '请输入图灵验证码密码' }],
-    checkBox: [{ required: true, message: '请输入图灵验证码密码' }],
   };
 
   // 触发登录的方法
