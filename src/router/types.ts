@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-06-13 16:31:12
  * @LastEditors: bugdr
- * @LastEditTime: 2022-06-13 23:22:04
+ * @LastEditTime: 2022-06-20 22:05:46
  * @FilePath: \react-blog-admin\src\router\types.ts
  * @Description:路由参数类型
  */
@@ -12,13 +12,13 @@ type MenuType = 'menu' | 'subMenu';
 export interface AppRouterRecordRaw {
   path?: string;
   name?: string;
-  routes?: AppRouterRecordRaw[];
+  children?: AppRouterRecordRaw[];
   hideChildrenInMenu?: boolean;
   hideInMenu?: boolean;
   icon?: string;
   key?: string;
   type?: MenuType;
-  component: any;
+  component?: any;
   meta?: object;
-  navigate?: string;
+  redirect?: string;
 }

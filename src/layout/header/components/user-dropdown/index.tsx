@@ -38,11 +38,10 @@ const UserDropdown: React.FC = () => {
     <Dropdown overlay={menu}>
       <Space>
         <span className="md:flex items-center">
-          <Image
+          <img
             className="mr-2 rounded-full h-11 w-11"
             src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
             alt="头像"
-            preview={false}
           />
           <span className="text-light-50 text-base">bugdr</span>
         </span>
