@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-06-20 14:44:01
  * @LastEditors: bugdr
- * @LastEditTime: 2022-06-20 22:27:49
+ * @LastEditTime: 2022-06-21 22:46:12
  * @FilePath: \react-blog-admin\src\router\modules\dashboard.ts
  * @Description:仪表盘路由
  */
@@ -13,31 +13,31 @@ import { AppRouterRecordRaw } from '../types';
 
 const dashboard: AppRouterRecordRaw = {
   path: '/dashboard',
-  name: 'Dashboard',
+  name: 'dashboard',
   component: LAYOUT,
   redirect: '/dashboard/analysis',
   meta: {
     title: '工作台',
     orderNo: 1,
-    icon: '',
+    icon: 'ion:grid-outline',
   },
   children: [
     {
-      path: 'analysis',
-      name: 'Analysis',
+      path: '/dashboard/analysis',
+      name: 'analysis',
       component: lazy(() => import('/@/views/dashboard/analysis/index')),
       meta: {
         title: '分析页',
-        icon: '',
+        icon: 'carbon:driver-analysis',
       },
     },
     {
-      path: 'workbench',
-      name: 'Workbench',
+      path: '/dashboard/workbench',
+      name: 'workbench',
       component: lazy(() => import('/@/views/dashboard/workbench/index')),
       meta: {
         title: '工作台',
-        icon: '',
+        icon: 'icon-park-outline:workbench',
       },
     },
   ],

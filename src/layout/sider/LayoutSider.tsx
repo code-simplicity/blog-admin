@@ -2,40 +2,52 @@
  * @Author: bugdr
  * @Date: 2022-05-31 12:52:31
  * @LastEditors: bugdr
- * @LastEditTime: 2022-06-13 13:04:45
+ * @LastEditTime: 2022-06-21 22:20:13
  * @FilePath: \react-blog-admin\src\layout\sider\LayoutSider.tsx
  * @Description:
  */
-import React from 'react';
-import { UserOutlined, VideoCameraOutlined, UploadOutlined } from '@ant-design/icons';
-import { Layout, Menu } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Layout, Menu } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
+import { MenuItemType } from './type';
+import { ERROR_PAGE, PAGE_NOT_FOUND_NAME } from '/@/router/constant';
 const { Sider } = Layout;
-const LayoutSider: React.FC = () => {
+
+const LayoutSider: React.FC = (props: any) => {
+  const { routeMenuList } = props;
+  // 路由的链接
+  const routeList: MenuItemType[] | any = [];
+  routeMenuList.map((item: any) => {
+    if (item.label !== ERROR_PAGE) {
+      routeList.push(item);
+    }
+  });
+  // 初始化默认选中的第一个Item
+  const [defaultMenuItemKeys, setDefaultMenuItemKeys] = useState<string[]>(['/dashboard']);
+  // 默认选中的第一个子Item
+  const [defaultSubItemKeys, setDefaultSubItemKeys] = useState<string[]>(['/dashboard/analysis']);
+  useEffect(() => {
+    // setDefaultMenuItemKeys();
+  }, []);
+
+  const navigate = useNavigate();
+  const onSelect = (menuList: any) => {
+    const { key } = menuList;
+    navigate(key);
+    // setDefaultSubItemKeys(key);
+  };
+  // 结构菜单栏
   return (
-    <Sider className="fixed md:h-full left-0 top-0 inset-0 " trigger={null} collapsible>
+    <Sider className="left-0 top-0 bottom-0 fixed" trigger={null} style={{ height: '100vh' }}>
       <div className="h-8 m-4 text-light-50 text-center bg-red-400">logo</div>
       <Menu
         theme="dark"
         mode="inline"
-        defaultSelectedKeys={['1']}
-        items={[
-          {
-            key: '1',
-            icon: <UserOutlined />,
-            label: 'nav 1',
-          },
-          {
-            key: '2',
-            icon: <VideoCameraOutlined />,
-            label: 'nav 2',
-          },
-          {
-            key: '3',
-            icon: <UploadOutlined />,
-            label: 'nav 3',
-          },
-        ]}
-      />
+        // defaultSelectedKeys={defaultMenuItemKeys}
+        // defaultOpenKeys={defaultSubItemKeys}
+        items={routeList}
+        onSelect={onSelect}
+      ></Menu>
     </Sider>
   );
 };

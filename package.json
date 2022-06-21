@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@iconify/react": "^3.2.2",
     "@reduxjs/toolkit": "^1.8.2",
     "@types/lodash-es": "^4.17.6",
     "@types/qs": "^6.9.7",

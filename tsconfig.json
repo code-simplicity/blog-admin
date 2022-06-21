@@ -31,6 +31,9 @@
   },
   "include": [
     "src",
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
     "types/**/*.d.ts",
   ],
   "references": [
