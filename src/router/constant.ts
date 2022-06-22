@@ -8,6 +8,7 @@
  */
 
 import { lazy } from 'react';
+import { LazyPromise } from '../utils';
 
 // 重定向
 export const REDIRECT_NAME = 'Redirect';
@@ -19,7 +20,7 @@ export const PAGE_NOT_FOUND_NAME = 'PageNotFound';
 export const ERROR_PAGE = 'ErrorPage';
 
 // LAYOUT
-export const LAYOUT = lazy(() => import('/@/layout/index'));
+export const LAYOUT = LazyPromise('/@/layout/index');
 
 // 错误页面的封装
-export const EXCEPTION_COMPONENT = lazy(() => import('/@/views/sys/error/ExceptionError'));
+export const EXCEPTION_COMPONENT = LazyPromise('/@/views/sys/error/ExceptionError');

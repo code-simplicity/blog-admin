@@ -38,7 +38,7 @@ const LayoutSider: React.FC = (props: any) => {
   };
   // 结构菜单栏
   return (
-    <Sider className="left-0 top-0 bottom-0 fixed" trigger={null} style={{ height: '100vh' }}>
+    <Sider className="fixed left-0 top-0 bottom-0" trigger={null}>
       <div className="h-8 m-4 text-light-50 text-center bg-red-400">logo</div>
       <Menu
         theme="dark"

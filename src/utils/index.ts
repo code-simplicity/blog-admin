@@ -8,6 +8,7 @@
  */
 
 import { isObject } from 'lodash-es';
+import { lazy } from 'react';
 import { AppRouterRecordRaw } from '../router/types';
 
 /**
@@ -46,4 +47,16 @@ export const resolveRoute = (modules: any) => {
     routeModuleList.push(...modList);
   });
   return routeModuleList;
+};
+
+// 路由加载的loading时间,目的是为了防止闪烁，导致用户体验差,采用Promise
+export const LazyPromise = (path: string) => {
+  return lazy(() => {
+    return (
+      new Promise((resolve) => setTimeout(resolve, 1 * 1000))
+        .then(() => import(`${path}`))
+        // 错误处理
+        .catch(() => import('../components/Loading/ErrorLoading'))
+    );
+  });
 };

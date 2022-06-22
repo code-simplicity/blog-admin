@@ -17,7 +17,7 @@ import HeaderBreadcrumb from './components/Breadcrumb';
 const LayoutHeader: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   return (
-    <Header className={style['site-layout-background']} style={{ padding: 0 }}>
+    <Header className={style['site-layout-background']} style={{ padding: '0' }}>
       <div className="md:flex flex items-center px-2">
         <div>
           {/* 收缩图标 */}

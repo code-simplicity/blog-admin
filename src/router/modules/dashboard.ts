@@ -8,14 +8,12 @@
  */
 
 import { lazy } from 'react';
-import { LAYOUT } from '../constant';
 import { AppRouterRecordRaw } from '../types';
+import { LazyPromise } from '/@/utils';
 
 const dashboard: AppRouterRecordRaw = {
   path: '/dashboard',
   name: 'dashboard',
-  component: LAYOUT,
-  redirect: '/dashboard/analysis',
   meta: {
     title: '工作台',
     orderNo: 1,
@@ -25,7 +23,7 @@ const dashboard: AppRouterRecordRaw = {
     {
       path: '/dashboard/analysis',
       name: 'analysis',
-      component: lazy(() => import('/@/views/dashboard/analysis/index')),
+      component: LazyPromise('/@/views/dashboard/analysis/index'),
       meta: {
         title: '分析页',
         icon: 'carbon:driver-analysis',
@@ -34,7 +32,7 @@ const dashboard: AppRouterRecordRaw = {
     {
       path: '/dashboard/workbench',
       name: 'workbench',
-      component: lazy(() => import('/@/views/dashboard/workbench/index')),
+      component: LazyPromise('/@/views/dashboard/workbench/index'),
       meta: {
         title: '工作台',
         icon: 'icon-park-outline:workbench',
