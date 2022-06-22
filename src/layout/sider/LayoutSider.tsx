@@ -34,11 +34,10 @@ const LayoutSider: React.FC = (props: any) => {
   const onSelect = (menuList: any) => {
     const { key } = menuList;
     navigate(key);
-    // setDefaultSubItemKeys(key);
   };
   // 结构菜单栏
   return (
-    <Sider className="fixed left-0 top-0 bottom-0" trigger={null}>
+    <Sider className="z-100" trigger={null}>
       <div className="h-8 m-4 text-light-50 text-center bg-red-400">logo</div>
       <Menu
         theme="dark"

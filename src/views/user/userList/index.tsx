@@ -9,7 +9,19 @@
 import { FC } from 'react';
 
 const UserList: FC = () => {
-  return <div>用户管理列表</div>;
+  return (
+    <div className="">
+      <div className="bg-white h-24 mb-4">用户管理列表</div>
+      <div className="bg-white h-24 mb-4">用户管理列表</div>
+      <div className="bg-white h-24 mb-4">用户管理列表</div>
+      <div className="bg-white h-24 mb-4">用户管理列表</div>
+      <div className="bg-white h-24 mb-4">用户管理列表</div>
+      <div className="bg-white h-24 mb-4">用户管理列表</div>
+      <div className="bg-white h-24 mb-4">用户管理列表</div>
+      <div className="bg-white h-24 mb-4">用户管理列表</div>
+      <div className="bg-white h-24 mb-4">用户管理列表</div>
+    </div>
+  );
 };
 
 export default UserList;

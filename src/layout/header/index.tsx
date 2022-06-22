@@ -17,8 +17,8 @@ import HeaderBreadcrumb from './components/Breadcrumb';
 const LayoutHeader: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   return (
-    <Header className={style['site-layout-background']} style={{ padding: '0' }}>
-      <div className="md:flex flex items-center px-2">
+    <Header className="relative bg-red-400" style={{ padding: '0' }}>
+      <div className="md:flex items-center px-2">
         <div>
           {/* 收缩图标 */}
           {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
@@ -31,7 +31,7 @@ const LayoutHeader: React.FC = () => {
           <HeaderBreadcrumb />
         </div>
 
-        <div className="absolute right-5">
+        <div className="absolute flex right-5">
           <UserDropdown />
         </div>
       </div>

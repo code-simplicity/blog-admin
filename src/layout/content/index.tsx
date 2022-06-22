@@ -19,7 +19,6 @@ import { asyncRoute } from '/@/router';
 const LayoutContent: React.FC = () => {
   // 获取location的能力,变化之后进入路由
   const location = useLocation();
-  console.log('location', location);
 
   const routerViews = (routerList: any) => {
     if (routerList && routerList.length) {
@@ -43,8 +42,8 @@ const LayoutContent: React.FC = () => {
     }
   };
   return (
-    <Content className={style['site-layout-background']}>
-      <TransitionGroup>
+    <Content className="md:w-full relative" style={{ height: 'calc(100% - 90px)' }}>
+      <TransitionGroup className="p-4">
         <CSSTransition timeout={300} key={location.pathname} exit={false} className={style['fade']}>
           <Routes>
             <Route path="/" element={<Navigate to="/dashboard/analysis"></Navigate>}></Route>

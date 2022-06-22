@@ -11,16 +11,16 @@ import { Layout } from 'antd';
 import Sider from './sider';
 import LayoutHeader from './header';
 import LayoutContent from './content';
+import TagViews from './tag/index';
 
 const LayoutApp: FC = () => {
   return (
-    <Layout>
+    <Layout style={{ minHeight: '100vh' }}>
       <Sider />
-      <Layout className="bg-light-50" style={{ marginLeft: '200px' }}>
+      <Layout className="overflow-x-hidden md:h-full">
         <LayoutHeader />
-        <Layout>
-          <LayoutContent />
-        </Layout>
+        <TagViews />
+        <LayoutContent />
       </Layout>
     </Layout>
   );
