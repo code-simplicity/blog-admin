@@ -9,9 +9,9 @@
 
 import { Spin } from 'antd';
 import { FC } from 'react';
+import Progress from '../Progress/Progress';
 import style from './index.module.less';
 
-// TODO:加载路由这块得优化一下，明天再进行优化
 const Loading: FC = () => {
   // 做一个优化，
   return (
