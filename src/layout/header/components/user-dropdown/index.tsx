@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-06-13 13:47:25
  * @LastEditors: bugdr
- * @LastEditTime: 2022-06-13 15:03:02
+ * @LastEditTime: 2022-06-23 09:19:27
  * @FilePath: \react-blog-admin\src\layout\header\components\user-dropdown\index.tsx
  * @Description:用户下拉菜单选项
  */
@@ -35,16 +35,14 @@ const menu = (
 
 const UserDropdown: React.FC = () => {
   return (
-    <Dropdown overlay={menu}>
+    <Dropdown overlay={menu} className="cursor-pointer">
       <Space>
-        <span className="md:flex items-center">
-          <img
-            className="mr-2 rounded-full h-11 w-11"
-            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-            alt="头像"
-          />
-          <span className="text-light-50 text-base">bugdr</span>
-        </span>
+        <img
+          className="mr-2 rounded-full h-11 w-11"
+          src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+          alt="头像"
+        />
+        <span className="text-light-50 text-base">bugdr</span>
         <DownOutlined />
       </Space>
     </Dropdown>

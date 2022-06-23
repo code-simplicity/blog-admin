@@ -11,7 +11,7 @@ import { Layout } from 'antd';
 import Sider from './sider';
 import LayoutHeader from './header';
 import LayoutContent from './content';
-import TagViews from './tag/index';
+import TagViews from './tabs/index';
 
 const LayoutApp: FC = () => {
   return (
@@ -19,7 +19,6 @@ const LayoutApp: FC = () => {
       <Sider />
       <Layout className="overflow-x-hidden md:h-full">
         <LayoutHeader />
-        <TagViews />
         <LayoutContent />
       </Layout>
     </Layout>

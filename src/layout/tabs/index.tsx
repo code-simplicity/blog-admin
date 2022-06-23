@@ -1,10 +1,10 @@
 import { FC } from 'react';
-import TagList from './components/TagList';
+import TabsList from './components/TabsList';
 
 const TagViews: FC = () => {
   return (
-    <section className="w-full p-1 bg-white">
-      <TagList />
+    <section className="w-full bg-white">
+      <TabsList />
     </section>
   );
 };

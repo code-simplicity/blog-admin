@@ -42,7 +42,7 @@ const LayoutContent: React.FC = () => {
     }
   };
   return (
-    <Content className="md:w-full relative" style={{ height: 'calc(100% - 90px)' }}>
+    <Content className="md:w-full mt-16 relative" style={{ height: 'calc(100% - 100px)' }}>
       <TransitionGroup className="p-4">
         <CSSTransition timeout={300} key={location.pathname} exit={false} className={style['fade']}>
           <Routes>
