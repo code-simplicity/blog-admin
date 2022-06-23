@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-31 10:52:39
  * @LastEditors: bugdr
- * @LastEditTime: 2022-06-22 08:26:30
+ * @LastEditTime: 2022-06-23 16:52:16
  * @FilePath: \react-blog-admin\src\layout\content\index.tsx
  * @Description:
  */
@@ -42,7 +42,7 @@ const LayoutContent: React.FC = () => {
     }
   };
   return (
-    <Content className="md:w-full mt-16 relative" style={{ height: 'calc(100% - 100px)' }}>
+    <Content className="md:w-full relative" style={{ height: 'calc(100% - 100px)' }}>
       <TransitionGroup className="p-4">
         <CSSTransition timeout={300} key={location.pathname} exit={false} className={style['fade']}>
           <Routes>

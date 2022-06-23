@@ -3,9 +3,11 @@ import TabsList from './components/TabsList';
 
 const TagViews: FC = () => {
   return (
-    <section className="w-full bg-white">
-      <TabsList />
-    </section>
+    <>
+      <div className="w-full h-12 bg-white">
+        <TabsList />
+      </div>
+    </>
   );
 };
 
