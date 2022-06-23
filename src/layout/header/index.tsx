@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-31 10:52:26
  * @LastEditors: bugdr
- * @LastEditTime: 2022-06-23 16:53:33
+ * @LastEditTime: 2022-06-23 23:34:32
  * @FilePath: \react-blog-admin\src\layout\header\index.tsx
  * @Description:头部
  */
@@ -15,7 +15,8 @@ import UserDropdown from './components/user-dropdown';
 import HeaderBreadcrumb from './components/Breadcrumb';
 import TagViews from '../tabs';
 
-const LayoutHeader: React.FC = () => {
+const LayoutHeader: React.FC = (props) => {
+  console.log('props', props);
   const [collapsed, setCollapsed] = useState(false);
   return (
     <Header className="mb-10 w-full bg-red-400 flex flex-col" style={{ padding: '0' }}>

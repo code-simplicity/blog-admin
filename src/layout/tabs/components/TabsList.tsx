@@ -2,14 +2,13 @@
  * @Author: bugdr
  * @Date: 2022-06-22 13:52:03
  * @LastEditors: bugdr
- * @LastEditTime: 2022-06-23 16:47:37
+ * @LastEditTime: 2022-06-23 16:58:37
  * @FilePath: \react-blog-admin\src\layout\tabs\components\TabsList.tsx
  * @Description:
  */
 import { Button, Dropdown, Menu, Tabs } from 'antd';
-import { FC, useEffect, useMemo, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import BetterScroll from 'better-scroll';
-import { Icon } from '@iconify/react';
 import RefreshPage from './refreshPage';
 import OpenFold from './OpenFold';
 import SettingTabs from './SettingTabs';
