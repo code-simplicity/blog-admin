@@ -6,6 +6,7 @@ const initialState = {
   collapsed: false, // 图标是否收缩
   menuDrawerVisible: false, // 菜单抽屉是否可见
   menuSiderCollapsed: false, // 菜单正常是否可收缩
+  headerVisible: true, // 头部导航栏是否能被隐藏
 };
 
 // 创建一个appSlice
@@ -30,12 +31,21 @@ export const appSlice = createSlice({
     setMenuSiderCollapsed: (state, action) => {
       state.menuSiderCollapsed = action.payload;
     },
+    // 设置菜单是否可收缩
+    setHeaderVisible: (state, action) => {
+      state.headerVisible = action.payload;
+    },
   },
 });
 
 // 解构导出reducers的相关方法
-export const { setCollapsed, setIsMobile, setMenuDrawerVisible, setMenuSiderCollapsed } =
-  appSlice.actions;
+export const {
+  setCollapsed,
+  setIsMobile,
+  setMenuDrawerVisible,
+  setMenuSiderCollapsed,
+  setHeaderVisible,
+} = appSlice.actions;
 
 // 导出
 export default appSlice.reducer;

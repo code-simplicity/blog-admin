@@ -8,29 +8,28 @@
  */
 import { Icon } from '@iconify/react';
 import { FC, useEffect, useState } from 'react';
-import screenfull from 'screenfull';
-import eventFn from '/@/utils/event/event';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setHeaderVisible,
+  setMenuDrawerVisible,
+  setMenuSiderCollapsed,
+} from '/@/store/modules/appSlice';
 
 const OpenFold: FC = () => {
-  const [contentRefs, setContentRefs] = useState();
-  // const contentRef = (e: any) => {
-  //   setContentRefs(e);
-  // };
-  // const getContent = () => {
-  //   eventFn.on('getContentRef', contentRef);
-  // };
-  useEffect(() => {
-    // getContent();
-  });
+  const { headerVisible, menuDrawerVisible, menuSiderCollapsed } = useSelector(
+    (store: any) => store.app,
+  );
+  // react-redux的对应hooks,触发对应的方法
+  const dispatch = useDispatch();
+
   const [isFold, setIsFold] = useState<boolean>(false);
   // 控制是否收缩还是全屏
   const handleFold = () => {
-    // 传递dom，这里做的只是一个局部的全屏，也就是隐藏菜单栏和头部
-    if (contentRefs !== undefined) {
-      // screenfull.toggle(contentRefs.current);
-    } else {
-      screenfull.toggle();
-    }
+    // 隐藏头部
+    dispatch(setHeaderVisible(!headerVisible));
+    // 隐藏侧栏
+    dispatch(setMenuDrawerVisible(!menuDrawerVisible));
+    dispatch(setMenuSiderCollapsed(!menuSiderCollapsed));
     // 取反就行
     setIsFold(!isFold);
   };

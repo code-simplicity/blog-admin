@@ -23,7 +23,7 @@ import {
 
 const LayoutHeader: React.FC = () => {
   // 通过useSelector拿到对应的value
-  const { collapsed, isMobile, menuSiderCollapsed, menuDrawerVisible } = useSelector(
+  const { collapsed, isMobile, menuSiderCollapsed, menuDrawerVisible, headerVisible } = useSelector(
     (store: any) => store.app,
   );
   // react-redux的对应hooks,触发对应的方法
@@ -49,20 +49,22 @@ const LayoutHeader: React.FC = () => {
   return (
     <>
       <Header className="mb-10 w-full bg-red-400 flex flex-col" style={{ padding: '0' }}>
-        <div className="flex items-center px-2">
-          <div className="flex md:w-4/5 min-w-30">
-            {/* 收缩图标 */}
-            {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-              className: `{style['trigger']} text-xl mr-2`,
-              onClick: handleCollapsed,
-            })}
-            {/* 面包屑 */}
-            <HeaderBreadcrumb />
+        {headerVisible ? (
+          <div className="flex items-center px-2">
+            <div className="flex md:w-4/5 min-w-30">
+              {/* 收缩图标 */}
+              {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+                className: `{style['trigger']} text-xl mr-2`,
+                onClick: handleCollapsed,
+              })}
+              {/* 面包屑 */}
+              <HeaderBreadcrumb />
+            </div>
+            <div className="flex md:w-1/5 justify-end">
+              <UserDropdown />
+            </div>
           </div>
-          <div className="flex md:w-1/5 justify-end">
-            <UserDropdown />
-          </div>
-        </div>
+        ) : null}
         <TagViews />
       </Header>
     </>
