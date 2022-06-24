@@ -15,8 +15,7 @@ import UserDropdown from './components/user-dropdown';
 import HeaderBreadcrumb from './components/Breadcrumb';
 import TagViews from '../tabs';
 
-const LayoutHeader: React.FC = (props) => {
-  console.log('props', props);
+const LayoutHeader: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   return (
     <Header className="mb-10 w-full bg-red-400 flex flex-col" style={{ padding: '0' }}>

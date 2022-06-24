@@ -9,10 +9,11 @@
 import { Button, Dropdown, Menu, Tabs } from 'antd';
 import { FC, useEffect, useRef, useState } from 'react';
 import BetterScroll from 'better-scroll';
-import RefreshPage from './refreshPage';
+import RefreshPage from './RefreshPage';
 import OpenFold from './OpenFold';
 import SettingTabs from './SettingTabs';
 const { TabPane } = Tabs;
+import './index.module.less';
 
 interface betterScrollOptionType {
   [x: string]: boolean | undefined | number;
@@ -141,7 +142,9 @@ const TabsList: FC = () => {
             </div>
           </div>
         </div>
-        {betterScrollOption.scrollWidth > betterScrollOption.clientWidth ? (
+        {betterScrollOption.scrollWidth &&
+        betterScrollOption.clientWidth &&
+        betterScrollOption.scrollWidth > betterScrollOption.clientWidth ? (
           <div className="w-8 pl-4 h-12 text-lg text-center cursor-pointer">
             <Dropdown overlay={menu} placement="bottomLeft" arrow>
               <span>...</span>

@@ -28,6 +28,7 @@ specifiers:
   eslint-config-prettier: ^8.5.0
   eslint-plugin-prettier: ^4.0.0
   eslint-plugin-react: ^7.30.0
+  events: ^3.3.0
   less: ^4.1.2
   lint-staged: ^12.4.2
   lodash-es: ^4.17.21
@@ -68,6 +69,7 @@ dependencies:
   antd: registry.npmmirror.com/antd/4.20.6_react-dom@18.1.0+react@18.1.0
   axios: registry.npmmirror.com/axios/0.27.2
   better-scroll: registry.npmmirror.com/better-scroll/2.4.2
+  events: registry.npmmirror.com/events/3.3.0
   less: registry.npmmirror.com/less/4.1.2
   lodash-es: registry.npmmirror.com/lodash-es/4.17.21
   mockjs: registry.npmmirror.com/mockjs/1.1.0
@@ -2442,6 +2444,13 @@ packages:
     version: 2.0.3
     engines: {node: '>=0.10.0'}
     dev: true
+
+  registry.npmmirror.com/events/3.3.0:
+    resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/events/-/events-3.3.0.tgz}
+    name: events
+    version: 3.3.0
+    engines: {node: '>=0.8.x'}
+    dev: false
 
   registry.npmmirror.com/execa/0.8.0:
     resolution: {integrity: sha512-zDWS+Rb1E8BlqqhALSt9kUhss8Qq4nN3iof3gsOdyINksElaPyNBtKUMTR62qhvgVWR0CqCX7sdnKe4MnUbFEA==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/execa/-/execa-0.8.0.tgz}

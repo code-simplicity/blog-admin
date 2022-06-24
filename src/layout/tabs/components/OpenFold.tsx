@@ -7,19 +7,30 @@
  * @Description:折叠和展开
  */
 import { Icon } from '@iconify/react';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import screenfull from 'screenfull';
+import eventFn from '/@/utils/event/event';
 
 const OpenFold: FC = () => {
+  const [contentRefs, setContentRefs] = useState();
+  const contentRef = (e: any) => {
+    setContentRefs(e);
+  };
+  const getContent = () => {
+    eventFn.on('getContentRef', contentRef);
+  };
+  useEffect(() => {
+    getContent();
+  });
   const [isFold, setIsFold] = useState<boolean>(false);
   // 控制是否收缩还是全屏
   const handleFold = () => {
-    // 传递dom，如果是dom存在那么就是该页面全屏，如果不存在那就是整个页面全屏
-    // if (screenfull.isEnabled) {
-    screenfull.toggle();
-    // } else {
-    // 全屏
-    // }
+    // 传递dom，这里做的只是一个局部的全屏，也就是隐藏菜单栏和头部
+    if (contentRefs !== undefined) {
+      screenfull.toggle(contentRefs.current);
+    } else {
+      screenfull.toggle();
+    }
     // 取反就行
     setIsFold(!isFold);
   };
