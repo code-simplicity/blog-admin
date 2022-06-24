@@ -23,12 +23,12 @@ const LayoutContent: React.FC = () => {
 
   const contentRef: any = useRef();
   // 传递ref给其他组件
-  const handleContentRef = () => {
-    eventFn.emit('getContentRef', contentRef);
-  };
+  // const handleContentRef = () => {
+  //   eventFn.emit('getContentRef', contentRef);
+  // };
 
   useEffect(() => {
-    handleContentRef();
+    // handleContentRef();
   }, [contentRef]);
   const routerViews = (routerList: any) => {
     if (routerList && routerList.length) {

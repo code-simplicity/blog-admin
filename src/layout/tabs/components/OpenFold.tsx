@@ -13,21 +13,21 @@ import eventFn from '/@/utils/event/event';
 
 const OpenFold: FC = () => {
   const [contentRefs, setContentRefs] = useState();
-  const contentRef = (e: any) => {
-    setContentRefs(e);
-  };
-  const getContent = () => {
-    eventFn.on('getContentRef', contentRef);
-  };
+  // const contentRef = (e: any) => {
+  //   setContentRefs(e);
+  // };
+  // const getContent = () => {
+  //   eventFn.on('getContentRef', contentRef);
+  // };
   useEffect(() => {
-    getContent();
+    // getContent();
   });
   const [isFold, setIsFold] = useState<boolean>(false);
   // 控制是否收缩还是全屏
   const handleFold = () => {
     // 传递dom，这里做的只是一个局部的全屏，也就是隐藏菜单栏和头部
     if (contentRefs !== undefined) {
-      screenfull.toggle(contentRefs.current);
+      // screenfull.toggle(contentRefs.current);
     } else {
       screenfull.toggle();
     }
