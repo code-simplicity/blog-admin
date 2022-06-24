@@ -27,3 +27,7 @@ export interface UserInfo {
   state: string | number;
   homePath?: string;
 }
+
+export interface App {
+  isMobile: boolean;
+}

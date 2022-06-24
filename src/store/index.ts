@@ -19,25 +19,27 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import promiseMiddleware from 'redux-promise';
-import userReducer from '/@/store/modules/user';
+import appSlice from './modules/appSlice';
+import userSlice from './modules/userSlice';
 
-// 持久化配置
+// 持久化配置，不再直接采用localStorage来缓存，刷新页面之后状态也不会消失
 const persistConfig = {
   key: 'root',
   storage,
 };
 
-// 配置reducers
+// 配置多个reducers，通过这个组合的hooks
 const reducers = combineReducers({
-  user: userReducer,
+  user: userSlice,
+  app: appSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 
-// 创建store
+// 配置Store
 export const store = configureStore({
   reducer: persistedReducer,
-  // 中间件
+  // 中间件，实现网络请求，异步操作，中间件等
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
@@ -46,7 +48,8 @@ export const store = configureStore({
     }).concat([promiseMiddleware]),
 });
 
+// 持久存储Store
 export const persister = persistStore(store);
 
-// 根root状态
+// 根root状态，并且导出
 export type RootState = ReturnType<typeof store.getState>;
