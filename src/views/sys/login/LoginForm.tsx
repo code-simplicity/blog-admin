@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-06-14 23:37:24
  * @LastEditors: bugdr
- * @LastEditTime: 2022-06-19 12:59:56
+ * @LastEditTime: 2022-07-03 22:11:25
  * @FilePath: \react-blog-admin\src\views\sys\login\LoginForm.tsx
  * @Description:登录表单
  */
@@ -23,8 +23,11 @@ import {
 } from '@ant-design/icons';
 import Checkbox, { CheckboxChangeEvent } from 'antd/lib/checkbox/Checkbox';
 
-import { LoginApi } from '/@/api/user/user';
+import { login } from '/@/api/user/user';
 import { ResponseCode } from '/@/utils/response';
+import { useDispatch } from 'react-redux';
+import { checkUserInfoByToken, setToken } from '/@/store/modules/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 const { Item } = Form;
 
@@ -47,22 +50,28 @@ const LoginForm: FC = () => {
     captcha: [{ required: true, message: '请输入图灵验证码密码' }],
   };
 
+  // 触发store的dispatch的hooks
+  const dispatch = useDispatch();
+  // 路由跳转的hooks
+  const navigate = useNavigate();
+
   // 触发登录的方法
   const onFinish = async (values: CommonObjectType<string>) => {
     setLoadingBtn(true);
     setTextBtn('正在登录中');
     // 组装数据进行登录接口的联调
     const data = { ...values };
-    const result = await LoginApi(data);
+    const { result, code } = await login(data);
     // 触发按钮加载，并且加载文字
-    if (result.code === ResponseCode.SUCCESS) {
+    if (code === ResponseCode.SUCCESS) {
       setLoadingBtn(false);
       setTextBtn('登录成功');
-      notification.success({
-        message: result.message,
-        description: `欢迎回来：${result.result.UserName}`,
-        duration: 3,
-      });
+      // 设置用户信息
+      dispatch(checkUserInfoByToken());
+      // 设置token
+      dispatch(setToken(result));
+      // 跳转路由到首页
+      navigate('/');
     } else {
       setLoadingBtn(false);
       setTextBtn('登录');

@@ -2,24 +2,56 @@
  * @Author: bugdr
  * @Date: 2022-06-13 14:08:24
  * @LastEditors: bugdr
- * @LastEditTime: 2022-06-20 22:21:43
+ * @LastEditTime: 2022-07-03 22:10:17
  * @FilePath: \react-blog-admin\src\layout\header\components\user-dropdown\DropdownItem.tsx
  * @Description:下拉菜单的列表
  */
 import { Menu } from 'antd';
-import React, { FC, useState } from 'react';
-interface DropdownItemProps {
-  icon: string;
-  key: string;
-  label: string;
-  title: string;
-}
+import { DownOutlined, SmileOutlined } from '@ant-design/icons';
 
-const DropdownItem: FC = (props: DropdownItemProps) => {
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { doLogout } from '/@/store/modules/userSlice';
+
+const DropdownItem: any = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const onSelect = (menuList: any) => {
+    const { key } = menuList;
+    // 判断不同地方key执行不同的方法
+    if (key === 'logout') {
+      // 跳转登录界面
+      navigate('/login');
+      dispatch(doLogout());
+    } else if (key === 'lock') {
+      console.log('lock', key);
+    } else if (key === 'doc') {
+      console.log('doc', key);
+    }
+  };
   return (
-    <Menu.Item icon={props.icon} key={props.key} label={props.label}>
-      {props.title}
-    </Menu.Item>
+    <>
+      <Menu
+        items={[
+          {
+            key: 'doc',
+            label: '文档',
+            icon: <DownOutlined />,
+          },
+          {
+            key: 'lock',
+            label: '锁屏',
+            icon: <SmileOutlined />,
+          },
+          {
+            key: 'logout',
+            label: '退出系统',
+            icon: <SmileOutlined />,
+          },
+        ]}
+        onSelect={onSelect}
+      />
+    </>
   );
 };
 export default DropdownItem;

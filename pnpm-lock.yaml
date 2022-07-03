@@ -41,6 +41,7 @@ specifiers:
   react: ^18.0.0
   react-custom-scrollbars: ^4.2.1
   react-dom: ^18.0.0
+  react-icons: ^4.4.0
   react-redux: ^8.0.2
   react-router-dom: ^6.3.0
   react-transition-group: ^4.4.2
@@ -79,6 +80,7 @@ dependencies:
   react: registry.npmmirror.com/react/18.1.0
   react-custom-scrollbars: registry.npmmirror.com/react-custom-scrollbars/4.2.1_react-dom@18.1.0+react@18.1.0
   react-dom: registry.npmmirror.com/react-dom/18.1.0_react@18.1.0
+  react-icons: registry.npmmirror.com/react-icons/4.4.0_react@18.1.0
   react-redux: registry.npmmirror.com/react-redux/8.0.2_860a50afffe39687c5bcaf033b12f67e
   react-router-dom: registry.npmmirror.com/react-router-dom/6.3.0_react-dom@18.1.0+react@18.1.0
   react-transition-group: registry.npmmirror.com/react-transition-group/4.4.2_react-dom@18.1.0+react@18.1.0
@@ -4842,6 +4844,17 @@ packages:
       loose-envify: registry.npmmirror.com/loose-envify/1.4.0
       react: registry.npmmirror.com/react/18.1.0
       scheduler: registry.npmmirror.com/scheduler/0.22.0
+    dev: false
+
+  registry.npmmirror.com/react-icons/4.4.0_react@18.1.0:
+    resolution: {integrity: sha512-fSbvHeVYo/B5/L4VhB7sBA1i2tS8MkT0Hb9t2H1AVPkwGfVHLJCqyr2Py9dKMxsyM63Eng1GkdZfbWj+Fmv8Rg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/react-icons/-/react-icons-4.4.0.tgz}
+    id: registry.npmmirror.com/react-icons/4.4.0
+    name: react-icons
+    version: 4.4.0
+    peerDependencies:
+      react: '*'
+    dependencies:
+      react: registry.npmmirror.com/react/18.1.0
     dev: false
 
   registry.npmmirror.com/react-is/16.13.1:

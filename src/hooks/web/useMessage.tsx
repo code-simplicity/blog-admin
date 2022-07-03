@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-06-15 15:06:49
  * @LastEditors: bugdr
- * @LastEditTime: 2022-06-15 15:46:36
+ * @LastEditTime: 2022-07-03 21:00:15
  * @FilePath: \react-blog-admin\src\hooks\web\useMessage.tsx
  * @Description:消息提示封装的hooks
  */
@@ -126,7 +126,7 @@ notification.config({
 export function useMessage() {
   return {
     createMessage: Message,
-    notification: notification as NotifyApi,
+    notification: notification as unknown as NotifyApi,
     createConfirm: createConfirm,
     createSuccessModal,
     createErrorModal,

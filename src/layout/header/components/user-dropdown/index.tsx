@@ -2,50 +2,42 @@
  * @Author: bugdr
  * @Date: 2022-06-13 13:47:25
  * @LastEditors: bugdr
- * @LastEditTime: 2022-06-23 09:19:27
+ * @LastEditTime: 2022-07-03 22:09:10
  * @FilePath: \react-blog-admin\src\layout\header\components\user-dropdown\index.tsx
  * @Description:用户下拉菜单选项
  */
 import { DownOutlined, SmileOutlined } from '@ant-design/icons';
-import { Dropdown, Menu, Space, Image } from 'antd';
-import React from 'react';
+import { Dropdown, Menu, Space, Image, Button } from 'antd';
+import { FC } from 'react';
+import { useSelector } from 'react-redux';
+import DropdownItem from './DropdownItem';
 
-// 下拉菜单的选项
-const menu = (
-  <Menu
-    items={[
-      {
-        key: 'doc',
-        label: '文档',
-        icon: <SmileOutlined />,
-      },
-      {
-        key: 'lock',
-        label: '锁屏',
-        icon: <SmileOutlined />,
-      },
-      {
-        key: 'logout',
-        label: '退出系统',
-        icon: <SmileOutlined />,
-      },
-    ]}
-  />
-);
+const UserDropdown: FC = () => {
+  // 获取用户信息
+  const { UserInfo, Token } = useSelector((store: any) => store.user);
 
-const UserDropdown: React.FC = () => {
   return (
-    <Dropdown overlay={menu} className="cursor-pointer">
-      <Space>
-        <img
-          className="mr-2 rounded-full h-11 w-11"
-          src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-          alt="头像"
-        />
-        <span className="text-light-50 text-base">bugdr</span>
-        <DownOutlined />
-      </Space>
-    </Dropdown>
+    <>
+      {Token !== null && UserInfo !== null ? (
+        <Dropdown
+          overlay={DropdownItem()}
+          className="cursor-pointer"
+          arrow={{ pointAtCenter: true }}
+        >
+          <Space>
+            <img
+              className="mr-2 rounded-full h-11 w-11"
+              src={UserInfo.avatar}
+              alt={UserInfo.userName}
+            />
+            <span className="text-light-50 text-base">{UserInfo.userName}</span>
+            <DownOutlined />
+          </Space>
+        </Dropdown>
+      ) : (
+        <Button>登录</Button>
+      )}
+    </>
   );
 };
 
