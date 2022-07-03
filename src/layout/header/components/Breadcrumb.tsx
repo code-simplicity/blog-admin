@@ -8,8 +8,12 @@
  */
 import { Breadcrumb } from 'antd';
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 const HeaderBreadcrumb: React.FC = () => {
+  // 面包屑这块获取到当前访问的路由，然后将路由的相关文字添加
+  // 获取location的能力,变化之后进入路由
+  const location = useLocation();
   return (
     <Breadcrumb className="text-base">
       <Breadcrumb.Item>1</Breadcrumb.Item>

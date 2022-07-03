@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-30 22:13:52
  * @LastEditors: bugdr
- * @LastEditTime: 2022-06-15 14:43:51
+ * @LastEditTime: 2022-07-03 11:04:48
  * @FilePath: \react-blog-admin\vite.config.ts
  * @Description:vite配置
  */
@@ -41,7 +41,7 @@ export default defineConfig({
     cors: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:8080',
+        target: 'http://106.13.233.140:8081',
         changeOrigin: true,
         cookieDomainRewrite: '',
         ws: true,

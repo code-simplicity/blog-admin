@@ -21,15 +21,6 @@ const LayoutContent: React.FC = () => {
   // 获取location的能力,变化之后进入路由
   const location = useLocation();
 
-  const contentRef: any = useRef();
-  // 传递ref给其他组件
-  // const handleContentRef = () => {
-  //   eventFn.emit('getContentRef', contentRef);
-  // };
-
-  useEffect(() => {
-    // handleContentRef();
-  }, [contentRef]);
   const routerViews = (routerList: any) => {
     if (routerList && routerList.length) {
       return routerList.map((route: any) => {
@@ -53,11 +44,7 @@ const LayoutContent: React.FC = () => {
   };
   return (
     <>
-      <Content
-        ref={contentRef}
-        className="md:w-full relative"
-        style={{ height: 'calc(100% - 100px)' }}
-      >
+      <Content className="md:w-full mt-6 relative">
         <TransitionGroup className="p-4">
           <CSSTransition
             timeout={300}
