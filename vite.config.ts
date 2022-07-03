@@ -2,13 +2,13 @@
  * @Author: bugdr
  * @Date: 2022-05-30 22:13:52
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-03 11:04:48
+ * @LastEditTime: 2022-07-03 20:15:24
  * @FilePath: \react-blog-admin\vite.config.ts
  * @Description:vite配置
  */
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import legacy from '@vitejs/plugin-legacy';
+// import legacy from '@vitejs/plugin-legacy';
 import vitePluginImp from 'vite-plugin-imp';
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import WindiCSS from 'vite-plugin-windicss';
@@ -41,7 +41,7 @@ export default defineConfig({
     cors: true,
     proxy: {
       '/api': {
-        target: 'http://106.13.233.140:8081',
+        target: 'http://blog.api.bugdr.cn',
         changeOrigin: true,
         cookieDomainRewrite: '',
         ws: true,
@@ -71,9 +71,9 @@ export default defineConfig({
       ],
     }),
     // 配置插件不支持IE11
-    legacy({
-      targets: ['default', 'not IE 11'],
-    }),
+    // legacy({
+    //   targets: ['default', 'not IE 11'],
+    // }),
   ],
   css: {
     preprocessorOptions: {
