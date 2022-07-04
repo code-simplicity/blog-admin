@@ -6,7 +6,7 @@
  * @FilePath: \react-blog-admin\src\layout\sider\index.tsx
  * @Description:侧边栏
  */
-import React, { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import LayoutSider from './LayoutSider';
 import DrawerLayoutSider from './DrawerLayoutSider';
 import { asyncRoute } from '/@/router';
@@ -18,18 +18,8 @@ import {
   setMenuSiderCollapsed,
 } from '/@/store/modules/appSlice';
 
-const Sider: React.FC = () => {
-  // 对菜单进行循环编译
-  const initAsyncRouterList = (routeList: MenuItemType[]) => {
-    // 排序
-    routeList.sort((a: any, b: any) => {
-      return a.meta.orderNo - b.meta.orderNo;
-    });
-    return routeList.map((route) => {
-      return getItem(route);
-    });
-  };
-
+const Sider: FC = (props: any) => {
+  const { routeMenuList } = props;
   // 通过查询屏幕宽度获取设备的值，创建两个组件,第一个组件是抽屉的，用于在移动端显示的
   // 判断设备,返回侧边栏应该显示哪一种
   // 通过监听屏幕宽度的变化实现，判断当前的屏幕宽度是否小于800
@@ -64,9 +54,9 @@ const Sider: React.FC = () => {
   }, [isMobile]);
   const Sider = () => {
     return isMobile ? (
-      <DrawerLayoutSider routeMenuList={initAsyncRouterList(asyncRoute)} />
+      <DrawerLayoutSider routeMenuList={routeMenuList} />
     ) : (
-      <LayoutSider routeMenuList={initAsyncRouterList(asyncRoute)} />
+      <LayoutSider routeMenuList={routeMenuList} />
     );
   };
   return <Sider />;

@@ -12,7 +12,7 @@ import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 const { Header } = Layout;
 import style from './index.module.less';
 import UserDropdown from './components/user-dropdown';
-import HeaderBreadcrumb from './components/Breadcrumb';
+import HeaderBreadcrumb from './components/breadcrumb';
 import TagViews from '../tabs';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -21,7 +21,8 @@ import {
   setMenuSiderCollapsed,
 } from '/@/store/modules/appSlice';
 
-const LayoutHeader: React.FC = () => {
+const LayoutHeader: React.FC = (props: any) => {
+  const { routeMenuList } = props;
   // 通过useSelector拿到对应的value
   const { collapsed, isMobile, menuSiderCollapsed, menuDrawerVisible, headerVisible } = useSelector(
     (store: any) => store.app,
@@ -58,7 +59,7 @@ const LayoutHeader: React.FC = () => {
                 onClick: handleCollapsed,
               })}
               {/* 面包屑 */}
-              <HeaderBreadcrumb />
+              <HeaderBreadcrumb routeMenuList={routeMenuList} />
             </div>
             <div className="flex w-1/5 justify-end">
               <UserDropdown />
