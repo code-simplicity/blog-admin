@@ -6,7 +6,6 @@
  * @FilePath: \react-blog-admin\src\router\modules\user.ts
  * @Description:用户管理
  */
-import { lazy } from 'react';
 import { AppRouterRecordRaw } from '../types';
 import { LazyPromise } from '/@/utils';
 
@@ -15,7 +14,7 @@ const user: AppRouterRecordRaw = {
   name: 'user',
   meta: {
     title: '用户管理',
-    orderNo: 2,
+    orderNo: 3,
     icon: 'ion:grid-outline',
   },
   children: [

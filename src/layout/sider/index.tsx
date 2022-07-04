@@ -21,6 +21,10 @@ import {
 const Sider: React.FC = () => {
   // 对菜单进行循环编译
   const initAsyncRouterList = (routeList: MenuItemType[]) => {
+    // 排序
+    routeList.sort((a: any, b: any) => {
+      return a.meta.orderNo - b.meta.orderNo;
+    });
     return routeList.map((route) => {
       return getItem(route);
     });

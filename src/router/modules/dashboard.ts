@@ -6,8 +6,6 @@
  * @FilePath: \react-blog-admin\src\router\modules\dashboard.ts
  * @Description:仪表盘路由
  */
-
-import { lazy } from 'react';
 import { AppRouterRecordRaw } from '../types';
 import { LazyPromise } from '/@/utils';
 

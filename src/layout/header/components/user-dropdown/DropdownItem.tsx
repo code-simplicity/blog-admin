@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-06-13 14:08:24
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-03 22:10:17
+ * @LastEditTime: 2022-07-04 07:56:57
  * @FilePath: \react-blog-admin\src\layout\header\components\user-dropdown\DropdownItem.tsx
  * @Description:下拉菜单的列表
  */
@@ -26,6 +26,7 @@ const DropdownItem: any = () => {
     } else if (key === 'lock') {
       console.log('lock', key);
     } else if (key === 'doc') {
+      // eslint-disable-next-line no-console
       console.log('doc', key);
     }
   };

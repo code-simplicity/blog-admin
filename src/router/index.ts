@@ -8,8 +8,7 @@
  */
 import { lazy } from 'react';
 import { resolveRoute } from '../utils';
-import { PageEnum } from '../utils/enums/PageEnum';
-import { LAYOUT } from './constant';
+
 import { AppRouterRecordRaw } from './types';
 import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '/@/router/basic';
 

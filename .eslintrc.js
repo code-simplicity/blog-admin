@@ -45,6 +45,15 @@ module.exports = {
       2,
       { props: true, ignorePropertyModificationsFor: ['res', 'item', 'state'] },
     ],
+    'no-console': 'off',
+    'no-restricted-syntax': [
+      'error',
+      {
+        selector:
+          "CallExpression[callee.object.name='console'][callee.property.name=/^(log|warn|error|info|trace)$/]",
+        message: 'Unexpected property on console object was called',
+      },
+    ],
     'react/no-this-in-sfc': 0,
     'prettier/prettier': [
       'error',

@@ -23,6 +23,7 @@ const UserDropdown: FC = () => {
           overlay={DropdownItem()}
           className="cursor-pointer"
           arrow={{ pointAtCenter: true }}
+          placement="bottomLeft"
         >
           <Space>
             <img
