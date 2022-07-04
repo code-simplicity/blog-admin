@@ -8,7 +8,7 @@ const setting: AppRouterRecordRaw = {
   meta: {
     title: '系统设置',
     orderNo: 7,
-    icon: 'ion:grid-outline',
+    icon: 'clarity:network-settings-solid',
   },
   children: [
     {
@@ -17,7 +17,7 @@ const setting: AppRouterRecordRaw = {
       component: LazyPromise('/@/views/setting/appSetting/index'),
       meta: {
         title: '网站设置',
-        icon: 'carbon:driver-analysis',
+        icon: 'carbon:app',
       },
     },
     {
@@ -26,7 +26,7 @@ const setting: AppRouterRecordRaw = {
       component: LazyPromise('/@/views/setting/friendLink/index'),
       meta: {
         title: '友情链接',
-        icon: 'carbon:driver-analysis',
+        icon: 'la:user-friends',
       },
     },
   ],

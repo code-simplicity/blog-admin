@@ -8,7 +8,7 @@ const content: AppRouterRecordRaw = {
   meta: {
     title: '内容管理',
     orderNo: 4,
-    icon: 'ion:grid-outline',
+    icon: 'fluent:content-settings-16-regular',
   },
   children: [
     {
@@ -17,7 +17,7 @@ const content: AppRouterRecordRaw = {
       component: LazyPromise('/@/views/content/articleManage/index'),
       meta: {
         title: '文章管理',
-        icon: 'carbon:driver-analysis',
+        icon: 'ph:article-medium-light',
       },
     },
     {
@@ -26,7 +26,7 @@ const content: AppRouterRecordRaw = {
       component: LazyPromise('/@/views/content/commentManage/index'),
       meta: {
         title: '评论管理',
-        icon: 'carbon:driver-analysis',
+        icon: 'bx:comment-detail',
       },
     },
     {
@@ -35,7 +35,7 @@ const content: AppRouterRecordRaw = {
       component: LazyPromise('/@/views/content/messageManage/index'),
       meta: {
         title: '留言管理',
-        icon: 'carbon:driver-analysis',
+        icon: 'bx:message-dots',
       },
     },
   ],

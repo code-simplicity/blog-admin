@@ -8,7 +8,7 @@ const image: AppRouterRecordRaw = {
   meta: {
     title: '图片管理',
     orderNo: 5,
-    icon: 'ion:grid-outline',
+    icon: 'akar-icons:image',
   },
   children: [
     {
@@ -17,7 +17,7 @@ const image: AppRouterRecordRaw = {
       component: LazyPromise('/@/views/image/categoryManage/index'),
       meta: {
         title: '分类管理',
-        icon: 'carbon:driver-analysis',
+        icon: 'bx:category-alt',
       },
     },
     {
@@ -26,7 +26,7 @@ const image: AppRouterRecordRaw = {
       component: LazyPromise('/@/views/image/listManage/index'),
       meta: {
         title: '图片列表',
-        icon: 'carbon:driver-analysis',
+        icon: 'prime:images',
       },
     },
   ],

@@ -15,7 +15,7 @@ const user: AppRouterRecordRaw = {
   meta: {
     title: '用户管理',
     orderNo: 3,
-    icon: 'ion:grid-outline',
+    icon: 'ion:people-outline',
   },
   children: [
     {
@@ -24,7 +24,7 @@ const user: AppRouterRecordRaw = {
       component: LazyPromise('/@/views/user/userList/index'),
       meta: {
         title: '用户列表',
-        icon: 'carbon:driver-analysis',
+        icon: 'ion:list-circle-outline',
       },
     },
   ],

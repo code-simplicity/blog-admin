@@ -8,7 +8,7 @@ const article: AppRouterRecordRaw = {
   meta: {
     title: '文章发布',
     orderNo: 2,
-    icon: 'ion:grid-outline',
+    icon: 'majesticons:article-line',
   },
   component: LazyPromise('/@/views/article/index'),
 };

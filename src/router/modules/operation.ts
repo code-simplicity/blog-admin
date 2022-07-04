@@ -8,7 +8,7 @@ const operation: AppRouterRecordRaw = {
   meta: {
     title: '网站运营',
     orderNo: 6,
-    icon: 'ion:grid-outline',
+    icon: 'carbon:chat-operational',
   },
   children: [
     {
@@ -17,7 +17,7 @@ const operation: AppRouterRecordRaw = {
       component: LazyPromise('/@/views/operation/articleCategoryManage/index'),
       meta: {
         title: '文章分类',
-        icon: 'carbon:driver-analysis',
+        icon: 'carbon:category-new-each',
       },
     },
     {
@@ -26,7 +26,7 @@ const operation: AppRouterRecordRaw = {
       component: LazyPromise('/@/views/operation/loopManage/index'),
       meta: {
         title: '轮播图管理',
-        icon: 'carbon:driver-analysis',
+        icon: 'carbon:carousel-horizontal',
       },
     },
   ],
