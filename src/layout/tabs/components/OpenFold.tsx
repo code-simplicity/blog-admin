@@ -2,12 +2,12 @@
  * @Author: bugdr
  * @Date: 2022-06-23 16:29:09
  * @LastEditors: bugdr
- * @LastEditTime: 2022-06-23 23:52:31
+ * @LastEditTime: 2022-07-05 09:51:59
  * @FilePath: \react-blog-admin\src\layout\tabs\components\OpenFold.tsx
  * @Description:折叠和展开
  */
-import { Icon } from '@iconify/react';
-import { FC, useEffect, useState } from 'react';
+import { VscScreenFull, VscScreenNormal } from 'react-icons/vsc';
+import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setHeaderVisible,
@@ -36,11 +36,7 @@ const OpenFold: FC = () => {
   return (
     <>
       <div className="cursor-pointer" onClick={handleFold}>
-        {isFold ? (
-          <Icon className="text-3xl" icon="codicon:screen-full" />
-        ) : (
-          <Icon className="text-3xl" icon="codicon:screen-normal" />
-        )}
+        {isFold ? <VscScreenFull className="text-2xl" /> : <VscScreenNormal className="text-2xl" />}
       </div>
     </>
   );

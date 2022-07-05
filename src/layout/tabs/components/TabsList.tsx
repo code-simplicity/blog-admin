@@ -2,11 +2,12 @@
  * @Author: bugdr
  * @Date: 2022-06-22 13:52:03
  * @LastEditors: bugdr
- * @LastEditTime: 2022-06-23 16:58:37
+ * @LastEditTime: 2022-07-05 09:59:16
  * @FilePath: \react-blog-admin\src\layout\tabs\components\TabsList.tsx
  * @Description:
  */
 import { Button, Dropdown, Menu, Tabs } from 'antd';
+import { AiOutlineEllipsis } from 'react-icons/ai';
 import { FC, useEffect, useRef, useState } from 'react';
 import BetterScroll from 'better-scroll';
 import RefreshPage from './RefreshPage';
@@ -125,7 +126,7 @@ const TabsList: FC = () => {
   return (
     <>
       <div className="flex relative mt-2 h-12 w-full items-center">
-        <div className="w-17/20 md:min-w-32">
+        <div className="md:w-18/20 md:min-w-32">
           <div className="md:w-full h-12">
             <div className="relative overflow-hidden tabScroll" ref={tabScroll}>
               <Tabs
@@ -145,13 +146,13 @@ const TabsList: FC = () => {
         {betterScrollOption.scrollWidth &&
         betterScrollOption.clientWidth &&
         betterScrollOption.scrollWidth > betterScrollOption.clientWidth ? (
-          <div className="w-8 pl-4 h-12 text-lg text-center cursor-pointer">
+          <div className="w-8 pl-2 text-center cursor-pointer">
             <Dropdown overlay={menu} placement="bottomLeft" arrow>
-              <span>...</span>
+              <AiOutlineEllipsis className="text-2xl" />
             </Dropdown>
           </div>
         ) : null}
-        <div className="w-3/20 px-4 flex items-center justify-between">
+        <div className="md:w-2/20 px-4 flex items-center justify-between">
           <RefreshPage />
           <OpenFold />
           <SettingTabs />
