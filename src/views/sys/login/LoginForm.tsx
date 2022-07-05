@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-06-14 23:37:24
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-05 07:57:35
+ * @LastEditTime: 2022-07-05 15:23:37
  * @FilePath: \react-blog-admin\src\views\sys\login\LoginForm.tsx
  * @Description:登录表单
  */
@@ -39,7 +39,7 @@ const LoginForm: FC = () => {
 
   // 表单默认值
   const [initialValues, setInitialValues] = useState({
-    userName: 'bugdr',
+    userName: '468264345@qq.com',
     password: '123456',
   });
 

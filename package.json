@@ -26,6 +26,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@iconify/react": "^3.2.2",
+    "@uiw/react-md-editor": "^3.14.4",
     "@reduxjs/toolkit": "^1.8.2",
     "@tanem/react-nprogress": "^5.0.4",
     "@types/lodash-es": "^4.17.6",
