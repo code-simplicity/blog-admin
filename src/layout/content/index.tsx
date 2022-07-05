@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-05-31 10:52:39
  * @LastEditors: bugdr
- * @LastEditTime: 2022-06-24 09:03:28
+ * @LastEditTime: 2022-07-05 08:52:59
  * @FilePath: \react-blog-admin\src\layout\content\index.tsx
  * @Description:
  */
@@ -12,7 +12,7 @@ import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom';
 const { Content } = Layout;
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import style from './index.module.less';
+import './index.module.less';
 import Loading from '/@/components/Loading/Loading';
 import { asyncRoute } from '/@/router';
 import eventFn from '/@/utils/event/event';
@@ -20,7 +20,7 @@ import eventFn from '/@/utils/event/event';
 const LayoutContent: React.FC = () => {
   // 获取location的能力,变化之后进入路由
   const location = useLocation();
-
+  // 路由的获取
   const routerViews = (routerList: any) => {
     if (routerList && routerList.length) {
       return routerList.map((route: any) => {
@@ -46,12 +46,7 @@ const LayoutContent: React.FC = () => {
     <>
       <Content className="md:w-full mt-6 relative">
         <TransitionGroup className="p-4">
-          <CSSTransition
-            timeout={300}
-            key={location.pathname}
-            exit={false}
-            className={style['fade']}
-          >
+          <CSSTransition timeout={300} key={location.pathname} exit={false} className="my-node">
             <Routes>
               <Route path="/" element={<Navigate to="/dashboard/analysis"></Navigate>}></Route>
               {routerViews(asyncRoute)}

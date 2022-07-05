@@ -1,25 +1,17 @@
-.site-layout-background {
-  background: rgb(255, 255, 255);
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  position: absolute;
-}
-
-.fade-enter {
+.my-node-enter {
   opacity: 0;
-  transform: translateX(-30px);
+  transform: scale(0.9);
 }
-
-.fade-enter-active,
-.fade-exit-active {
+.my-node-enter-active {
   opacity: 1;
-  transition: all 500ms ease-out;
   transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
 }
-
-.fade-exit {
+.my-node-exit {
+  opacity: 1;
+}
+.my-node-exit-active {
   opacity: 0;
-  transform: translateX(30px);
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
 }

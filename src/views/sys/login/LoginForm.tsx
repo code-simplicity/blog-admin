@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-06-14 23:37:24
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-03 22:11:25
+ * @LastEditTime: 2022-07-05 07:57:35
  * @FilePath: \react-blog-admin\src\views\sys\login\LoginForm.tsx
  * @Description:登录表单
  */
@@ -71,7 +71,7 @@ const LoginForm: FC = () => {
       // 设置token
       dispatch(setToken(result));
       // 跳转路由到首页
-      navigate('/');
+      navigate('/', { replace: true });
     } else {
       setLoadingBtn(false);
       setTextBtn('登录');
