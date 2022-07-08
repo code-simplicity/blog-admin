@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-07-05 10:37:17
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-08 21:31:09
+ * @LastEditTime: 2022-07-08 21:52:10
  * @FilePath: \react-blog-admin\src\views\article\components\articleMd.tsx
  * @Description:markdown编辑器
  */
@@ -18,7 +18,7 @@ import math from '@bytemd/plugin-math';
 import mediumZoom from '@bytemd/plugin-medium-zoom';
 import zhHans from 'bytemd/locales/zh_Hans.json';
 import 'bytemd/dist/index.min.css';
-import 'highlight.js/styles/vs.css';
+import 'highlight.js/styles/hybrid.css';
 import './index.module.css';
 
 // 配置插件

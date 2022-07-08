@@ -2,11 +2,11 @@
  * @Author: bugdr
  * @Date: 2022-06-14 23:37:24
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-05 15:23:37
+ * @LastEditTime: 2022-07-08 22:02:11
  * @FilePath: \react-blog-admin\src\views\sys\login\LoginForm.tsx
  * @Description:登录表单
  */
-import { Button, Col, Divider, Form, Input, notification, Row } from 'antd';
+import { Button, Col, Divider, Form, Input, message as Message, notification, Row } from 'antd';
 import React, { FC, useState } from 'react';
 import LoginFormTitle from './LoginFormTitle';
 import CaptchaImage from '../../../components/CaptchaImage/CaptchaImage';
@@ -19,7 +19,6 @@ import {
   AlipayCircleFilled,
   GoogleCircleFilled,
   TwitterCircleFilled,
-  KeyOutlined,
 } from '@ant-design/icons';
 import Checkbox, { CheckboxChangeEvent } from 'antd/lib/checkbox/Checkbox';
 
@@ -61,7 +60,7 @@ const LoginForm: FC = () => {
     setTextBtn('正在登录中');
     // 组装数据进行登录接口的联调
     const data = { ...values };
-    const { result, code } = await login(data);
+    const { result, code, message } = await login(data);
     // 触发按钮加载，并且加载文字
     if (code === ResponseCode.SUCCESS) {
       setLoadingBtn(false);
@@ -75,6 +74,7 @@ const LoginForm: FC = () => {
     } else {
       setLoadingBtn(false);
       setTextBtn('登录');
+      Message.error(message);
     }
   };
   return (

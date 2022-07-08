@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-07-05 12:39:24
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-08 21:21:37
+ * @LastEditTime: 2022-07-08 21:53:48
  * @FilePath: \react-blog-admin\src\views\article\components\articleModal.tsx
  * @Description:发布文章的弹窗
  */
@@ -30,6 +30,7 @@ const ArticleModal: FC = (props: any) => {
     // 组合数据，验证title
     if (title === undefined || title === null || title === '') {
       Message.error('文章标题忘记了吧');
+      return;
     }
     // 处理标签
     let tempLabels = '';
