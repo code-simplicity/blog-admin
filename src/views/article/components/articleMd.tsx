@@ -2,7 +2,7 @@
  * @Author: bugdr
  * @Date: 2022-07-05 10:37:17
  * @LastEditors: bugdr
- * @LastEditTime: 2022-07-08 21:16:32
+ * @LastEditTime: 2022-07-08 21:31:09
  * @FilePath: \react-blog-admin\src\views\article\components\articleMd.tsx
  * @Description:markdown编辑器
  */
@@ -16,6 +16,7 @@ import frontmatter from '@bytemd/plugin-frontmatter';
 import gemoji from '@bytemd/plugin-gemoji';
 import math from '@bytemd/plugin-math';
 import mediumZoom from '@bytemd/plugin-medium-zoom';
+import zhHans from 'bytemd/locales/zh_Hans.json';
 import 'bytemd/dist/index.min.css';
 import 'highlight.js/styles/vs.css';
 import './index.module.css';
@@ -29,6 +30,7 @@ const ArticleMd: FC = (props: any) => {
     <>
       <Editor
         value={value}
+        locale={zhHans} // 配置语言
         plugins={plugins} //markdown中用到的插件，如表格、数学公式、流程图
         onChange={(v) => {
           setValue(v);
